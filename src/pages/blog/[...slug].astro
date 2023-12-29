@@ -1,20 +1,55 @@
 ---
-import { type CollectionEntry, getCollection } from 'astro:content';
-import BlogPost from '../../layouts/BlogPost.astro';
+import { type CollectionEntry, getCollection } from "astro:content";
+import Layout from "../../components/Layout.astro";
+import Box from "../../components/Box.astro";
+import FormattedDate from "../../components/FormattedDate.astro";
+import * as styles from "./blogpost.css";
 
 export async function getStaticPaths() {
-	const posts = await getCollection('blog');
-	return posts.map((post) => ({
-		params: { slug: post.slug },
-		props: post,
-	}));
+  const posts = await getCollection("blog");
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: post,
+  }));
 }
-type Props = CollectionEntry<'blog'>;
+type Props = CollectionEntry<"blog">;
 
 const post = Astro.props;
 const { Content } = await post.render();
 ---
 
-<BlogPost {...post.data}>
-	<Content />
-</BlogPost>
+<Layout>
+  <Box mx="auto" maxWidth="42em">
+    <Box as="article" class={styles.mdWrapper} fontSize="17px">
+      <Box as="header" display="block" mb="$7">
+        <Box
+          color="$gray9"
+          as="time"
+          textAlign="center"
+          display="block"
+          mb="$2"
+          type={{ _: "$sm", md: "$base" }}
+        >
+          <FormattedDate date={post.data.date} />
+        </Box>
+        <Box as="h1" textAlign="center">
+          {post.data.title}
+        </Box>
+      </Box>
+      <Content />
+    </Box>
+    <Box
+      as="a"
+      href="/blog"
+      color="white"
+      textDecoration="none"
+      bg="$accent9"
+      borderRadius="$base"
+      textAlign="center"
+      display="block"
+      py="$3"
+    >
+      <span aria-hidden="true">👈</span>&nbsp;&nbsp; Back
+    </Box>
+  </Box>
+</Layout>

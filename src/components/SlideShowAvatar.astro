@@ -1,0 +1,37 @@
+---
+import Box from "./Box.astro";
+
+const { size = "200px" } = Astro.props;
+const imagePaths = Object.keys(
+  import.meta.glob("/public/images/propic*.{jpeg,jpg}"),
+);
+---
+
+<script>
+  let activeImageIndex = 0;
+  const imagePaths = Object.keys(
+    import.meta.glob("/public/images/propic*.{jpeg,jpg}"),
+  );
+  function updateImage() {
+    if (activeImageIndex === imagePaths.length - 1) {
+      activeImageIndex = 0;
+    } else {
+      ++activeImageIndex;
+    }
+    document
+      .querySelector("#avatar-slideshow")
+      ?.setAttribute("src", imagePaths[activeImageIndex]);
+  }
+  setInterval(updateImage, 5000);
+</script>
+
+<Box
+  size={size}
+  borderRadius="9999px"
+  alt="something"
+  as="img"
+  src={imagePaths[0]}
+  id="avatar-slideshow"
+  loading="lazy"
+  decoding="async"
+/>

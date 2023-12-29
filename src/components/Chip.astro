@@ -1,0 +1,26 @@
+---
+import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
+import { vars } from "../vars.css";
+import Box, { type Props as BoxProps } from "./Box.astro";
+
+export interface ChipProps {
+  icon: any;
+  iconColor?: BoxProps<any>["color"];
+}
+
+const { icon, iconColor } = Astro.props;
+---
+
+<Box
+  display="flex"
+  gap="$2"
+  borderRadius="50vw"
+  alignItems="center"
+  border={`1px solid ${vars.colors.gray7}`}
+  py="$1"
+  px="$2"
+  type="$sm"
+>
+  <Box as={Icon} icon={icon} color={iconColor} size="15px" />
+  <slot />
+</Box>

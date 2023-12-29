@@ -1,0 +1,59 @@
+---
+import type { HTMLTag, Polymorphic } from "astro/types";
+import { rainbowSprinkles, type Sprinkles } from "./Box.css";
+
+export type Props<T extends HTMLTag> = Polymorphic<{ as: T } & Sprinkles>;
+
+const {
+  as: Component = "div",
+  class: _className,
+  className,
+  style,
+  ...props
+} = Astro.props;
+
+const sprinkles = rainbowSprinkles(props);
+
+// export type BoxComponent<T extends HTMLTag> = (_props: Props<T>) => any;
+
+// type MagicComponent = {
+//   [Tag in HTMLTag]: BoxComponent<Tag>;
+// };
+
+// function factory<T extends HTMLTag>() {
+//   const cache = new Map<HTMLTag, any>();
+
+//   return new Proxy(Box, {
+//     /**
+//      * @example
+//      * <chakra.div />
+//      */
+//     get(_, element: T) {
+//       if (!cache.has(element)) {
+//         function newElement(props) {
+//           return Box({ ...props, as: element });
+//         }
+//         cache.set(element, newElement);
+//       }
+//       return cache.get(element);
+//     },
+//   }) as BoxComponent<T>;
+// }
+
+// console.log(factory);
+
+// export const magic = factory() as MagicComponent;
+---
+
+<Component
+  class:list={[_className, className, sprinkles.className]}
+  className={[_className, className, sprinkles.className]
+    .filter(Boolean)
+    .join(" ")}
+  style={{ ...sprinkles.style, ...style }}
+  {...sprinkles.otherProps}
+>
+  <slot />
+</Component>
+
+<script></script>

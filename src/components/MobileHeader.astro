@@ -1,0 +1,66 @@
+---
+import Box from "./Box.astro";
+import { HamburgerMenuIcon, EyeClosedIcon } from "@radix-ui/react-icons";
+import * as styles from "./MobileHeader.css";
+import { vars } from "../vars.css";
+---
+
+<Box
+  as="button"
+  bg="$gray11"
+  color="$gray1"
+  py="$2"
+  textAlign="center"
+  position="fixed"
+  left="50%"
+  transform="translate(-50%,0)"
+  width="100%"
+  borderRadius={`${vars.radii.xl} ${vars.radii.xl} 0 0`}
+  bottom="0"
+  id="mobile-nav-btn"
+  fontSize="$xl"
+  display={{ sm: "none" }}
+>
+  <HamburgerMenuIcon height="1em" width="1em" />
+</Box>
+<Box class={styles.dialog} as="dialog" id="mobile-nav">
+  <Box as="nav" display="flex" flexDirection="column">
+    <Box class={styles.menuItem} as="a" href="/">Home</Box>
+    <Box class={styles.menuItem} as="a" href="/blog">Blog</Box>
+    <Box class={styles.menuItem} as="a" href="/blog">Uses</Box>
+    <Box class={styles.menuItem} as="a" href="/blog">Projects</Box>
+    <Box
+      as="button"
+      bg="$gray11"
+      color="$gray1"
+      py="$2"
+      textAlign="center"
+      id="mobile-nav-close"
+      autofocus
+    >
+      <EyeClosedIcon height="1em" width="1em" />
+    </Box>
+  </Box>
+</Box>
+
+<script>
+  const showButton = document.querySelector("#mobile-nav-btn");
+  const closeButton = document.querySelector("#mobile-nav-close");
+  const dialog = document.querySelector("#mobile-nav") as HTMLDialogElement;
+
+  let menuOpen = false;
+  showButton?.addEventListener("click", () => {
+    dialog.showModal();
+    // document.querySelector("#mobile-nav").style.display = menuOpen
+    //   ? "none"
+    //   : "block";
+    // menuOpen = !menuOpen;
+  });
+  closeButton?.addEventListener("click", () => {
+    dialog.close();
+    // document.querySelector("#mobile-nav").style.display = menuOpen
+    //   ? "none"
+    //   : "block";
+    // menuOpen = !menuOpen;
+  });
+</script>

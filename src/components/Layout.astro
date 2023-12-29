@@ -1,0 +1,100 @@
+---
+import Box from "./Box.astro";
+import Header from "./Header.astro";
+import { lightTheme, darkTheme } from "../styles/vars.css";
+import BaseHead from "../components/BaseHead.astro";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
+import "../styles/global.css";
+import Select from "./Select.astro";
+---
+
+<script type="module" is:inline>
+  const baseFonts =
+    "-apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif";
+
+  const fontSwitcher = document.querySelector("#font-switcher");
+  const themeSwitcher = document.querySelector("#accent-color-switcher");
+
+  function updateFont(newValue) {
+    const fontValue = `"${newValue}",${baseFonts}`;
+    localStorage.setItem("font", newValue);
+    document.documentElement.style.setProperty("--fonts-base", fontValue);
+  }
+
+  function updateAccentColor(newColor) {
+    localStorage.setItem("theme-accent-color", newColor);
+    let i = 1;
+    while (i <= 12) {
+      document.documentElement.style.setProperty(
+        `--accent${i}`,
+        `var(--${newColor}${i})`,
+      );
+      i++;
+    }
+  }
+
+  const storedFont = localStorage.getItem("font");
+  if (storedFont) {
+    fontSwitcher.value = storedFont;
+    updateFont(storedFont);
+  }
+
+  const storedColor = localStorage.getItem("theme-accent-color");
+  if (storedColor) {
+    themeSwitcher.value = storedColor;
+    updateAccentColor(storedColor);
+  }
+
+  fontSwitcher.addEventListener("change", (ev) => {
+    const newValue = ev.target.value;
+    updateFont(newValue);
+  });
+  themeSwitcher.addEventListener("change", (ev) => {
+    const newColor = ev.target.value;
+    updateAccentColor(newColor);
+  });
+</script>
+<html lang="en" class:list={["light", darkTheme]}>
+  <head>
+    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+  </head>
+  <body>
+    <Box
+      maxWidth="800px"
+      mx="auto"
+      mt="$5"
+      mb={{ _: "$7", md: "$9" }}
+      display="flex"
+      alignItems="center"
+      px="$5"
+    >
+      <Box ml="-0.7rem" width="100%">
+        <Header />
+      </Box>
+    </Box>
+    <Box as="main" maxWidth="800px" m="0 auto" px="$5" mb="$8">
+      <slot />
+    </Box>
+    <Box as="footer" textAlign="center">
+      <Box mb="$4">
+        <Select label="Change typeface" id="font-switcher">
+          <option value="">System Default</option>
+          <option value="MonaspiceNe Nerd Font">Monaspace Neon</option>
+          <option value="Helvetica">Helvetica</option>
+          <option value="Georgia">Georgia</option>
+          <option value="Geist">Geist</option>
+          <option value="Zed Mono">Zed Mono</option>
+        </Select>
+        <Select label="Change accent color" id="accent-color-switcher">
+          <option value="blue">Blue</option>
+          <option value="green">Green</option>
+          <option value="lavender">Lavender</option>
+          <option value="red">Red</option>
+        </Select>
+      </Box>
+      <Box type="$sm" color="$gray11">
+        © {new Date().getFullYear()} Rogin Farrer. All rights reserved.
+      </Box>
+    </Box>
+  </body>
+</html>

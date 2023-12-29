@@ -1,0 +1,50 @@
+---
+import Box, { type Props as BoxProps } from "./Box.astro";
+import { ChevronDownIcon } from "@radix-ui/react-icons";
+
+const { label, id, ...props } = Astro.props;
+
+interface Props extends BoxProps<"div"> {
+  label: string;
+  id: string;
+}
+---
+
+<Box
+  as="label"
+  display="flex"
+  for={id}
+  flexDirection="column"
+  gap="$1"
+  type="$sm"
+  {...props}
+>
+  <Box as="span" type="$sm">{label}</Box>
+  <Box>
+    <Box position="relative" display="inline-block">
+      <Box
+        as="select"
+        textAlign="left"
+        id={id}
+        border="2px solid"
+        borderColor="$gray6"
+        borderRadius="$lg"
+        p="$1"
+        bg="$gray2"
+        paddingRight="2em"
+      >
+        <slot />
+      </Box>
+      <Box
+        aria-hidden="true"
+        as={ChevronDownIcon}
+        position="absolute"
+        right="$2"
+        size="1.25em"
+        top="50%"
+        transform="translateY(-50%)"
+        style={{ strokeWidth: 3 }}
+      />
+    </Box>
+  </Box>
+</Box>

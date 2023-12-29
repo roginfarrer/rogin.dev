@@ -1,0 +1,21 @@
+---
+import Box from "./Box.astro";
+
+const { href } = Astro.props;
+export const TRANSITION = ".15s background-color ease";
+const isActive = Astro.url === href;
+---
+
+<Box
+  as="a"
+  href={href}
+  fontWeight={isActive ? "$bolder" : undefined}
+  bg={{ hover: "$gray4" }}
+  borderRadius="$md"
+  px="$3"
+  py="$1"
+  color="$gray12"
+  transition={TRANSITION}
+>
+  <slot />
+</Box>
