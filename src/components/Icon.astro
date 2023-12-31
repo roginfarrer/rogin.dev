@@ -1,0 +1,14 @@
+---
+import Box, { type Props as BoxProps } from "./Box.astro";
+import {
+  FontAwesomeIcon,
+  type FontAwesomeIconProps,
+} from "@fortawesome/react-fontawesome";
+
+type Props = BoxProps<"svg"> &
+  Omit<FontAwesomeIconProps, keyof BoxProps<"svg">>;
+
+const { size = "1em", ...props } = Astro.props;
+---
+
+<Box as={FontAwesomeIcon} size={size} {...props} />

@@ -10,7 +10,7 @@ globalStyle(
   {
     all: "unset",
     display: "revert",
-  }
+  },
 );
 
 /* Preferred box-sizing value */
@@ -72,9 +72,10 @@ globalStyle(':where([draggable="true"])', {
 
 globalStyle("body", {
   minHeight: "100vh",
-  overflowWrap: 'break-word',
+  overflowWrap: "break-word",
   lineHeight: vars.lineHeights.base,
   color: vars.colors.gray12,
+  margin: 0,
 });
 
 globalStyle("html", {
@@ -84,6 +85,7 @@ globalStyle("html", {
 
 globalStyle("h1, h2, h3, h4, h5, h6", {
   margin: 0,
+  textWrap: "balance",
 });
 
 globalStyle(`body`, {

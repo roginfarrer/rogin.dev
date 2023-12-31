@@ -1,4 +1,4 @@
-import { createGlobalTheme, globalStyle, style } from "@vanilla-extract/css";
+import { createGlobalTheme, globalStyle } from "@vanilla-extract/css";
 import {
   purple,
   yellow,
@@ -15,7 +15,7 @@ import {
   yellowDark,
   purpleDark,
 } from "@radix-ui/colors";
-import { mapKeys, mapValues } from "./utils";
+import { mapKeys } from "./utils";
 
 export const lightTheme = "light";
 export const darkTheme = "dark";
@@ -72,7 +72,7 @@ const baseTheme = {
   fonts: {
     base: "-apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif",
   },
-} as const;
+};
 
 export const vars = createGlobalTheme(`.${lightTheme}`, {
   ...baseTheme,
@@ -151,6 +151,7 @@ globalStyle(".green", {
     while (i <= 12) {
       // @ts-expect-error
       changes[vars.colors[`accent${i}`]] = vars.colors[`green${i}`];
+      i++;
     }
     return changes;
   })(),
@@ -163,6 +164,7 @@ globalStyle(".red", {
     while (i <= 12) {
       // @ts-expect-error
       changes[vars.colors[`accent${i}`]] = vars.colors[`red${i}`];
+      i++;
     }
     return changes;
   })(),
@@ -175,7 +177,30 @@ globalStyle(".purple", {
     while (i <= 12) {
       // @ts-expect-error
       changes[vars.colors[`accent${i}`]] = vars.colors[`purple${i}`];
+      i++;
     }
     return changes;
   })(),
+});
+
+export const supportedFonts = {
+  "Monaspace Neon": "MonaspaceNe Nerd Font",
+  Helvetica: "Helvetica",
+  Geist: "Geist",
+  Georgia: "Georgia",
+  "Zed Mono": "Zed Mono",
+};
+
+export const supportedFontClasses: string[] = [];
+const baseFonts =
+  "-apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif";
+
+Object.entries(supportedFonts).forEach(([name, fontName]) => {
+  const className = name.replace(" ", "");
+  supportedFontClasses.push(className);
+  globalStyle(`.${className}`, {
+    vars: {
+      [vars.fonts.base]: `"${fontName}",${baseFonts}`,
+    },
+  });
 });

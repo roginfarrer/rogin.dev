@@ -3,7 +3,6 @@ import Layout from "../components/Layout.astro";
 import Box from "../components/Box.astro";
 import { vars } from "../vars.css";
 import Chip from "../components/Chip.astro";
-import ProjectCard from "../components/ProjectCard.astro";
 import SlideShowAvatar from "../components/SlideShowAvatar.astro";
 import {
   faKeyboard,
@@ -12,21 +11,22 @@ import {
   faObjectGroup,
   faBookOpenReader,
   faDumbbell,
-  faPersonRunning,
 } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Icon from "../components/Icon.astro";
 import {
   faGithub,
   faThreads,
   faMastodon,
   faLinkedin,
 } from "@fortawesome/free-brands-svg-icons";
+import disc from "../components/disc";
+import * as styles from "./index.css";
 ---
 
 <Layout>
   <Box
     display="grid"
-    gap={`${vars.space[2]} ${vars.space[3]}`}
+    gap={{ _: vars.space[6], md: `${vars.space[7]} ${vars.space[7]}` }}
     gridTemplateColumns={{ sm: "1fr fr" }}
     gridTemplateRows={{ sm: "1fr 1fr" }}
     gridTemplateAreas={{
@@ -34,7 +34,8 @@ import {
       sm: "'bio pic' 'bio pic' 'chips chips'",
     }}
     alignItems="center"
-    mb="$7"
+    mb="$3"
+    pt={{ _: "$7", sm: "0" }}
   >
     <Box
       gridArea="bio"
@@ -55,30 +56,76 @@ import {
     >
       <SlideShowAvatar />
     </Box>
-  </Box>
-  <Box gridArea="chips" display="flex" gap="$3" flexWrap="wrap" mb="$9">
-    <Chip icon={faKeyboard} iconColor="$blue9">
-      Mechanical Keyboard Enthusiast
-    </Chip>
-    <Chip icon={faBookOpenReader} iconColor="$green9">Self Taught</Chip>
-    <Chip icon={faCodeMerge} iconColor="$orange9">Open Source Maintainer</Chip>
-    <Chip icon={faObjectGroup} iconColor="$purple9">Design Systems</Chip>
-    <Chip icon={faPersonRunning} iconColor="$yellow10">Ultimate Frisbee</Chip>
-    <Chip icon={faDumbbell} iconColor="$gray9">Weight-lifter</Chip>
-    <Chip icon={faScroll} iconColor="$red9">History Nerd</Chip>
+    <Box
+      gridArea="chips"
+      display="flex"
+      gap="$3"
+      flexWrap="wrap"
+      mb="$7"
+      fontSize="$lg"
+    >
+      <Chip icon={faKeyboard} iconColor="$blue9">
+        Mechanical Keyboard Enthusiast
+      </Chip>
+      <Chip icon={faBookOpenReader} iconColor="$green9">Self Taught</Chip>
+      <Chip icon={faCodeMerge} iconColor="$orange9">Open Sourcerer</Chip>
+      <Chip icon={faObjectGroup} iconColor="$purple9">Design Systems</Chip>
+      <Chip icon={disc} iconColor="$blue10">Ultimate Frisbee</Chip>
+      <Chip icon={faDumbbell} iconColor="$gray9">Weight-lifter</Chip>
+      <Chip icon={faScroll} iconColor="$red9">History Nerd</Chip>
+    </Box>
   </Box>
   <Box display="flex" justifyContent="space-evenly">
-    <Box as="a" href="https://github.com/roginfarrer">
-      <Box as={FontAwesomeIcon} icon={faGithub} size="2em" />
+    <Box as="a" href="https://github.com/roginfarrer" class={styles.socialIcon}>
+      <Icon icon={faGithub} size="2em" title="GitHub" />
     </Box>
-    <Box as="a" href="https://www.linkedin.com/in/roginfarrer/">
-      <Box as={FontAwesomeIcon} icon={faLinkedin} size="2em" />
+    <Box
+      as="a"
+      href="https://www.linkedin.com/in/roginfarrer/"
+      class={styles.socialIcon}
+    >
+      <Icon icon={faLinkedin} size="2em" title="LinkedIn" />
     </Box>
-    <Box as="a" href="https://www.threads.net/@roginfarrer">
-      <Box as={FontAwesomeIcon} icon={faThreads} size="2em" />
+    <Box
+      as="a"
+      href="https://www.threads.net/@roginfarrer"
+      class={styles.socialIcon}
+    >
+      <Icon icon={faThreads} size="2em" title="Threads" />
     </Box>
-    <Box as="a" href="https://hachyderm.io/@rogin">
-      <Box as={FontAwesomeIcon} icon={faMastodon} size="2em" />
+    <Box as="a" href="https://hachyderm.io/@rogin" class={styles.socialIcon}>
+      <Icon icon={faMastodon} size="2em" title="Mastodon" />
     </Box>
   </Box>
 </Layout>
+
+<script>
+  // Update the chip icon colors with random colors
+  import { vars } from "../vars.css";
+  const iconColors: (keyof typeof vars.colors)[] = [
+    "green9",
+    "blue10",
+    "red9",
+    "orange9",
+    "purple9",
+  ];
+  const icons = document.querySelectorAll(
+    `[data-chip-icon]`,
+  ) as NodeListOf<HTMLElement>;
+
+  function randomInRange(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+  icons.forEach((node) => {
+    function run() {
+      let timeout = randomInRange(4000, 8000);
+      setTimeout(() => {
+        const random = randomInRange(0, iconColors.length - 1);
+        node.style.setProperty("color", vars.colors[iconColors[random]]);
+        run();
+      }, timeout);
+    }
+    run();
+  });
+</script>

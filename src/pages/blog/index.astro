@@ -10,12 +10,14 @@ const posts = (await getCollection("blog")).sort(
 ---
 
 <Layout>
-  <Box as="h2" type="$5xl" fontWeight="$bold" mb="$7" pt="$3">Articles</Box>
+  <Box as="h2" type="$3xl" fontStyle="italic" mt="$7" mb="$7" pt="$3">
+    read my things
+  </Box>
   <Box as="ul" display="flex" gap="$6" flexDirection="column">
     {
       posts.map(({ slug, data: { title, description, isDraft, date } }) => (
         <Box as="li">
-          <Box as="span" display="block" type="$2xl" mb="$3">
+          <Box as="span" display="block" type="$xl" mb="$1">
             <Box
               fontWeight="$bold"
               as="a"

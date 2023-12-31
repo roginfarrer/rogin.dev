@@ -20,9 +20,12 @@ const imagePaths = Object.keys(
     }
     document
       .querySelector("#avatar-slideshow")
-      ?.setAttribute("src", imagePaths[activeImageIndex]);
+      ?.setAttribute(
+        "src",
+        imagePaths[activeImageIndex].replace("/public", ""),
+      );
   }
-  setInterval(updateImage, 5000);
+  setInterval(updateImage, 3000);
 </script>
 
 <Box
@@ -30,8 +33,6 @@ const imagePaths = Object.keys(
   borderRadius="9999px"
   alt="something"
   as="img"
-  src={imagePaths[0]}
+  src={imagePaths[0].replace("/public", "")}
   id="avatar-slideshow"
-  loading="lazy"
-  decoding="async"
 />

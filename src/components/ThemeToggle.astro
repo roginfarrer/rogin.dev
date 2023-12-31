@@ -1,0 +1,38 @@
+---
+import { vars } from "../vars.css";
+import Box from "./Box.astro";
+import { TRANSITION } from "./HeaderNavItem.astro";
+import { MoonIcon, SunIcon } from "@radix-ui/react-icons";
+---
+
+<Box
+  transition={TRANSITION}
+  as="button"
+  borderRadius="$md"
+  p="$1"
+  bg={{ _: "$gray4", hover: "$gray6" }}
+  border={`2px solid ${vars.colors.gray6}`}
+  size="32px"
+  display="flex"
+  placeItems="center"
+  class="theme-toggle"
+>
+  <MoonIcon className="moon" />
+  <SunIcon className="sun" />
+</Box>
+
+<style>
+  .sun {
+    display: none;
+  }
+  .moon {
+    display: block;
+  }
+
+  :global(.dark) .sun {
+    display: block;
+  }
+  :global(.dark) .moon {
+    display: none;
+  }
+</style>

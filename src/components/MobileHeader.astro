@@ -1,14 +1,29 @@
 ---
 import Box from "./Box.astro";
-import { HamburgerMenuIcon, EyeClosedIcon } from "@radix-ui/react-icons";
 import * as styles from "./MobileHeader.css";
 import { vars } from "../vars.css";
+import {
+  faChevronDown,
+  faChevronUp,
+  type IconDefinition,
+} from "@fortawesome/free-solid-svg-icons";
+import Icon from "./Icon.astro";
+import ThemeToggle from "./ThemeToggle.astro";
+
+interface Props {
+  links: { title: string; url: string; icon: IconDefinition }[];
+}
+
+const { links } = Astro.props;
 ---
 
+<Box position="fixed" top="$4" right="$5" display={{ sm: "none" }} zIndex="10">
+  <ThemeToggle />
+</Box>
 <Box
   as="button"
-  bg="$gray11"
-  color="$gray1"
+  bg="$accent9"
+  color="white"
   py="$2"
   textAlign="center"
   position="fixed"
@@ -20,47 +35,115 @@ import { vars } from "../vars.css";
   id="mobile-nav-btn"
   fontSize="$xl"
   display={{ sm: "none" }}
+  zIndex="10"
 >
-  <HamburgerMenuIcon height="1em" width="1em" />
+  <Icon title="Open menu" icon={faChevronUp} position="relative" top="2px" />
 </Box>
 <Box class={styles.dialog} as="dialog" id="mobile-nav">
-  <Box as="nav" display="flex" flexDirection="column">
-    <Box class={styles.menuItem} as="a" href="/">Home</Box>
-    <Box class={styles.menuItem} as="a" href="/blog">Blog</Box>
-    <Box class={styles.menuItem} as="a" href="/blog">Uses</Box>
-    <Box class={styles.menuItem} as="a" href="/blog">Projects</Box>
-    <Box
-      as="button"
-      bg="$gray11"
-      color="$gray1"
-      py="$2"
-      textAlign="center"
-      id="mobile-nav-close"
-      autofocus
-    >
-      <EyeClosedIcon height="1em" width="1em" />
-    </Box>
+  <Box
+    as="nav"
+    display="flex"
+    bg="$gray1"
+    color="$gray12"
+    alignItems="center"
+    height="clamp(100px, 25vw, 150px)"
+    gap="$3"
+    px="$3"
+    py="$3"
+  >
+    {
+      links.map(({ url, title, icon }) => (
+        <Box
+          flex="25%"
+          maxWidth="25%"
+          bg={{ _: "$gray4", hover: "$accent4" }}
+          border="2px solid"
+          borderColor={{ _: "$gray5", hover: "$accent5" }}
+          borderRadius="$lg"
+          as="a"
+          href={url}
+          display="flex"
+          placeItems="center"
+          height="100%"
+          gap="$2"
+          px="$2"
+        >
+          {title === "/uses" ? (
+            <Box as="span" fontStyle="italic" fontWeight="$bold">
+              {"/uses"}
+            </Box>
+          ) : (
+            <Icon icon={icon} size={{ _: "1.5em", xs: "1.25em" }} />
+          )}
+          {title !== "/uses" && (
+            <Box as="span" display={{ _: "none", xs: "block" }}>
+              {title}
+            </Box>
+          )}
+        </Box>
+      ))
+    }
+  </Box>
+  <Box
+    width="100%"
+    display="block"
+    as="button"
+    bg="$accent9"
+    color="white"
+    py="$2"
+    textAlign="center"
+    id="mobile-nav-close"
+    fontSize="$xl"
+    position="relative"
+    top="2px"
+    autofocus
+  >
+    <Icon icon={faChevronDown} />
   </Box>
 </Box>
 
 <script>
+  import * as styles from "./MobileHeader.css";
+
   const showButton = document.querySelector("#mobile-nav-btn");
   const closeButton = document.querySelector("#mobile-nav-close");
   const dialog = document.querySelector("#mobile-nav") as HTMLDialogElement;
 
-  let menuOpen = false;
+  function clickOutside(e: MouseEvent) {
+    if (!(e.target instanceof Node)) {
+      return;
+    }
+    if (e.target === dialog || dialog.contains(e.target)) {
+      return;
+    }
+    close();
+  }
+
+  function close() {
+    dialog.setAttribute("data-closing", "");
+    document.removeEventListener("mousedown", clickOutside);
+    document.removeEventListener("touchstart", clickOutside);
+  }
+
+  dialog.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      e.preventDefault();
+      close();
+    }
+  });
+
+  dialog.addEventListener("animationend", (e) => {
+    if (e.animationName !== styles.slideOut) {
+      return;
+    }
+    dialog.removeAttribute("data-closing");
+    dialog.close();
+  });
+
   showButton?.addEventListener("click", () => {
     dialog.showModal();
-    // document.querySelector("#mobile-nav").style.display = menuOpen
-    //   ? "none"
-    //   : "block";
-    // menuOpen = !menuOpen;
+    document.addEventListener("mousedown", clickOutside);
+    document.addEventListener("touchstart", clickOutside);
   });
-  closeButton?.addEventListener("click", () => {
-    dialog.close();
-    // document.querySelector("#mobile-nav").style.display = menuOpen
-    //   ? "none"
-    //   : "block";
-    // menuOpen = !menuOpen;
-  });
+  closeButton?.addEventListener("click", close);
 </script>

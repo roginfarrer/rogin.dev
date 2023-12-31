@@ -4,6 +4,7 @@ import { vars } from "../vars.css";
 const responsiveProperties = defineProperties({
   conditions: {
     _: {},
+    xs: { "@media": "screen and (min-width: 480px)" },
     sm: { "@media": "screen and (min-width: 640px)" },
     md: { "@media": "screen and (min-width: 768px)" },
     lg: { "@media": "screen and (min-width: 1024px)" },
@@ -41,13 +42,13 @@ const responsiveProperties = defineProperties({
     textAlign: true,
     clipPath: true,
     border: true,
-    borderColor: vars.colors,
     position: true,
     top: vars.space,
     left: vars.space,
     right: vars.space,
     bottom: vars.space,
     opacity: true,
+    zIndex: true,
   },
   staticProperties: {
     display: ["block", "inline-block", "grid", "inline-flex", "flex", "none"],
@@ -95,6 +96,8 @@ const interactiveProperties = defineProperties({
   dynamicProperties: {
     color: vars.colors,
     backgroundColor: vars.colors,
+    borderColor: vars.colors,
+    background: vars.colors,
     transition: true,
     transform: true,
   },

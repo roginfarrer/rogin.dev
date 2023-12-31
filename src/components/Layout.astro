@@ -6,19 +6,23 @@ import BaseHead from "../components/BaseHead.astro";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 import "../styles/global.css";
 import Select from "./Select.astro";
+import { supportedFontClasses, supportedFonts } from "../vars.css";
 ---
 
 <script type="module" is:inline>
-  const baseFonts =
-    "-apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif";
+  const supportedFontClasses = document
+    .querySelector("body")
+    .dataset.fontClasses.split(",");
 
   const fontSwitcher = document.querySelector("#font-switcher");
   const themeSwitcher = document.querySelector("#accent-color-switcher");
 
   function updateFont(newValue) {
-    const fontValue = `"${newValue}",${baseFonts}`;
     localStorage.setItem("font", newValue);
-    document.documentElement.style.setProperty("--fonts-base", fontValue);
+    document.documentElement.classList.remove(...supportedFontClasses);
+    if (newValue) {
+      document.documentElement.classList.add(newValue);
+    }
   }
 
   function updateAccentColor(newColor) {
@@ -48,38 +52,31 @@ import Select from "./Select.astro";
     updateAccentColor(newColor);
   });
 </script>
+
 <html lang="en" class:list={["light", darkTheme]}>
   <head>
     <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
   </head>
-  <body>
-    <Box
-      maxWidth="800px"
-      mx="auto"
-      mt="$5"
-      mb={{ _: "$7", md: "$9" }}
-      display="flex"
-      alignItems="center"
-      px="$5"
-    >
-      <Box ml="-0.7rem" width="100%">
-        <Header />
-      </Box>
-    </Box>
+  <Box
+    as="body"
+    data-font-classes={supportedFontClasses.join(",")}
+    pb={{ _: "$9", md: "$7" }}
+  >
+    <Header />
     <Box as="main" maxWidth="800px" m="0 auto" px="$5" mb="$8">
       <slot />
     </Box>
     <Box as="footer" textAlign="center">
-      <Box mb="$4">
-        <Select label="Change typeface" id="font-switcher">
+      <Box mb="$4" display="flex" gap="$4" justifyContent="center">
+        <Select label="Font" id="font-switcher">
           <option value="">System Default</option>
-          <option value="MonaspiceNe Nerd Font">Monaspace Neon</option>
-          <option value="Helvetica">Helvetica</option>
-          <option value="Georgia">Georgia</option>
-          <option value="Geist">Geist</option>
-          <option value="Zed Mono">Zed Mono</option>
+          {
+            Object.keys(supportedFonts).map((name) => (
+              <option value={name.replace(" ", "")}>{name}</option>
+            ))
+          }
         </Select>
-        <Select label="Change accent color" id="accent-color-switcher">
+        <Select label="Accent Color" id="accent-color-switcher">
           <option value="blue">Blue</option>
           <option value="green">Green</option>
           <option value="purple">purple</option>
@@ -90,5 +87,5 @@ import Select from "./Select.astro";
         © {new Date().getFullYear()} Rogin Farrer. All rights reserved.
       </Box>
     </Box>
-  </body>
+  </Box>
 </html>
