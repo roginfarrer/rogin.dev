@@ -1,4 +1,4 @@
-import { createGlobalTheme, globalStyle } from "@vanilla-extract/css";
+import { createGlobalTheme, globalStyle, style } from "@vanilla-extract/css";
 import {
   purple,
   yellow,
@@ -16,6 +16,9 @@ import {
   purpleDark,
 } from "@radix-ui/colors";
 import { mapKeys, mapValues } from "./utils";
+
+export const lightTheme = "light";
+export const darkTheme = "dark";
 
 const baseTheme = {
   space: {
@@ -66,104 +69,113 @@ const baseTheme = {
     lg: "0.5rem",
     xl: "0.75rem",
   },
-  // fonts: {
-  //   base: "-apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif",
-  // },
+  fonts: {
+    base: "-apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif",
+  },
 } as const;
 
-export const lightTheme = "light";
-export const darkTheme = "dark";
-
-export const baseVars = createGlobalTheme(`.${lightTheme}`, {
+export const vars = createGlobalTheme(`.${lightTheme}`, {
   ...baseTheme,
+  colors: {
+    // ...gray,
+    gray1: mauve.mauve1,
+    gray2: mauve.mauve2,
+    gray3: mauve.mauve3,
+    gray4: mauve.mauve4,
+    gray5: mauve.mauve5,
+    gray6: mauve.mauve6,
+    gray7: mauve.mauve7,
+    gray8: mauve.mauve8,
+    gray9: mauve.mauve9,
+    gray10: mauve.mauve10,
+    gray11: mauve.mauve11,
+    gray12: mauve.mauve12,
+    ...orange,
+    ...yellow,
+    ...blue,
+    ...red,
+    ...green,
+    ...purple,
+    ...mapKeys(
+      blue,
+      (_, key) =>
+        key.replace(
+          "blue",
+          "accent",
+        ) as typeof key extends `blue${infer Digit extends number}`
+          ? `accent${Digit}`
+          : never,
+    ),
+  },
 });
 
-const lightColors = {
-  // ...gray,
-  gray1: mauve.mauve1,
-  gray2: mauve.mauve2,
-  gray3: mauve.mauve3,
-  gray4: mauve.mauve4,
-  gray5: mauve.mauve5,
-  gray6: mauve.mauve6,
-  gray7: mauve.mauve7,
-  gray8: mauve.mauve8,
-  gray9: mauve.mauve9,
-  gray10: mauve.mauve10,
-  gray11: mauve.mauve11,
-  gray12: mauve.mauve12,
-  ...orange,
-  ...yellow,
-  ...blue,
-  ...red,
-  ...green,
-  ...purple,
-  ...mapKeys(
-    blue,
-    (_, key) =>
-      key.replace(
-        "blue",
-        "accent",
-      ) as typeof key extends `blue${infer Digit extends number}`
-        ? `accent${Digit}`
-        : never,
-  ),
-} as const;
-
-const darkColors = {
-  // ...grayDark,
-  gray1: mauveDark.mauve1,
-  gray2: mauveDark.mauve2,
-  gray3: mauveDark.mauve3,
-  gray4: mauveDark.mauve4,
-  gray5: mauveDark.mauve5,
-  gray6: mauveDark.mauve6,
-  gray7: mauveDark.mauve7,
-  gray8: mauveDark.mauve8,
-  gray9: mauveDark.mauve9,
-  gray10: mauveDark.mauve10,
-  gray11: mauveDark.mauve11,
-  gray12: mauveDark.mauve12,
-  ...blueDark,
-  ...redDark,
-  ...greenDark,
-  ...orangeDark,
-  ...yellowDark,
-  ...purpleDark,
-  ...mapKeys(
-    blueDark,
-    (_, key) =>
-      key.replace(
-        "blue",
-        "accent",
-      ) as typeof key extends `blue${infer Digit extends number}`
-        ? `accent${Digit}`
-        : never,
-  ),
-} as const;
-
-globalStyle(`.${lightTheme}`, {
-  ...mapKeys(lightColors, (_, value) => `--${value}`),
-  "--fonts-base":
-    "-apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif",
-});
-globalStyle(`.${darkTheme}`, {
-  ...mapKeys(darkColors, (_, value) => `--${(_, value)}`),
-  "--fonts-base":
-    "-apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif",
-});
-
-createGlobalTheme(`.${darkTheme}`, baseVars, {
+createGlobalTheme(`.${darkTheme}`, vars, {
   ...baseTheme,
+  colors: {
+    // ...grayDark,
+    gray1: mauveDark.mauve1,
+    gray2: mauveDark.mauve2,
+    gray3: mauveDark.mauve3,
+    gray4: mauveDark.mauve4,
+    gray5: mauveDark.mauve5,
+    gray6: mauveDark.mauve6,
+    gray7: mauveDark.mauve7,
+    gray8: mauveDark.mauve8,
+    gray9: mauveDark.mauve9,
+    gray10: mauveDark.mauve10,
+    gray11: mauveDark.mauve11,
+    gray12: mauveDark.mauve12,
+    ...blueDark,
+    ...redDark,
+    ...greenDark,
+    ...orangeDark,
+    ...yellowDark,
+    ...purpleDark,
+    ...mapKeys(
+      blueDark,
+      (_, key) =>
+        key.replace(
+          "blue",
+          "accent",
+        ) as typeof key extends `blue${infer Digit extends number}`
+          ? `accent${Digit}`
+          : never,
+    ),
+  },
 });
 
-const _vars = {
-  ...baseVars,
-  colors: mapValues(lightColors, (_, value) => `var(--${value})`),
-  fonts: { base: "var(--fonts-base)" },
-} as typeof baseVars & {
-  colors: typeof lightColors;
-  fonts: { base: string };
-};
+globalStyle(".green", {
+  vars: (() => {
+    const changes: any = {};
+    let i = 1;
+    while (i <= 12) {
+      // @ts-expect-error
+      changes[vars.colors[`accent${i}`]] = vars.colors[`green${i}`];
+    }
+    return changes;
+  })(),
+});
 
-export { _vars as vars };
+globalStyle(".red", {
+  vars: (() => {
+    const changes: any = {};
+    let i = 1;
+    while (i <= 12) {
+      // @ts-expect-error
+      changes[vars.colors[`accent${i}`]] = vars.colors[`red${i}`];
+    }
+    return changes;
+  })(),
+});
+
+globalStyle(".purple", {
+  vars: (() => {
+    const changes: any = {};
+    let i = 1;
+    while (i <= 12) {
+      // @ts-expect-error
+      changes[vars.colors[`accent${i}`]] = vars.colors[`purple${i}`];
+    }
+    return changes;
+  })(),
+});

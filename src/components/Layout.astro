@@ -23,14 +23,8 @@ import Select from "./Select.astro";
 
   function updateAccentColor(newColor) {
     localStorage.setItem("theme-accent-color", newColor);
-    let i = 1;
-    while (i <= 12) {
-      document.documentElement.style.setProperty(
-        `--accent${i}`,
-        `var(--${newColor}${i})`,
-      );
-      i++;
-    }
+    document.documentElement.classList.remove("red", "blue", "green", "purple");
+    document.documentElement.classList.add(newColor);
   }
 
   const storedFont = localStorage.getItem("font");
@@ -88,7 +82,7 @@ import Select from "./Select.astro";
         <Select label="Change accent color" id="accent-color-switcher">
           <option value="blue">Blue</option>
           <option value="green">Green</option>
-          <option value="lavender">Lavender</option>
+          <option value="purple">purple</option>
           <option value="red">Red</option>
         </Select>
       </Box>

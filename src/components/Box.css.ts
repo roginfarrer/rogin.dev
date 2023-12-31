@@ -47,7 +47,7 @@ const responsiveProperties = defineProperties({
     left: vars.space,
     right: vars.space,
     bottom: vars.space,
-    opacity: true
+    opacity: true,
   },
   staticProperties: {
     display: ["block", "inline-block", "grid", "inline-flex", "flex", "none"],
