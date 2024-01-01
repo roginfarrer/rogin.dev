@@ -1,5 +1,5 @@
 ---
-import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
+import Icon from "./Icon.astro";
 import { vars } from "../vars.css";
 import Box from "./Box.astro";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
@@ -30,7 +30,7 @@ const { title, href, desc, repo } = Astro.props;
     </Box>
   </span>
   <Box as="span" display="flex" alignItems="baseline" gap="$2" mt="$4">
-    <Box as={Icon} icon={faStar} size="1em" />
+    <Icon icon={faStar} size="1em" />
     <span class="project-card-stars">0</span>
   </Box>
 </Box>

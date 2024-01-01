@@ -1,6 +1,7 @@
 ---
+import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import Box, { type Props as BoxProps } from "./Box.astro";
-import { ChevronDownIcon } from "@radix-ui/react-icons";
+import Icon from "./Icon.astro";
 
 const { label, id, ...props } = Astro.props;
 
@@ -13,7 +14,6 @@ interface Props extends BoxProps<"div"> {
 <Box
   as="label"
   display="flex"
-  for={id}
   flexDirection="column"
   gap="$1"
   type="$sm"
@@ -36,9 +36,9 @@ interface Props extends BoxProps<"div"> {
       >
         <slot />
       </Box>
-      <Box
+      <Icon
         aria-hidden="true"
-        as={ChevronDownIcon}
+        icon={faChevronDown}
         position="absolute"
         right="$2"
         size="1.25em"

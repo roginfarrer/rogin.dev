@@ -2,7 +2,16 @@
 import type { HTMLTag, Polymorphic } from "astro/types";
 import { rainbowSprinkles, type Sprinkles } from "./Box.css";
 
-export type Props<T extends HTMLTag> = Polymorphic<{ as: T } & Sprinkles>;
+export type Props<T extends HTMLTag> = Sprinkles &
+  Omit<Polymorphic<{ as: T }>, keyof Sprinkles> & { className?: string };
+// export type Props<T extends HTMLTag | any> = T extends HTMLTag
+//   ? Sprinkles &
+//       Omit<Polymorphic<{ as: T }>, keyof Sprinkles> & { className?: string }
+//   : Sprinkles &
+//       Omit<HTMLAttributes<"div">, keyof Sprinkles> & {
+//         as?: any;
+//         className?: string;
+//       };
 
 const {
   as: Component = "div",

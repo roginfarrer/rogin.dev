@@ -107,6 +107,7 @@ const tabbableElements = [
   "input",
   "[contenteditable]",
   '[tabindex="0"]',
+  "select",
 ];
 
 globalStyle(tabbableElements.map((e) => `${e}:focus-visible`).join(", "), {

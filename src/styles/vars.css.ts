@@ -15,7 +15,7 @@ function mapValues<T, K>(
 }
 
 export const [darkTheme, vars] = createTheme(
-  mapValues(macchiato, (key, value) => value.hex),
+  mapValues(macchiato, (_, value) => value.hex),
 );
 export const lightTheme = createTheme(
   vars,

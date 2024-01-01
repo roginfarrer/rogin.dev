@@ -113,7 +113,7 @@ import * as styles from "./index.css";
     `[data-chip-icon]`,
   ) as NodeListOf<HTMLElement>;
 
-  function randomInRange(min, max) {
+  function randomInRange(min: number, max: number) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 

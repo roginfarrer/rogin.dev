@@ -24,6 +24,7 @@ export const dialog = style({
   position: "fixed",
   top: "100%",
   transform: "translateY(-50%)",
+  bottom: "env(safe-area-inset-bottom)",
   width: "100%",
   maxWidth: "100%",
   padding: 0,

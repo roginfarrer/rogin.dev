@@ -1,56 +1,64 @@
 import { nestedGlobalStyle } from "@/nestedGlobalStyle";
-import { vars } from "@/vars.css";
+import { mediaQueries, vars } from "@/vars.css";
 
 export const mdWrapper = "prose";
+
+function typeSize(size: keyof typeof vars.fontSize) {
+  return { fontSize: vars.fontSize[size], lineHeight: vars.lineHeights[size] };
+}
 
 nestedGlobalStyle(`.${mdWrapper}`, {
   "p, h1, h2, h3, h4, h5, li": {
     wordBreak: "break-word",
     hyphens: "auto",
-    display: 'block',
-    overflowWrap: 'break-word'
+    display: "block",
+    overflowWrap: "break-word",
   },
-  'p, li': {
- marginBottom: '2em',
-  lineHeight: vars.lineHeights.lg,
-  fontSize: vars.fontSize.lg,
-},
+  "p, li": {
+    marginBottom: "2em",
+    lineHeight: vars.lineHeights.lg,
+    fontSize: vars.fontSize.lg,
+  },
   h1: {
-    fontSize: vars.fontSize["5xl"],
-    lineHeight: vars.lineHeights["5xl"],
-    fontWeight: "bolder",
-    margin: `${vars.space[6]} 0 ${vars.space[6]}`
+    ...typeSize("2xl"),
+    fontWeight: "bold",
+    "@media": {
+      [mediaQueries.md]: {
+        ...typeSize("5xl"),
+        fontWeight: "bolder",
+      },
+    },
   },
   h2: {
     fontSize: vars.fontSize["2xl"],
     lineHeight: vars.lineHeights["2xl"],
     fontWeight: "bold",
-    margin: `${vars.space[5]} 0 ${vars.space[3]}`
+    margin: `${vars.space[5]} 0 ${vars.space[3]}`,
   },
   h3: {
     fontSize: vars.fontSize["2xl"],
     lineHeight: vars.lineHeights["2xl"],
-    margin: `${vars.space[5]} 0 ${vars.space[3]}`
+    margin: `${vars.space[5]} 0 ${vars.space[3]}`,
   },
   h4: {
     fontSize: vars.fontSize.xl,
     lineHeight: vars.lineHeights.xl,
-    fontWeight: 'bold',
-    margin: `${vars.space[5]} 0 ${vars.space[3]}`
+    fontWeight: "bold",
+    margin: `${vars.space[5]} 0 ${vars.space[3]}`,
   },
   h5: {
     fontSize: vars.fontSize.lg,
     lineHeight: vars.lineHeights.lg,
-    fontWeight: 'bold',
-    margin: `${vars.space[5]} 0 ${vars.space[3]}`
+    fontWeight: "bold",
+    margin: `${vars.space[5]} 0 ${vars.space[3]}`,
   },
   h6: {
     fontSize: vars.fontSize.base,
     lineHeight: vars.lineHeights.base,
-    textTransform: 'uppercase',
-    fontVariant: 'small-caps',
-    fontWeight: 'bold',
-    margin: `${vars.space[5]} 0 ${vars.space[3]}`
+    textTransform: "uppercase",
+    fontVariant: "small-caps",
+    fontWeight: "bold",
+    margin: `${vars.space[5]} 0 ${vars.space[3]}`,
   },
   "h2, h3, h4": {
     fontWeight: "bold",
@@ -86,8 +94,8 @@ nestedGlobalStyle(`.${mdWrapper}`, {
   //   left: "-1.25em",
   //   fontWeight: "bold",
   // },
-  'ol, ul, li, abbr, sub, sup, kbd, mark': {
-  all: 'revert'
+  "ol, ul, li, abbr, sub, sup, kbd, mark": {
+    all: "revert",
   },
   hr: {
     margin: "3em 0",
@@ -95,8 +103,8 @@ nestedGlobalStyle(`.${mdWrapper}`, {
   },
   blockquote: {
     borderLeft: `4px solid ${vars.colors.accent10}`,
-    padding: '0 0 0 1.25em',
-    margin: '0',
+    padding: "0 0 0 1.25em",
+    margin: "0",
     fontSize: vars.fontSize.xl,
     lineHeight: vars.lineHeights["4xl"],
     quotes: `"\\201C""\\201D""\\2018""\\2019"`,
@@ -111,8 +119,10 @@ nestedGlobalStyle(`.${mdWrapper}`, {
   "table, pre, iframe, figure, img, p, ul, ol": {
     marginBottom: "1.25em",
   },
-  iframe: {
-    width: "100%",
+  "table, iframe, figure": {
+    display: "block",
+    overflowX: "auto",
+    maxWidth: "fit-content",
   },
   figure: {
     textAlign: "center",
@@ -135,20 +145,23 @@ nestedGlobalStyle(`.${mdWrapper}`, {
   "td, th": {
     padding: "0.25em",
   },
-  'pre > code': {
-    all: 'unset',
-    lineHeight: '1.5'
+  "pre > code": {
+    all: "unset",
+    lineHeight: "1.5",
   },
   a: {
     color: vars.colors.accent11,
-    textDecoration: 'underline',
-    '&:hover': {
-      textDecoration: 'none'
-    }
+    textDecoration: "underline",
+    textDecorationSkipInk: "all",
+    textDecorationColor: vars.colors.accent6,
+    textDecorationThickness: "2px",
+    textUnderlineOffset: "2px",
+    "&:hover": {
+      textDecoration: "none",
+    },
   },
   sup: {
     lineHeight: 1,
-    fontSize: vars.fontSize.sm
-  }
+    fontSize: vars.fontSize.sm,
+  },
 });
-

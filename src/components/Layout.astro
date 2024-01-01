@@ -1,12 +1,14 @@
 ---
 import Box from "./Box.astro";
 import Header from "./Header.astro";
-import { lightTheme, darkTheme } from "../styles/vars.css";
+import { darkTheme } from "../styles/vars.css";
 import BaseHead from "../components/BaseHead.astro";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 import "../styles/global.css";
 import Select from "./Select.astro";
 import { supportedFontClasses, supportedFonts } from "../vars.css";
+
+const isHome = Astro.url.pathname === "/";
 ---
 
 <script type="module" is:inline>
@@ -63,7 +65,14 @@ import { supportedFontClasses, supportedFonts } from "../vars.css";
     pb={{ _: "$9", md: "$7" }}
   >
     <Header />
-    <Box as="main" maxWidth="800px" m="0 auto" px="$5" mb="$8">
+    <Box
+      as="main"
+      maxWidth="800px"
+      m="0 auto"
+      px="$5"
+      mb="$8"
+      mt={!isHome ? "$8" : 0}
+    >
       <slot />
     </Box>
     <Box as="footer" textAlign="center">

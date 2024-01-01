@@ -27,11 +27,9 @@ const { links } = Astro.props;
   py="$2"
   textAlign="center"
   position="fixed"
-  left="50%"
-  transform="translate(-50%,0)"
-  width="100%"
+  width="100vw"
   borderRadius={`${vars.radii.xl} ${vars.radii.xl} 0 0`}
-  bottom="0"
+  bottom="env(safe-area-inset-bottom)"
   id="mobile-nav-btn"
   fontSize="$xl"
   display={{ sm: "none" }}
@@ -98,7 +96,7 @@ const { links } = Astro.props;
     top="2px"
     autofocus
   >
-    <Icon icon={faChevronDown} />
+    <Icon icon={faChevronDown} title="Close menu" />
   </Box>
 </Box>
 
@@ -109,7 +107,7 @@ const { links } = Astro.props;
   const closeButton = document.querySelector("#mobile-nav-close");
   const dialog = document.querySelector("#mobile-nav") as HTMLDialogElement;
 
-  function clickOutside(e: MouseEvent) {
+  function clickOutside(e: MouseEvent | TouchEvent) {
     if (!(e.target instanceof Node)) {
       return;
     }

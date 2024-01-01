@@ -4,9 +4,12 @@ import FormattedDate from "../../components/FormattedDate.astro";
 import Layout from "../../components/Layout.astro";
 import Box from "../../components/Box.astro";
 
-const posts = (await getCollection("blog")).sort(
-  (a, b) => a.data.date.valueOf() - b.data.date.valueOf(),
+let posts = (await getCollection("blog")).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
 );
+if (import.meta.env.MODE === "production") {
+  posts = posts.filter((post) => !post.data.draft);
+}
 ---
 
 <Layout>
@@ -15,7 +18,7 @@ const posts = (await getCollection("blog")).sort(
   </Box>
   <Box as="ul" display="flex" gap="$6" flexDirection="column">
     {
-      posts.map(({ slug, data: { title, description, isDraft, date } }) => (
+      posts.map(({ slug, data: { title, draft, date } }) => (
         <Box as="li">
           <Box as="span" display="block" type="$xl" mb="$1">
             <Box
@@ -26,20 +29,21 @@ const posts = (await getCollection("blog")).sort(
             >
               {title}
             </Box>
-            {isDraft && (
+            {draft && (
               <Box
                 as="span"
                 ml="$2"
                 p="$2"
-                bg="accent"
+                bg="$accent11"
                 color="white"
                 borderRadius="4px"
+                fontSize="$xs"
               >
                 DRAFT
               </Box>
             )}
           </Box>
-          <Box as="span" display="block" fontSize="$sm">
+          <Box as="span" display="block" fontSize="$sm" color="$gray10">
             <FormattedDate date={date} />
           </Box>
         </Box>

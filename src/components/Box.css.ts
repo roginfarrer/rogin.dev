@@ -49,6 +49,7 @@ const responsiveProperties = defineProperties({
     bottom: vars.space,
     opacity: true,
     zIndex: true,
+    flexDirection: true,
   },
   staticProperties: {
     display: ["block", "inline-block", "grid", "inline-flex", "flex", "none"],
@@ -109,16 +110,16 @@ const interactiveProperties = defineProperties({
   },
 });
 
-const nonResponsiveProperties = defineProperties({
-  conditions: {
-    _: {},
-  },
-  defaultCondition: "_",
-  dynamicProperties: {
-    zIndex: true,
-  },
-  staticProperties: {},
-});
+// const nonResponsiveProperties = defineProperties({
+//   conditions: {
+//     _: {},
+//   },
+//   defaultCondition: "_",
+//   dynamicProperties: {
+//     zIndex: true,
+//   },
+//   staticProperties: {},
+// });
 
 export const rainbowSprinkles = createRainbowSprinkles(
   responsiveProperties,

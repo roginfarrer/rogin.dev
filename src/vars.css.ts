@@ -20,6 +20,15 @@ import { mapKeys } from "./utils";
 export const lightTheme = "light";
 export const darkTheme = "dark";
 
+export const mediaQueries = {
+  xs: "screen and (min-width: 480px)",
+  sm: "screen and (min-width: 640px)",
+  md: "screen and (min-width: 768px)",
+  lg: "screen and (min-width: 1024px)",
+  xl: "screen and (min-width: 1280px)",
+  "2xl": "screen and (min-width: 1536px)",
+};
+
 const baseTheme = {
   space: {
     1: "4px",
