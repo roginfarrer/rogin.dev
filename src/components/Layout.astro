@@ -11,52 +11,98 @@ import { supportedFontClasses, supportedFonts } from "../vars.css";
 const isHome = Astro.url.pathname === "/";
 ---
 
-<script type="module" is:inline>
-  const supportedFontClasses = document
-    .querySelector("body")
-    .dataset.fontClasses.split(",");
+<script>
+  const fontSwitcher = document.querySelector(
+    "#font-switcher",
+  ) as HTMLSelectElement;
+  const themeSwitcher = document.querySelector(
+    "#accent-color-switcher",
+  ) as HTMLSelectElement;
 
-  const fontSwitcher = document.querySelector("#font-switcher");
-  const themeSwitcher = document.querySelector("#accent-color-switcher");
-
-  function updateFont(newValue) {
-    localStorage.setItem("font", newValue);
-    document.documentElement.classList.remove(...supportedFontClasses);
-    if (newValue) {
-      document.documentElement.classList.add(newValue);
-    }
-  }
-
-  function updateAccentColor(newColor) {
-    localStorage.setItem("theme-accent-color", newColor);
-    document.documentElement.classList.remove("red", "blue", "green", "purple");
-    document.documentElement.classList.add(newColor);
-  }
-
-  const storedFont = localStorage.getItem("font");
-  if (storedFont) {
-    fontSwitcher.value = storedFont;
-    updateFont(storedFont);
-  }
-
-  const storedColor = localStorage.getItem("theme-accent-color");
-  if (storedColor) {
-    themeSwitcher.value = storedColor;
-    updateAccentColor(storedColor);
-  }
+  themeSwitcher.value =
+    localStorage.getItem("theme-accent-color") ?? themeSwitcher.value;
+  fontSwitcher.value = localStorage.getItem("font") ?? fontSwitcher.value;
 
   fontSwitcher.addEventListener("change", (ev) => {
+    // @ts-expect-error
     const newValue = ev.target.value;
-    updateFont(newValue);
+    // @ts-expect-error
+    window.updateFont(newValue);
   });
   themeSwitcher.addEventListener("change", (ev) => {
+    // @ts-expect-error
     const newColor = ev.target.value;
-    updateAccentColor(newColor);
+    // @ts-expect-error
+    window.updateAccentColor(newColor);
   });
 </script>
 
-<html lang="en" class:list={["light", darkTheme]}>
+<html lang="en" class:list={[darkTheme]}>
   <head>
+    <script is:inline>
+      const theme = (() => {
+        if (
+          typeof localStorage !== "undefined" &&
+          localStorage.getItem("theme")
+        ) {
+          return localStorage.getItem("theme");
+        }
+        if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+          return "dark";
+        }
+        return "light";
+      })();
+
+      if (theme === "light") {
+        document.documentElement.classList.remove("dark");
+      } else {
+        document.documentElement.classList.add("dark");
+      }
+
+      window.localStorage.setItem("theme", theme);
+    </script>
+
+    <script is:inline>
+      const supportedFontClasses = [
+        "MonaspaceNeon",
+        "Helvetica",
+        "Geist",
+        "Georgia",
+        "ZedMono",
+      ];
+      function updateFont(newValue) {
+        localStorage.setItem("font", newValue);
+        document.documentElement.classList.remove(...supportedFontClasses);
+        if (newValue) {
+          document.documentElement.classList.add(newValue);
+        }
+      }
+
+      function updateAccentColor(newColor) {
+        localStorage.setItem("theme-accent-color", newColor);
+        document.documentElement.classList.remove(
+          "red",
+          "blue",
+          "green",
+          "purple",
+        );
+        document.documentElement.classList.add(newColor);
+      }
+
+      const storedFont = localStorage.getItem("font");
+      if (storedFont) {
+        updateFont(storedFont);
+      }
+
+      const storedColor = localStorage.getItem("theme-accent-color");
+      if (storedColor) {
+        updateAccentColor(storedColor);
+      }
+
+      window.updateFont = updateFont;
+      window.updateAccentColor = updateAccentColor;
+    </script>
+
     <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
   </head>
   <Box

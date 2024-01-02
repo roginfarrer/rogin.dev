@@ -83,7 +83,7 @@ const baseTheme = {
   },
 };
 
-export const vars = createGlobalTheme(`.${lightTheme}`, {
+export const vars = createGlobalTheme(":root", {
   ...baseTheme,
   colors: {
     // ...gray,
@@ -118,39 +118,36 @@ export const vars = createGlobalTheme(`.${lightTheme}`, {
   },
 });
 
-createGlobalTheme(`.${darkTheme}`, vars, {
-  ...baseTheme,
-  colors: {
-    // ...grayDark,
-    gray1: mauveDark.mauve1,
-    gray2: mauveDark.mauve2,
-    gray3: mauveDark.mauve3,
-    gray4: mauveDark.mauve4,
-    gray5: mauveDark.mauve5,
-    gray6: mauveDark.mauve6,
-    gray7: mauveDark.mauve7,
-    gray8: mauveDark.mauve8,
-    gray9: mauveDark.mauve9,
-    gray10: mauveDark.mauve10,
-    gray11: mauveDark.mauve11,
-    gray12: mauveDark.mauve12,
-    ...blueDark,
-    ...redDark,
-    ...greenDark,
-    ...orangeDark,
-    ...yellowDark,
-    ...purpleDark,
-    ...mapKeys(
-      blueDark,
-      (_, key) =>
-        key.replace(
-          "blue",
-          "accent",
-        ) as typeof key extends `blue${infer Digit extends number}`
-          ? `accent${Digit}`
-          : never,
-    ),
-  },
+createGlobalTheme(`.${darkTheme}`, vars.colors, {
+  // ...grayDark,
+  gray1: mauveDark.mauve1,
+  gray2: mauveDark.mauve2,
+  gray3: mauveDark.mauve3,
+  gray4: mauveDark.mauve4,
+  gray5: mauveDark.mauve5,
+  gray6: mauveDark.mauve6,
+  gray7: mauveDark.mauve7,
+  gray8: mauveDark.mauve8,
+  gray9: mauveDark.mauve9,
+  gray10: mauveDark.mauve10,
+  gray11: mauveDark.mauve11,
+  gray12: mauveDark.mauve12,
+  ...blueDark,
+  ...redDark,
+  ...greenDark,
+  ...orangeDark,
+  ...yellowDark,
+  ...purpleDark,
+  ...mapKeys(
+    blueDark,
+    (_, key) =>
+      key.replace(
+        "blue",
+        "accent",
+      ) as typeof key extends `blue${infer Digit extends number}`
+        ? `accent${Digit}`
+        : never,
+  ),
 });
 
 globalStyle(".green", {
