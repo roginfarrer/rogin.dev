@@ -1,8 +1,8 @@
 import { defineConfig } from "astro/config";
 import mdx from "@astrojs/mdx";
 import { vanillaExtractPlugin } from "@vanilla-extract/vite-plugin";
-import react from '@astrojs/react' 
-import icon from 'astro-icon'
+import react from "@astrojs/react";
+import icon from "astro-icon";
 
 import sitemap from "@astrojs/sitemap";
 
@@ -14,6 +14,6 @@ export default defineConfig({
     plugins: [vanillaExtractPlugin()],
   },
   devToolbar: {
-    enabled: false
+    enabled: false,
   },
 });

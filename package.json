@@ -29,7 +29,7 @@
     "astro": "^4.0.6",
     "astro-icon": "next",
     "astro-seo": "^0.8.0",
-    "rainbow-sprinkles": "^0.17.0",
+    "rainbow-sprinkles": "0.0.0-reorder-defineproperties-overload-types-20240102060747",
     "simple-icons": "^10.3.0",
     "typescript": "^5.3.3"
   },

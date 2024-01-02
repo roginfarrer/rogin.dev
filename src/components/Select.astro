@@ -1,11 +1,12 @@
 ---
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
-import Box, { type Props as BoxProps } from "./Box.astro";
+import Box from "./Box.astro";
 import Icon from "./Icon.astro";
+import type { Sprinkles } from "./Box.css";
 
 const { label, id, ...props } = Astro.props;
 
-interface Props extends BoxProps<"div"> {
+interface Props extends Sprinkles {
   label: string;
   id: string;
 }
