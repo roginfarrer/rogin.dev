@@ -24,19 +24,7 @@ import * as styles from "./index.css";
 ---
 
 <Layout>
-  <Box
-    display="grid"
-    gap={{ _: vars.space[6], md: `${vars.space[7]} ${vars.space[7]}` }}
-    gridTemplateColumns={{ sm: "1fr fr" }}
-    gridTemplateRows={{ sm: "1fr 1fr" }}
-    gridTemplateAreas={{
-      _: "'pic pic' 'bio bio' 'chips chips'",
-      sm: "'bio pic' 'bio pic' 'chips chips'",
-    }}
-    alignItems="center"
-    mb="$3"
-    pt={{ _: "$7", sm: "0" }}
-  >
+  <div class={styles.grid}>
     <Box
       gridArea="bio"
       as="p"
@@ -74,7 +62,7 @@ import * as styles from "./index.css";
       <Chip icon={faDumbbell} iconColor="$gray9">Weight-lifter</Chip>
       <Chip icon={faScroll} iconColor="$red9">History Nerd</Chip>
     </Box>
-  </Box>
+  </div>
   <Box display="flex" justifyContent="space-evenly">
     <Box as="a" href="https://github.com/roginfarrer" class={styles.socialIcon}>
       <Icon icon={faGithub} size="2em" title="GitHub" />

@@ -4,7 +4,7 @@ import * as styles from "./MobileHeader.css";
 import { vars } from "../vars.css";
 import {
   faChevronDown,
-  faChevronUp,
+  faEllipsisH,
   type IconDefinition,
 } from "@fortawesome/free-solid-svg-icons";
 import Icon from "./Icon.astro";
@@ -15,6 +15,15 @@ interface Props {
 }
 
 const { links } = Astro.props;
+
+const buttonStyles = {
+  bg: { _: "$accent9", darkMode: "$accent8" },
+  color: "white",
+  textAlign: "center",
+  fontSize: "$xl",
+  height: "36px",
+  width: "100vw",
+} as const;
 ---
 
 <Box position="fixed" top="$4" right="$5" display={{ sm: "none" }} zIndex="10">
@@ -22,29 +31,42 @@ const { links } = Astro.props;
 </Box>
 <Box
   as="button"
-  bg="$accent9"
-  color="white"
-  py="$2"
-  textAlign="center"
+  borderRadius={"50px 50px 0 0" /* `${vars.radii.xl} ${vars.radii.xl} 0 0` */}
   position="fixed"
-  width="100vw"
-  borderRadius={`${vars.radii.xl} ${vars.radii.xl} 0 0`}
   bottom="env(safe-area-inset-bottom)"
   id="mobile-nav-btn"
-  fontSize="$xl"
   display={{ sm: "none" }}
   zIndex="10"
+  boxShadow={{
+    _: `0 -4px 12px ${vars.colors.gray8}`,
+    darkMode: `0 -2px 10px ${vars.colors.gray6}`,
+  }}
+  style={{ "overscroll-behavior": "none" }}
+  {...buttonStyles}
 >
-  <Icon title="Open menu" icon={faChevronUp} position="relative" top="2px" />
+  <Icon title="Open menu" icon={faEllipsisH} position="relative" top="2px" />
 </Box>
 <Box class={styles.dialog} as="dialog" id="mobile-nav">
+  <Box
+    display="block"
+    as="button"
+    id="mobile-nav-close"
+    autofocus
+    {...buttonStyles}
+  >
+    <Icon
+      icon={faChevronDown}
+      animation={`${styles.floatingChevron} 0.75s linear infinite alternate`}
+      title="Close menu"
+    />
+  </Box>
   <Box
     as="nav"
     display="flex"
     bg="$gray1"
     color="$gray12"
     alignItems="center"
-    height="clamp(100px, 25vw, 150px)"
+    height="clamp(100px, 25vw, 125px)"
     gap="$3"
     px="$3"
     py="$3"
@@ -63,8 +85,10 @@ const { links } = Astro.props;
           display="flex"
           placeItems="center"
           height="100%"
-          gap="$2"
+          gap={{ _: "$1", xs: "$2" }}
           px="$2"
+          flexDirection={{ _: "column", xs: "row" }}
+          fontSize={{ _: "$sm", xs: "$base" }}
         >
           {title === "/uses" ? (
             <Box as="span" fontStyle="italic" fontWeight="$bold">
@@ -73,30 +97,10 @@ const { links } = Astro.props;
           ) : (
             <Icon icon={icon} size={{ _: "1.5em", xs: "1.25em" }} />
           )}
-          {title !== "/uses" && (
-            <Box as="span" display={{ _: "none", xs: "block" }}>
-              {title}
-            </Box>
-          )}
+          {title !== "/uses" && <Box as="span">{title}</Box>}
         </Box>
       ))
     }
-  </Box>
-  <Box
-    width="100%"
-    display="block"
-    as="button"
-    bg="$accent9"
-    color="white"
-    py="$2"
-    textAlign="center"
-    id="mobile-nav-close"
-    fontSize="$xl"
-    position="relative"
-    top="2px"
-    autofocus
-  >
-    <Icon icon={faChevronDown} title="Close menu" />
   </Box>
 </Box>
 
@@ -143,5 +147,11 @@ const { links } = Astro.props;
     document.addEventListener("mousedown", clickOutside);
     document.addEventListener("touchstart", clickOutside);
   });
+  showButton?.addEventListener("touchmove", () => {
+    dialog.showModal();
+    document.addEventListener("mousedown", clickOutside);
+    document.addEventListener("touchstart", clickOutside);
+  });
   closeButton?.addEventListener("click", close);
+  dialog.addEventListener("touchmove", close);
 </script>

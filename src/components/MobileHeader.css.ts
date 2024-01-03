@@ -4,11 +4,11 @@ import { keyframes, style } from "@vanilla-extract/css";
 const inn = {
   transform: "translateY(-50%)",
   // Hack because animating ::backdrop in FireFox doesn't work well
-  boxShadow: "0 0 0 100vmax rgba(0, 0, 0, 0.5);",
+  boxShadow: "0 0 0 100vmax rgba(0, 0, 0, 0.5)",
 };
 const out = {
-  transform: "translateY(50%)",
-  boxShadow: "0 0 0 100vmax rgba(0, 0, 0, 0);",
+  transform: "translateY(calc(50% - 36px))",
+  boxShadow: "0 0 0 100vmax rgba(0, 0, 0, 0)",
 };
 export const slideIn = keyframes({
   from: out,
@@ -20,32 +20,38 @@ export const slideOut = keyframes({
   to: out,
 });
 
+export const floatingChevron = keyframes({
+  from: {
+    transform: "translateY(-10%)",
+  },
+  to: {
+    transform: "translateY(10%)",
+  },
+});
+
+export const chevron = style({
+  animation: `${floatingChevron} 0.5s ease infinite`,
+});
+
 export const dialog = style({
   position: "fixed",
   top: "100%",
-  transform: "translateY(-50%)",
   bottom: "env(safe-area-inset-bottom)",
   width: "100%",
   maxWidth: "100%",
   padding: 0,
   border: 0,
-  borderRadius: `${vars.radii.xl} ${vars.radii.xl} 0 0`,
-  animation: `${slideIn} 0.25s ease forwards`,
+  maxHeight: "unset",
+  borderRadius: "35px 35px 0 0",
+  animation: `${slideIn} 0.3s ease forwards`,
+  background: "transparent",
+  overscrollBehavior: "none",
   "::backdrop": {
     display: "none",
   },
   selectors: {
     "&[data-closing]": {
-      animation: `${slideOut} 0.25s ease forwards`,
-    },
-  },
-});
-
-export const menuItemText = style({
-  display: "none",
-  "@media": {
-    "screen and (min-width: 400px)": {
-      display: "block",
+      animation: `${slideOut} 0.3s ease forwards`,
     },
   },
 });

@@ -15,6 +15,7 @@
     "@astrojs/mdx": "^2.0.1",
     "@astrojs/rss": "^4.0.1",
     "@astrojs/sitemap": "^3.0.3",
+    "@astrojs/solid-js": "^3.0.3",
     "@catppuccin/palette": "^0.2.0",
     "@catppuccin/ui": "^0.1.25",
     "@fortawesome/free-brands-svg-icons": "^6.5.1",
@@ -31,6 +32,8 @@
     "astro-seo": "^0.8.0",
     "rainbow-sprinkles": "0.0.0-reorder-defineproperties-overload-types-20240102060747",
     "simple-icons": "^10.3.0",
+    "solid-bottomsheet": "^1.1.0",
+    "solid-js": "^1.8.7",
     "typescript": "^5.3.3"
   },
   "devDependencies": {
