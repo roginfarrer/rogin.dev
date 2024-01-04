@@ -3,7 +3,7 @@
   "exclude": ["dist"],
   "compilerOptions": {
     "strictNullChecks": true,
-    "baseUrl": "/Users/rfarrer/projects/astro-site",
+    "baseUrl": ".",
     "paths": {
       "components/*": ["src/components/*"],
       "layouts/*": ["src/layouts/*"]
