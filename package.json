@@ -16,6 +16,7 @@
     "@astrojs/rss": "^4.0.1",
     "@astrojs/sitemap": "^3.0.3",
     "@astrojs/solid-js": "^3.0.3",
+    "@astrojs/vercel": "^6.1.2",
     "@catppuccin/palette": "^0.2.0",
     "@catppuccin/ui": "^0.1.25",
     "@fortawesome/free-brands-svg-icons": "^6.5.1",
