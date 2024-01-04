@@ -1,11 +1,11 @@
 ---
-import Box from "./Box.astro";
-import Header from "./Header.astro";
+import Box from "../components/Box.astro";
+import Header from "../components/Header.astro";
 import { darkTheme } from "../styles/vars.css";
 import BaseHead from "../components/BaseHead.astro";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 import "../styles/global.css";
-import Select from "./Select.astro";
+import Select from "../components/Select.astro";
 import { supportedFontClasses, supportedFonts } from "../vars.css";
 
 const isHome = Astro.url.pathname === "/";

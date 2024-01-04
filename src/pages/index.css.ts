@@ -1,4 +1,4 @@
-import { mediaQueries, vars } from "@/vars.css";
+import { mediaQueries, vars } from "../vars.css";
 import { style } from "@vanilla-extract/css";
 
 export const grid = style({

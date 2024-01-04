@@ -5,10 +5,10 @@
     "strictNullChecks": true,
     "baseUrl": "/Users/rfarrer/projects/astro-site",
     "paths": {
-      "@/*": ["src/*"]
+      "components/*": ["src/components/*"],
+      "layouts/*": ["src/layouts/*"]
     },
     "jsx": "preserve",
     "jsxImportSource": "solid-js"
   }
 }
-

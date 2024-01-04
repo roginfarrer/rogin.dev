@@ -1,5 +1,5 @@
-import { nestedGlobalStyle } from "@/nestedGlobalStyle";
-import { mediaQueries, vars } from "@/vars.css";
+import { nestedGlobalStyle } from "../../nestedGlobalStyle";
+import { mediaQueries, vars } from "../../vars.css";
 
 export const mdWrapper = "prose";
 

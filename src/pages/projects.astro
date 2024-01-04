@@ -1,7 +1,7 @@
 ---
-import Box from "@/components/Box.astro";
-import ProjectCard from "@/components/ProjectCard.astro";
-import Layout from "@/components/Layout.astro";
+import Box from "components/Box.astro";
+import ProjectCard from "components/ProjectCard.astro";
+import Layout from "layouts/Layout.astro";
 ---
 
 <Layout>
@@ -9,7 +9,7 @@ import Layout from "@/components/Layout.astro";
     <Box as="h2" type={{ _: "$3xl", sm: "$4xl" }} fontWeight="$bolder" mb="$6">
       Featured Projects
     </Box>
-    <Box display="grid" gap="$4" gridTemplateColumns={{ sm: "1fr 1fr 1fr" }}>
+    <Box display="flex" gap="$4" flexDirection={{ _: "column", sm: "row" }}>
       <ProjectCard
         href="https://github.com/roginfarrer/react-collapsed"
         title="react-collapsed"
