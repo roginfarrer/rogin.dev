@@ -107,6 +107,8 @@ const buttonStyles = {
 <script>
   import * as styles from "./MobileHeader.css";
 
+  let transitionState = "idle";
+
   const showButton = document.querySelector("#mobile-nav-btn");
   const closeButton = document.querySelector("#mobile-nav-close");
   const dialog = document.querySelector("#mobile-nav") as HTMLDialogElement;
@@ -121,10 +123,35 @@ const buttonStyles = {
     close();
   }
 
+  function show() {
+    if (transitionState !== "idle") return;
+    transitionState = "opening";
+    dialog.showModal();
+    document.querySelector("body")!.style.setProperty("overflow", "hidden");
+    document.addEventListener("mousedown", clickOutside, { once: true });
+    document.addEventListener("touchstart", clickOutside, { once: true });
+  }
+
   function close() {
+    if (transitionState === "closing" || transitionState === "idle") return;
+    transitionState = "closing";
     dialog.setAttribute("data-closing", "");
     document.removeEventListener("mousedown", clickOutside);
     document.removeEventListener("touchstart", clickOutside);
+  }
+
+  function handleAnimationEnd(e: AnimationEvent) {
+    if (e.animationName === styles.slideIn) {
+      transitionState = "open";
+      return;
+    }
+    if (e.animationName !== styles.slideOut) {
+      return;
+    }
+    dialog.removeAttribute("data-closing");
+    dialog.close();
+    document.querySelector("body")!.style.removeProperty("overflow");
+    transitionState = "idle";
   }
 
   dialog.addEventListener("keydown", (e) => {
@@ -134,24 +161,9 @@ const buttonStyles = {
     }
   });
 
-  dialog.addEventListener("animationend", (e) => {
-    if (e.animationName !== styles.slideOut) {
-      return;
-    }
-    dialog.removeAttribute("data-closing");
-    dialog.close();
-  });
-
-  showButton?.addEventListener("click", () => {
-    dialog.showModal();
-    document.addEventListener("mousedown", clickOutside);
-    document.addEventListener("touchstart", clickOutside);
-  });
-  showButton?.addEventListener("touchmove", () => {
-    dialog.showModal();
-    document.addEventListener("mousedown", clickOutside);
-    document.addEventListener("touchstart", clickOutside);
-  });
+  dialog.addEventListener("animationend", handleAnimationEnd);
+  showButton?.addEventListener("click", show);
+  showButton?.addEventListener("touchmove", show);
   closeButton?.addEventListener("click", close);
   dialog.addEventListener("touchmove", close);
 </script>
