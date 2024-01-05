@@ -107,63 +107,67 @@ const buttonStyles = {
 <script>
   import * as styles from "./MobileHeader.css";
 
-  let transitionState = "idle";
+  function setup() {
+    let transitionState = "idle";
 
-  const showButton = document.querySelector("#mobile-nav-btn");
-  const closeButton = document.querySelector("#mobile-nav-close");
-  const dialog = document.querySelector("#mobile-nav") as HTMLDialogElement;
+    const showButton = document.querySelector("#mobile-nav-btn");
+    const closeButton = document.querySelector("#mobile-nav-close");
+    const dialog = document.querySelector("#mobile-nav") as HTMLDialogElement;
 
-  function clickOutside(e: MouseEvent | TouchEvent) {
-    if (!(e.target instanceof Node)) {
-      return;
-    }
-    if (e.target === dialog || dialog.contains(e.target)) {
-      return;
-    }
-    close();
-  }
-
-  function show() {
-    if (transitionState !== "idle") return;
-    transitionState = "opening";
-    dialog.showModal();
-    document.querySelector("body")!.style.setProperty("overflow", "hidden");
-    document.addEventListener("mousedown", clickOutside, { once: true });
-    document.addEventListener("touchstart", clickOutside, { once: true });
-  }
-
-  function close() {
-    if (transitionState === "closing" || transitionState === "idle") return;
-    transitionState = "closing";
-    dialog.setAttribute("data-closing", "");
-    document.removeEventListener("mousedown", clickOutside);
-    document.removeEventListener("touchstart", clickOutside);
-  }
-
-  function handleAnimationEnd(e: AnimationEvent) {
-    if (e.animationName === styles.slideIn) {
-      transitionState = "open";
-      return;
-    }
-    if (e.animationName !== styles.slideOut) {
-      return;
-    }
-    dialog.removeAttribute("data-closing");
-    dialog.close();
-    document.querySelector("body")!.style.removeProperty("overflow");
-    transitionState = "idle";
-  }
-
-  dialog.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") {
-      e.preventDefault();
+    function clickOutside(e: MouseEvent | TouchEvent) {
+      if (!(e.target instanceof Node)) {
+        return;
+      }
+      if (e.target === dialog || dialog.contains(e.target)) {
+        return;
+      }
       close();
     }
-  });
 
-  dialog.addEventListener("animationend", handleAnimationEnd);
-  showButton?.addEventListener("click", show);
-  showButton?.addEventListener("touchmove", show);
-  closeButton?.addEventListener("click", close);
-  dialog.addEventListener("touchmove", close);
+    function show() {
+      if (transitionState !== "idle") return;
+      transitionState = "opening";
+      dialog.showModal();
+      document.querySelector("body")!.style.setProperty("overflow", "hidden");
+      document.addEventListener("mousedown", clickOutside, { once: true });
+      document.addEventListener("touchstart", clickOutside, { once: true });
+    }
+
+    function close() {
+      if (transitionState === "closing" || transitionState === "idle") return;
+      transitionState = "closing";
+      dialog.setAttribute("data-closing", "");
+      document.removeEventListener("mousedown", clickOutside);
+      document.removeEventListener("touchstart", clickOutside);
+    }
+
+    function handleAnimationEnd(e: AnimationEvent) {
+      if (e.animationName === styles.slideIn) {
+        transitionState = "open";
+        return;
+      }
+      if (e.animationName !== styles.slideOut) {
+        return;
+      }
+      dialog.removeAttribute("data-closing");
+      dialog.close();
+      document.querySelector("body")!.style.removeProperty("overflow");
+      transitionState = "idle";
+    }
+
+    dialog.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        e.preventDefault();
+        close();
+      }
+    });
+
+    dialog.addEventListener("animationend", handleAnimationEnd);
+    showButton?.addEventListener("click", show);
+    showButton?.addEventListener("touchmove", show);
+    closeButton?.addEventListener("click", close);
+    dialog.addEventListener("touchmove", close);
+  }
+
+  document.addEventListener("astro:page-load", setup);
 </script>

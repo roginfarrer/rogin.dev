@@ -1,5 +1,5 @@
 import { mediaQueries, vars } from "../vars.css";
-import { style } from "@vanilla-extract/css";
+import { keyframes, style } from "@vanilla-extract/css";
 
 export const grid = style({
   display: "grid",
@@ -11,12 +11,13 @@ export const grid = style({
   "@media": {
     [mediaQueries.sm]: {
       gridTemplateColumns: "1fr 1fr",
-      gridTemplateRows: "1fr 1fr",
+      gridTemplateRows: "1fr 1fr 1fr",
       gridTemplateAreas: "'bio pic' 'bio pic' 'chips chips'",
       paddingTop: 0,
     },
     [mediaQueries.md]: {
-      gap: `${vars.space[7]} ${vars.space[7]}`,
+      gridTemplateColumns: "2fr 1fr",
+      gap: `${vars.space[9]} ${vars.space[7]}`,
     },
   },
 });
@@ -30,4 +31,39 @@ export const socialIcon = style({
     color: vars.colors.accent10,
     transform: "translateY(-10%) scale(1.05)",
   },
+});
+
+const thing = keyframes({
+  from: {
+    transform: "scale(1.3) translate(30%, -30%)",
+  },
+  to: {
+    transform: "scale(1.3) translate(34%, 30%)",
+  },
+});
+
+const newThings = keyframes({
+  to: {
+    transform: "translateY(-25%)",
+  },
+});
+
+export const lights2 = style({
+  background: `radial-gradient(circle at 50% 50%, ${vars.colors.accent5}, rgba(255, 255, 255, 0) 25%)`,
+  position: "fixed",
+  zIndex: "-1",
+  inset: 0,
+  animation: `${thing} 15s linear infinite alternate`,
+  selectors: {
+    ".dark &": {
+      background: `radial-gradient(circle at 50% 50%, ${vars.colors.accent3}, rgba(255, 255, 255, 0) 25%)`,
+    },
+  },
+});
+export const lights = style({
+  background: `radial-gradient(circle at 15% 50%, ${vars.colors.accent3}, rgba(255, 255, 255, 0) 25%)`,
+  position: "fixed",
+  zIndex: "-1",
+  inset: 0,
+  animation: `${newThings} 15s ease-in-out infinite alternate`,
 });

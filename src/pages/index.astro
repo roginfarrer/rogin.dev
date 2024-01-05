@@ -23,12 +23,15 @@ import * as styles from "./index.css";
 ---
 
 <Layout>
+  <Box class={styles.lights} />
+  <Box class={styles.lights2} />
   <div class={styles.grid}>
     <Box
       gridArea="bio"
       as="p"
-      textAlign={{ _: "center", md: "left" }}
+      textAlign={{ _: "center", sm: "left" }}
       style={{ textWrap: "pretty" }}
+      type={{ md: "$3xl" }}
     >
       <strong>Hey, I'm Rogin!</strong> I'm a software engineer based in sunny
       San Diego, CA. I'm passionate about design systems, developer tooling, and
@@ -39,9 +42,9 @@ import * as styles from "./index.css";
       gridArea="pic"
       display="flex"
       alignItems="center"
-      justifyContent="center"
+      justifyContent={{ _: "center", sm: "flex-end" }}
     >
-      <SlideShowAvatar />
+      <SlideShowAvatar size={{ _: "200px", md: "300px" }} />
     </Box>
     <Box
       gridArea="chips"

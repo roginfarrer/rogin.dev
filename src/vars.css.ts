@@ -16,6 +16,7 @@ import {
   purpleDark,
 } from "@radix-ui/colors";
 import { mapKeys } from "./utils";
+import "./fonts.css";
 
 export const lightTheme = "light";
 export const darkTheme = "dark";
@@ -79,7 +80,7 @@ const baseTheme = {
     xl: "0.75rem",
   },
   fonts: {
-    base: "-apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif",
+    base: "'Karla', -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif",
   },
 };
 
@@ -190,11 +191,15 @@ globalStyle(".purple", {
 });
 
 export const supportedFonts = {
-  "Monaspace Neon": "MonaspaceNe Nerd Font",
-  Helvetica: "Helvetica",
-  Geist: "Geist",
-  Georgia: "Georgia",
-  "Zed Mono": "Zed Mono",
+  karla: "Karla",
+  inter: "Inter",
+  space: "Space Grotesk",
+  system: "System Default",
+  // "Monaspace Neon": "MonaspaceNe Nerd Font",
+  // Helvetica: "Helvetica",
+  // Geist: "Geist",
+  // Georgia: "Georgia",
+  // "Zed Mono": "Zed Mono",
 };
 
 export const supportedFontClasses: string[] = [];
@@ -206,7 +211,8 @@ Object.entries(supportedFonts).forEach(([name, fontName]) => {
   supportedFontClasses.push(className);
   globalStyle(`.${className}`, {
     vars: {
-      [vars.fonts.base]: `"${fontName}",${baseFonts}`,
+      [vars.fonts.base]:
+        name === "system" ? baseFonts : `"${fontName}",${baseFonts}`,
     },
   });
 });
