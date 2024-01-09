@@ -35,11 +35,8 @@
     "@rose-pine/palette": "^4.0.1",
     "@vanilla-extract/dynamic": "^2.1.0",
     "astro": "^4.0.6",
-    "astro-icon": "next",
     "astro-seo": "^0.8.0",
     "rainbow-sprinkles": "0.0.0-reorder-defineproperties-overload-types-20240102060747",
-    "simple-icons": "^10.3.0",
-    "solid-bottomsheet": "^1.1.0",
     "solid-js": "^1.8.7",
     "typescript": "^5.3.3"
   },

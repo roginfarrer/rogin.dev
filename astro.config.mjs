@@ -5,12 +5,11 @@ import react from "@astrojs/react";
 import icon from "astro-icon";
 import sitemap from "@astrojs/sitemap";
 import solidJs from "@astrojs/solid-js";
-import vercelStatic from "@astrojs/vercel/static";
 
 // https://astro.build/config
 export default defineConfig({
   site: "https://example.com",
-  integrations: [icon(), mdx(), sitemap(), react(), solidJs(), vercelStatic()],
+  integrations: [icon(), mdx(), sitemap(), react(), solidJs()],
   vite: {
     plugins: [vanillaExtractPlugin()],
   },
