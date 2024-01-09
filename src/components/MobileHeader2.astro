@@ -1,8 +1,6 @@
 ---
-import { vars } from "src/vars.css";
 import Box from "./Box.astro";
 import type { IconDefinition } from "@fortawesome/free-solid-svg-icons";
-import Icon from "./Icon.astro";
 import * as styles from "./MobileHeader2.css";
 import ThemeToggle from "./ThemeToggle.astro";
 
@@ -16,7 +14,7 @@ const { pathname } = Astro.url;
 
 <nav class={styles.bar}>
   {
-    links.map((link, index) => {
+    links.map((link) => {
       const isActive =
         link.url === pathname || link.url === pathname.replace(/\/$/, "");
       return (

@@ -1,5 +1,5 @@
-import { createVar, keyframes, style } from "@vanilla-extract/css";
-import { mediaQueries, vars } from "src/vars.css";
+import { createVar, style } from "@vanilla-extract/css";
+import { vars } from "src/vars.css";
 
 const color = createVar();
 

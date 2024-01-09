@@ -1,7 +1,6 @@
 ---
 import Layout from "layouts/Layout.astro";
 import Box from "components/Box.astro";
-import Stack from "components/Stack.astro";
 import Chip from "components/Chip.astro";
 import SlideShowAvatar from "components/SlideShowAvatar.astro";
 import {
@@ -11,7 +10,6 @@ import {
   faObjectGroup,
   faBookOpenReader,
   faDumbbell,
-  faArrowRightLong,
 } from "@fortawesome/free-solid-svg-icons";
 import Icon from "components/Icon.astro";
 import {
@@ -23,8 +21,6 @@ import {
 import disc from "components/disc";
 import * as styles from "./index.css";
 import { getCollection } from "astro:content";
-import FormattedDate from "components/FormattedDate.astro";
-import { vars } from "src/vars.css";
 import ProjectCard from "components/ProjectCard.astro";
 
 let posts = (await getCollection("blog"))
@@ -48,10 +44,10 @@ if (import.meta.env.MODE === "production") {
       style={{ textWrap: "balanced" }}
       type={{ sm: "$2xl", md: "$3xl" }}
     >
-      <strong>Hey, I'm Rogin!</strong> I'm a software engineer based in sunny
-      San Diego, CA. I'm passionate about design systems, developer tooling, and
-      web accessibility. I enjoy playing ultimate frisbee, weight-lifting, and
-      building mechanical keyboards in my free time.
+      <strong>Hey, I'm Rogin!</strong> I'm a software engineer based in sunny San
+      Diego, CA. I'm passionate about design systems, developer tooling, and web
+      accessibility. I enjoy playing ultimate frisbee, weight-lifting, and building
+      mechanical keyboards in my free time.
     </Box>
     <Box
       gridArea="pic"
