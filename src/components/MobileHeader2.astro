@@ -1,0 +1,32 @@
+---
+import { vars } from "src/vars.css";
+import Box from "./Box.astro";
+import type { IconDefinition } from "@fortawesome/free-solid-svg-icons";
+import Icon from "./Icon.astro";
+import * as styles from "./MobileHeader2.css";
+import ThemeToggle from "./ThemeToggle.astro";
+
+interface Props {
+  links: { title: string; url: string; icon: IconDefinition }[];
+}
+
+const { links } = Astro.props;
+const { pathname } = Astro.url;
+---
+
+<nav class={styles.bar}>
+  {
+    links.map((link, index) => {
+      const isActive =
+        link.url === pathname || link.url === pathname.replace(/\/$/, "");
+      return (
+        <a href={link.url} class={styles.item} data-active={isActive}>
+          {link.title}
+        </a>
+      );
+    })
+  }
+</nav>
+<Box position="fixed" top="$4" right="$5" display={{ sm: "none" }} zIndex="10">
+  <ThemeToggle />
+</Box>

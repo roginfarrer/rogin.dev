@@ -1,4 +1,3 @@
-import { vars } from "@/vars.css";
 import { keyframes, style } from "@vanilla-extract/css";
 
 const inn = {

@@ -9,15 +9,18 @@ export const grid = style({
   marginBottom: vars.space[3],
   paddingTop: vars.space[7],
   "@media": {
-    [mediaQueries.sm]: {
+    // [mediaQueries.xs]: {},
+    // [mediaQueries.sm]: {
+    //   paddingTop: 0,
+    // },
+    [mediaQueries.md]: {
       gridTemplateColumns: "1fr 1fr",
       gridTemplateRows: "1fr 1fr 1fr",
       gridTemplateAreas: "'bio pic' 'bio pic' 'chips chips'",
-      paddingTop: 0,
-    },
-    [mediaQueries.md]: {
-      gridTemplateColumns: "2fr 1fr",
       gap: `${vars.space[9]} ${vars.space[7]}`,
+    },
+    [mediaQueries.lg]: {
+      gridTemplateColumns: "2fr 1fr",
     },
   },
 });

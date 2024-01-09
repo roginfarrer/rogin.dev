@@ -3,6 +3,7 @@ import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import Box from "./Box.astro";
 import Icon from "./Icon.astro";
 import type { Sprinkles } from "./Box.css";
+import { vars } from "src/vars.css";
 
 const { label, id, ...props } = Astro.props;
 
@@ -28,8 +29,7 @@ interface Props extends Sprinkles {
         as="select"
         textAlign="left"
         id={id}
-        border="2px solid"
-        borderColor="$gray6"
+        border={`2px solid ${vars.colors.gray6}`}
         borderRadius="$lg"
         p="$1"
         bg="$gray2"

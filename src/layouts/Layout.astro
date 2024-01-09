@@ -5,8 +5,9 @@ import { darkTheme } from "../styles/vars.css";
 import BaseHead from "../components/BaseHead.astro";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 import "../styles/global.css";
+import "../styles/panda.css";
 import Select from "../components/Select.astro";
-import { vars, supportedFontClasses, supportedFonts } from "../vars.css";
+import { supportedFontClasses, supportedFonts } from "../vars.css";
 import * as styles from "./Layout.css";
 
 const isHome = Astro.url.pathname === "/";
@@ -17,21 +18,31 @@ const isHome = Astro.url.pathname === "/";
     const fontSwitcher = document.querySelector(
       "#font-switcher",
     ) as HTMLSelectElement;
-    const themeSwitcher = document.querySelector(
+    const colorSwitcher = document.querySelector(
       "#accent-color-switcher",
     ) as HTMLSelectElement;
+    const themeSwitcher = document.querySelector(
+      "#theme-select-switcher",
+    ) as HTMLSelectElement;
 
-    themeSwitcher.value =
-      localStorage.getItem("theme-accent-color") ?? themeSwitcher.value;
+    colorSwitcher.value =
+      localStorage.getItem("theme-accent-color") ?? colorSwitcher.value;
     fontSwitcher.value = localStorage.getItem("font") ?? fontSwitcher.value;
+    themeSwitcher.value = localStorage.getItem("theme") ?? themeSwitcher.value;
 
+    themeSwitcher.addEventListener("change", (ev) => {
+      // @ts-expect-error
+      const newValue = ev.target.value;
+      // @ts-expect-error
+      window.updateTheme(newValue);
+    });
     fontSwitcher.addEventListener("change", (ev) => {
       // @ts-expect-error
       const newValue = ev.target.value;
       // @ts-expect-error
       window.updateFont(newValue);
     });
-    themeSwitcher.addEventListener("change", (ev) => {
+    colorSwitcher.addEventListener("change", (ev) => {
       // @ts-expect-error
       const newColor = ev.target.value;
       // @ts-expect-error
@@ -43,26 +54,29 @@ const isHome = Astro.url.pathname === "/";
 <html lang="en" class:list={[darkTheme]} transition:persist="html">
   <head>
     <script is:inline>
-      const theme = (() => {
-        if (
-          typeof localStorage !== "undefined" &&
-          localStorage.getItem("theme")
-        ) {
-          return localStorage.getItem("theme");
-        }
-        if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-          return "dark";
-        }
-        return "light";
-      })();
+      function setup(doc = document) {
+        const prefersDark = window.matchMedia(
+          "(prefers-color-scheme: dark)",
+        ).matches;
+        const storedTheme = localStorage.getItem("theme");
 
-      if (theme === "light") {
-        document.documentElement.classList.remove("dark");
-      } else {
-        document.documentElement.classList.add("dark");
+        if (storedTheme && storedTheme !== "system") {
+          if (storedTheme === "light") {
+            doc.documentElement.classList.remove("dark");
+          } else if (storedTheme === "dark") {
+            doc.documentElement.classList.add("dark");
+          }
+        } else {
+          doc.documentElement.classList[prefersDark ? "add" : "remove"]("dark");
+          window.localStorage.setItem("theme", "system");
+        }
       }
 
-      window.localStorage.setItem("theme", theme);
+      setup();
+
+      document.addEventListener("astro:before-swap", (ev) => {
+        setup(ev.newDocument);
+      });
     </script>
 
     <script is:inline>
@@ -70,6 +84,8 @@ const isHome = Astro.url.pathname === "/";
         "inter",
         "karla",
         "space",
+        "crimson",
+        "bitter",
         "system",
         // "MonaspaceNeon",
         // "Helvetica",
@@ -82,6 +98,25 @@ const isHome = Astro.url.pathname === "/";
         if (newValue) {
           localStorage.setItem("font", newValue);
           doc.documentElement.classList.add(newValue);
+        }
+      }
+
+      function updateTheme(value, doc = document) {
+        const element = doc.documentElement;
+        const prefersDark = window.matchMedia(
+          "(prefers-color-scheme: dark)",
+        ).matches;
+
+        if (value !== "system") {
+          if (value === "light") {
+            element.classList.remove("dark");
+          } else if (value === "dark") {
+            element.classList.add("dark");
+          }
+        } else {
+          console.log(prefersDark, element);
+          // element.classList[prefersDark ? "add" : "remove"]("dark");
+          window.localStorage.setItem("theme", "system");
         }
       }
 
@@ -108,10 +143,6 @@ const isHome = Astro.url.pathname === "/";
         const storedColor = localStorage.getItem("theme-accent-color");
         const theme = localStorage.getItem("theme");
 
-        if (theme === "dark") {
-          ev.newDocument.documentElement.classList.add("dark");
-        }
-
         if (storedFont) {
           updateFont(storedFont, ev.newDocument);
         }
@@ -120,15 +151,20 @@ const isHome = Astro.url.pathname === "/";
           updateAccentColor(storedColor, ev.newDocument);
         }
         const fontSwitcher = ev.newDocument.querySelector("#font-switcher");
-        const themeSwitcher = ev.newDocument.querySelector(
+        const colorSwitcher = ev.newDocument.querySelector(
           "#accent-color-switcher",
         );
-        themeSwitcher.value = storedColor;
+        const themeSwitcher = ev.newDocument.querySelector(
+          "#theme-select-switcher",
+        );
+        colorSwitcher.value = storedColor;
         fontSwitcher.value = storedFont;
+        themeSwitcher.value = theme;
       });
 
       window.updateFont = updateFont;
       window.updateAccentColor = updateAccentColor;
+      window.updateTheme = updateTheme;
     </script>
 
     <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
@@ -138,15 +174,16 @@ const isHome = Astro.url.pathname === "/";
     data-font-classes={supportedFontClasses.join(",")}
     pb={{ _: "$9", md: "$7" }}
   >
+    <a href="#main" class={styles.skipToContent}>Skip to Content</a>
     {!isHome && <div class={styles.halo} />}
     <Header />
     <Box
       as="main"
+      id="main"
       m="0 auto"
-      px="$5"
       mb="$8"
       mt={!isHome ? "$8" : 0}
-      maxWidth={{ _: "800px", md: "1200px" }}
+      maxWidth={{ _: "min(800px, 85vw)", md: "min(1200px, 85vw)" }}
     >
       <slot />
     </Box>
@@ -155,7 +192,7 @@ const isHome = Astro.url.pathname === "/";
         <Select label="Font" id="font-switcher">
           {
             Object.entries(supportedFonts).map(([className, name]) => (
-              <option value={className}>{name}</option>
+              <option value={className}>{name.replace(" Variable", "")}</option>
             ))
           }
         </Select>
@@ -164,6 +201,11 @@ const isHome = Astro.url.pathname === "/";
           <option value="green">Green</option>
           <option value="purple">purple</option>
           <option value="red">Red</option>
+        </Select>
+        <Select label="Theme" id="theme-select-switcher">
+          <option value="system">System</option>
+          <option value="dark">Dark</option>
+          <option value="light">Light</option>
         </Select>
       </Box>
       <Box type="$sm" color="$gray11">

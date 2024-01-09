@@ -16,7 +16,6 @@ import {
   purpleDark,
 } from "@radix-ui/colors";
 import { mapKeys } from "./utils";
-import "./fonts.css";
 
 export const lightTheme = "light";
 export const darkTheme = "dark";
@@ -80,7 +79,7 @@ const baseTheme = {
     xl: "0.75rem",
   },
   fonts: {
-    base: "'Karla', -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif",
+    base: "'Space Grotesk Variable', -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Cantarell, Ubuntu, roboto, noto, arial, sans-serif",
   },
 };
 
@@ -191,9 +190,11 @@ globalStyle(".purple", {
 });
 
 export const supportedFonts = {
-  karla: "Karla",
-  inter: "Inter",
-  space: "Space Grotesk",
+  space: "Space Grotesk Variable",
+  karla: "Karla Variable",
+  inter: "Inter Variable",
+  crimson: "Crimson Pro Variable",
+  bitter: "Bitter Variable",
   system: "System Default",
   // "Monaspace Neon": "MonaspaceNe Nerd Font",
   // Helvetica: "Helvetica",

@@ -10,15 +10,18 @@ const { title, href, desc, repo } = Astro.props;
 <Box
   as="a"
   href={href}
-  border={`2px solid ${vars.colors.gray7}`}
+  borderRadius="$lg"
+  border={`2px solid ${vars.colors.gray8}`}
+  bg="$gray4"
   height={{ _: "250px", md: "275px" }}
   p="$4"
-  borderRadius="$base"
+  borderRadius="$lg"
   transition=".2s border-color ease, .2s transform ease"
   transform={{ hover: "rotate(-4deg) scale(1.05)" }}
   display="flex"
   flexDirection="column"
   justifyContent="space-between"
+  flex="1 1 100%"
   data-project-card-repo={repo}
 >
   <span>
@@ -29,7 +32,7 @@ const { title, href, desc, repo } = Astro.props;
       {desc}
     </Box>
   </span>
-  <Box as="span" display="flex" alignItems="baseline" gap="$2" mt="$4">
+  <Box as="span" display="flex" alignItems="center" gap="$2" mt="$4">
     <Icon icon={faStar} size="1em" />
     <span class="project-card-stars">0</span>
   </Box>
