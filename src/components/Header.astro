@@ -8,7 +8,7 @@ import {
   faTools,
 } from "@fortawesome/free-solid-svg-icons";
 import ThemeToggle from "./ThemeToggle.astro";
-import MobileHeader2 from "./MobileHeader2.astro";
+import StickyMobileHeader from "./StickyMobileHeader.astro";
 
 const headerLinks = [
   { title: "Home", url: "/", icon: faHome },
@@ -18,7 +18,7 @@ const headerLinks = [
 ];
 ---
 
-<MobileHeader2 links={headerLinks} />
+<StickyMobileHeader links={headerLinks} />
 <Box
   maxWidth={{ _: "min(800px, 85vw)", md: "min(1200px, 85vw)" }}
   mx="auto"
