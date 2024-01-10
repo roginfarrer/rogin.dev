@@ -27,12 +27,20 @@ export const cachedFetch = async <T>(
     data,
   } satisfies StoredData<T>;
 
+  if (response.status > 200) {
+    return data;
+  }
+
   cache.set(key, payload);
+
+  syncCacheToLocalStorage();
 
   return data as T;
 };
 
-window.addEventListener("beforeunload", () => {
+function syncCacheToLocalStorage() {
   const appCache = JSON.stringify(Array.from(cache.entries()));
   localStorage.setItem("app-cache", appCache);
-});
+}
+
+window.addEventListener("beforeunload", syncCacheToLocalStorage);

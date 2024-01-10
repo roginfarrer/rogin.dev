@@ -13,6 +13,13 @@ import { MoonIcon, SunIcon } from "@radix-ui/react-icons";
 
       const isDark = element.classList.contains("dark");
       localStorage.setItem("theme", isDark ? "dark" : "light");
+
+      const themeSwitcher = document.querySelector(
+        "#theme-select-switcher",
+      ) as HTMLSelectElement;
+      if (themeSwitcher) {
+        themeSwitcher.value = isDark ? "dark" : "light";
+      }
     };
 
     document

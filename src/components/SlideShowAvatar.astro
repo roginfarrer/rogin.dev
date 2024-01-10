@@ -12,27 +12,53 @@ const imagePaths = Object.keys(
   const imagePaths = Object.keys(
     import.meta.glob("/public/images/propic*.{jpeg,jpg}"),
   );
+
   function updateImage() {
+    const holder = document.querySelector("#avatar-holder");
+
+    if (!holder) {
+      return;
+    }
+
     if (activeImageIndex === imagePaths.length - 1) {
       activeImageIndex = 0;
     } else {
       ++activeImageIndex;
     }
-    document
-      .querySelector("#avatar-slideshow")
-      ?.setAttribute(
-        "src",
-        imagePaths[activeImageIndex].replace("/public", ""),
-      );
+
+    const newImagePath = imagePaths[activeImageIndex].replace("/public", "");
+
+    const imageAlreadyPresent = holder?.querySelector(
+      `[data-index="${activeImageIndex}"]`,
+    ) as HTMLImageElement;
+    const outoingImage = holder.querySelector(
+      "[data-active]",
+    ) as HTMLImageElement;
+
+    if (imageAlreadyPresent) {
+      imageAlreadyPresent.style.removeProperty("display");
+      imageAlreadyPresent.setAttribute("data-active", "");
+    } else {
+      const newImage = document.createElement("img");
+      newImage.src = newImagePath;
+      newImage.setAttribute("data-index", `${activeImageIndex}`);
+      newImage.setAttribute("data-active", "");
+      holder.appendChild(newImage);
+    }
+
+    outoingImage.style.setProperty("display", "none");
+    outoingImage.removeAttribute("data-active");
   }
   setInterval(updateImage, 3000);
 </script>
 
-<Box
-  size={size}
-  borderRadius="9999px"
-  alt="something"
-  as="img"
-  src={imagePaths[0].replace("/public", "")}
-  id="avatar-slideshow"
-/>
+<Box size={size} borderRadius="9999px" overflow="hidden" id="avatar-holder">
+  <Box
+    alt="something"
+    as="img"
+    src={imagePaths[0].replace("/public", "")}
+    id="avatar-slideshow"
+    data-index="0"
+    data-active
+  />
+</Box>

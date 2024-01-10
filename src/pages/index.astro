@@ -196,8 +196,8 @@ if (import.meta.env.MODE === "production") {
 <script>
   import { cachedFetch } from "../cache";
 
-  function setup() {
-    const cards = document.querySelectorAll(
+  function setup(doc = document) {
+    const cards = doc.querySelectorAll(
       "[data-project-card-repo]",
     ) as NodeListOf<HTMLElement>;
 
@@ -207,11 +207,10 @@ if (import.meta.env.MODE === "production") {
         return;
       }
       const [owner, project] = repo.split("/");
-
       const data = await cachedFetch<{ stargazers_count: number }>(
         `https://api.github.com/repos/${owner}/${project}`,
         // 6 hours
-        { duration: 21600 },
+        { duration: 21600000 },
       );
       if (data.stargazers_count) {
         const starEl = card.querySelector(".project-card-stars");
@@ -224,5 +223,8 @@ if (import.meta.env.MODE === "production") {
 
   setup();
 
-  document.addEventListener("astro:after-swap", setup);
+  document.addEventListener("astro:before-swap", (e) => {
+    // @ts-expect-error
+    setup(e.newDocument);
+  });
 </script>
