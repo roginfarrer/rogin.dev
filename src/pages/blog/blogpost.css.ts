@@ -8,16 +8,21 @@ function typeSize(size: keyof typeof vars.fontSize) {
 }
 
 nestedGlobalStyle(`.${mdWrapper}`, {
+  "ol, ul, li, abbr, sub, sup, kbd, mark": {
+    all: "revert",
+  },
   "p, h1, h2, h3, h4, h5, li": {
     wordBreak: "break-word",
     hyphens: "auto",
-    display: "block",
     overflowWrap: "break-word",
   },
-  "p, li": {
+  p: {
+
     marginBottom: "2em",
-    lineHeight: vars.lineHeights.lg,
-    fontSize: vars.fontSize.lg,
+  },
+  "p, li": {
+    ...typeSize('lg'),
+    fontSize: 'clamp(1rem, 0.96rem + 0.22vw, 1.125rem)'
   },
   h1: {
     ...typeSize("2xl"),
@@ -94,8 +99,12 @@ nestedGlobalStyle(`.${mdWrapper}`, {
   //   left: "-1.25em",
   //   fontWeight: "bold",
   // },
-  "ol, ul, li, abbr, sub, sup, kbd, mark": {
-    all: "revert",
+  li: {
+  marginBottom: 0,
+    marginTop: '1rem',
+  ':first-child': {
+  marginTop: 0
+  }
   },
   hr: {
     margin: "3em 0",
@@ -154,10 +163,11 @@ nestedGlobalStyle(`.${mdWrapper}`, {
     textDecoration: "underline",
     textDecorationSkipInk: "all",
     textDecorationColor: vars.colors.accent6,
-    textDecorationThickness: "2px",
-    textUnderlineOffset: "2px",
+    textDecorationThickness: "0.3ex",
+    textUnderlineOffset: "0.3ex",
     "&:hover": {
-      textDecoration: "none",
+    textDecorationThickness: "0.35ex",
+    textDecorationColor: vars.colors.accent7,
     },
   },
   sup: {

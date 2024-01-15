@@ -1,7 +1,7 @@
 ---
 title: Web Components and React Components - A Comparison
 slug: web-components-and-react-compared
-date: '2020-08-25'
+date: "2020-08-25"
 ---
 
 When I first started working with React, Web Components weren't a serious contender in the design systems space. But I can't help but notice more and more systems built with them, like [Duet](https://www.duetds.com) and [Carbon Web Components](https://github.com/carbon-design-system/carbon-web-components), to name a couple.
@@ -64,7 +64,7 @@ class Foo extends Component {
   }
 }
 
-React.render(<Foo />, document.querySelector('#app'));
+React.render(<Foo />, document.querySelector("#app"));
 ```
 
 And here's the basic outline of a Web Component. Spot the 5 differences! 😂
@@ -96,7 +96,7 @@ class Foo extends HTMLElement {
   }
 }
 
-window.customElements.define('foo-component', Foo);
+window.customElements.define("foo-component", Foo);
 
 // Can now be used directly in HTML, e.g.,
 // <div>
@@ -176,7 +176,7 @@ class FooButton extends React.Component {
   };
 
   static defaultProps = {
-    type: 'button',
+    type: "button",
     disabled: false,
   };
 
@@ -258,7 +258,7 @@ We can distinguish what content goes where by using `slot` attributes.
 Up to this point, it looks like web components and React components have a lot of similarities. We can use `slot` elements in place of React's `children` API. Unlike React, we must explicitly support updating our component when attributes are added or changed, and this involves a better understanding of classes in JavaScript and DOM manipulation than you might be used to in React. For example, it's common to set attributes directly on an element:
 
 ```javascript
-document.querySelector('button').disabled = true;
+document.querySelector("button").disabled = true;
 ```
 
 This would find the `<button>` element in the DOM, set its disabled property to true, and disable interaction with the element as we would expect. With custom elements, we must explicitly define `disabled` as an _accessor property_, meaning it can be both _read_ and _written_. With classes, we use "getters" and "setters". Let's expose these properties on our component:
@@ -276,24 +276,24 @@ class FooButton extends HTMLElement {
   }
 
   get disabled() {
-    return this.hasAttribute('disabled');
+    return this.hasAttribute("disabled");
   }
 
   get type() {
-    return this.getAttribute('type');
+    return this.getAttribute("type");
   }
 
   set disabled(disabled) {
     const isDisabled = Boolean(disabled);
     if (isDisabled) {
-      this.setAttribute('disabled', '');
+      this.setAttribute("disabled", "");
     } else {
-      this.removeAttribute('disabled');
+      this.removeAttribute("disabled");
     }
   }
 
   set type(type) {
-    this.setAttribute('type', type);
+    this.setAttribute("type", type);
   }
 }
 ```
@@ -303,7 +303,7 @@ Whew, that's a lot! And this is just two attributes! We would need to define the
 ```javascript
 class FooButton extends HTMLElement {
   static get observedAttributes() {
-    return ['disabled', 'type'];
+    return ["disabled", "type"];
   }
 
   constructor() {
@@ -315,7 +315,7 @@ class FooButton extends HTMLElement {
       </button>
     `;
 
-    this.button = this.querySelector('button');
+    this.button = this.querySelector("button");
   }
 
   changedAttributesCallback(name, oldValue, newValue) {
@@ -326,9 +326,9 @@ class FooButton extends HTMLElement {
     // Apply any side effects that should occur
     // as a result of attributes changing
     if (this.disabled) {
-      this.button.setAttribute('aria-disabled', 'true');
+      this.button.setAttribute("aria-disabled", "true");
     } else {
-      this.button.removeAttribute('aria-disabled');
+      this.button.removeAttribute("aria-disabled");
     }
   }
 }
@@ -348,8 +348,8 @@ Let's say we want our FooButton component to have a 'click' event like a regular
 
 ```javascript
 document
-  .querySelector('foo-button')
-  .addEventListener('click', () => alert('clicked!'));
+  .querySelector("foo-button")
+  .addEventListener("click", () => alert("clicked!"));
 ```
 
 In React, we could just expose the `onClick` prop on the button element within our component. Not so for Web Components!
@@ -367,22 +367,22 @@ class FooButton extends HTMLElement {
       </button>
     `;
 
-    this.button = this.querySelector('button');
+    this.button = this.querySelector("button");
   }
 
   connectedCallback() {
-    this.button.addEventListener('click', this.onClick);
+    this.button.addEventListener("click", this.onClick);
   }
 
   disconnectedCallback() {
-    this.button.removeEventListener('click', this.onClick);
+    this.button.removeEventListener("click", this.onClick);
   }
 
-  onChange = e => {
+  onChange = (e) => {
     // Prevent click event from bubbling to the custom element itself
     e.stopPropagation();
     // Define our custom event
-    const event = new CustomEvent('click', {
+    const event = new CustomEvent("click", {
       bubbles: true,
       composed: true,
     });
@@ -407,13 +407,13 @@ class FooButton extends HTMLElement {
   constructor() {
     super();
 
-    const shadowRoot = this.attachShadow({mode: 'open'});
+    const shadowRoot = this.attachShadow({ mode: "open" });
     shadowRoot.innerHTML = `
       <button>
         <slot></slot>
       </button>
     `;
-    this.button = shadowRoot.querySelector('button');
+    this.button = shadowRoot.querySelector("button");
   }
 }
 ```
@@ -428,21 +428,21 @@ Here it is in one code snippet, in all its glory!
 class FooButton extends HTMLElement {
   constructor() {
     super();
-    const shadowRoot = this.attachShadow({mode: 'open'});
+    const shadowRoot = this.attachShadow({ mode: "open" });
     shadowRoot.innerHTML = `<button><slot></slot></button>`;
-    this.button = shadowRoot.querySelector('button');
+    this.button = shadowRoot.querySelector("button");
   }
 
   static get observedAttributes() {
-    return ['type', 'disabled'];
+    return ["type", "disabled"];
   }
 
   connectedCallback() {
-    this.button.addEventListener('click', this.onClick);
+    this.button.addEventListener("click", this.onClick);
   }
 
   disconnectedCallback() {
-    this.button.removeEventListener('click', this.onClick);
+    this.button.removeEventListener("click", this.onClick);
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
@@ -451,29 +451,29 @@ class FooButton extends HTMLElement {
   }
 
   get type() {
-    return this.getAttribute('type');
+    return this.getAttribute("type");
   }
 
   set type(type) {
-    this.setAttribute('type', type);
+    this.setAttribute("type", type);
   }
 
   get disabled() {
-    return this.hasAttribute('disabled');
+    return this.hasAttribute("disabled");
   }
 
   set disabled(disabled) {
     const isDisabled = Boolean(disabled);
     if (isDisabled) {
-      this.setAttribute('disabled', '');
+      this.setAttribute("disabled", "");
     } else {
-      this.removeAttribute('disabled');
+      this.removeAttribute("disabled");
     }
   }
 
-  onClick = e => {
+  onClick = (e) => {
     e.stopPropagation();
-    const event = new CustomEvent('click', {
+    const event = new CustomEvent("click", {
       composed: true,
       bubbles: true,
     });
@@ -481,7 +481,7 @@ class FooButton extends HTMLElement {
   };
 }
 
-customElements.define('foo-button', FooButton);
+customElements.define("foo-button", FooButton);
 ```
 
 ## My Takeaways
@@ -501,8 +501,8 @@ If you really want to get React-like, [Haunted](https://github.com/matthewp/haun
   <my-counter></my-counter>
 
   <script type="module">
-    import {html} from 'https://unpkg.com/lit-html/lit-html.js';
-    import {component, useState} from 'https://unpkg.com/haunted/haunted.js';
+    import { html } from "https://unpkg.com/lit-html/lit-html.js";
+    import { component, useState } from "https://unpkg.com/haunted/haunted.js";
 
     function Counter() {
       const [count, setCount] = useState(0);
@@ -515,7 +515,7 @@ If you really want to get React-like, [Haunted](https://github.com/matthewp/haun
       `;
     }
 
-    customElements.define('my-counter', component(Counter));
+    customElements.define("my-counter", component(Counter));
   </script>
 </html>
 ```

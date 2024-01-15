@@ -114,8 +114,7 @@ const isHome = Astro.url.pathname === "/";
             element.classList.add("dark");
           }
         } else {
-          console.log(prefersDark, element);
-          // element.classList[prefersDark ? "add" : "remove"]("dark");
+          element.classList[prefersDark ? "add" : "remove"]("dark");
           window.localStorage.setItem("theme", "system");
         }
       }
@@ -145,20 +144,21 @@ const isHome = Astro.url.pathname === "/";
 
         if (storedFont) {
           updateFont(storedFont, ev.newDocument);
+          const fontSwitcher = ev.newDocument.querySelector("#font-switcher");
+          fontSwitcher.value = storedFont;
         }
 
         if (storedColor) {
           updateAccentColor(storedColor, ev.newDocument);
+          const colorSwitcher = ev.newDocument.querySelector(
+            "#accent-color-switcher",
+          );
+          colorSwitcher.value = storedColor;
         }
-        const fontSwitcher = ev.newDocument.querySelector("#font-switcher");
-        const colorSwitcher = ev.newDocument.querySelector(
-          "#accent-color-switcher",
-        );
+
         const themeSwitcher = ev.newDocument.querySelector(
           "#theme-select-switcher",
         );
-        colorSwitcher.value = storedColor;
-        fontSwitcher.value = storedFont;
         themeSwitcher.value = theme;
       });
 
@@ -208,7 +208,7 @@ const isHome = Astro.url.pathname === "/";
           <option value="light">Light</option>
         </Select>
       </Box>
-      <Box type="$sm" color="$gray11">
+      <Box typeScale="$sm" color="$gray11">
         © {new Date().getFullYear()} Rogin Farrer. All rights reserved.
       </Box>
     </Box>

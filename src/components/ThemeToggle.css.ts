@@ -2,6 +2,7 @@ import { style } from "@vanilla-extract/css";
 import { vars } from "src/vars.css";
 
 export const toggle = style({
+  mixBlendMode: 'luminosity',
   transition: ".15s background-color ease",
   borderRadius: vars.radii.md,
   padding: vars.space[1],

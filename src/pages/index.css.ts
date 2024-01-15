@@ -57,6 +57,11 @@ export const lights2 = style({
   zIndex: "-1",
   inset: 0,
   animation: `${thing} 15s linear infinite alternate`,
+  "@media": {
+    "(prefers-reduced-motion)": {
+      animation: "none",
+    },
+  },
   selectors: {
     ".dark &": {
       background: `radial-gradient(circle at 50% 50%, ${vars.colors.accent3}, rgba(255, 255, 255, 0) 25%)`,
@@ -69,4 +74,9 @@ export const lights = style({
   zIndex: "-1",
   inset: 0,
   animation: `${newThings} 15s ease-in-out infinite alternate`,
+  "@media": {
+    "(prefers-reduced-motion)": {
+      animation: "none",
+    },
+  },
 });

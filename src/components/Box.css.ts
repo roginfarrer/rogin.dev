@@ -72,7 +72,7 @@ const responsiveProperties = defineProperties({
     pt: ["paddingTop"],
     px: ["paddingLeft", "paddingRight"],
     py: ["paddingTop", "paddingBottom"],
-    type: ["fontSize", "lineHeight"],
+    typeScale: ["fontSize", "lineHeight"],
     size: ["height", "width"],
     placeItems: ["alignItems", "justifyContent"],
   },

@@ -1,68 +1,34 @@
 ---
-import type { HTMLTag, Polymorphic } from "astro/types";
+import type { HTMLAttributes, HTMLTag, Polymorphic } from "astro/types";
 import { rainbowSprinkles, type Sprinkles } from "./Box.css";
 
 export type Props<T extends HTMLTag> = Sprinkles &
-  Omit<Polymorphic<{ as: T }>, keyof Sprinkles> & { className?: string };
-// export type Props<T extends HTMLTag | any> = T extends HTMLTag
-//   ? Sprinkles &
-//       Omit<Polymorphic<{ as: T }>, keyof Sprinkles> & { className?: string }
-//   : Sprinkles &
-//       Omit<HTMLAttributes<"div">, keyof Sprinkles> & {
-//         as?: any;
-//         className?: string;
-//       };
+  Omit<Polymorphic<{ as: T }>, keyof Sprinkles> & {
+    className?: string;
+    css?: Sprinkles;
+  };
 
 const {
   as: Component = "div",
   class: _className,
   className,
-  style,
+  style: propStyle,
+  css,
   ...props
 } = Astro.props;
 
-const sprinkles = rainbowSprinkles(props);
+const sprinkles = rainbowSprinkles(css ?? props);
 
-// export type BoxComponent<T extends HTMLTag> = (_props: Props<T>) => any;
+const p: HTMLAttributes<"div"> & Record<string, any> = {};
 
-// type MagicComponent = {
-//   [Tag in HTMLTag]: BoxComponent<Tag>;
-// };
+const classes = [_className, className, sprinkles.className].filter(Boolean);
+p["class:list"] = classes;
+p.className = classes.length === 0 ? undefined : classes.join(" ");
 
-// function factory<T extends HTMLTag>() {
-//   const cache = new Map<HTMLTag, any>();
-
-//   return new Proxy(Box, {
-//     /**
-//      * @example
-//      * <chakra.div />
-//      */
-//     get(_, element: T) {
-//       if (!cache.has(element)) {
-//         function newElement(props) {
-//           return Box({ ...props, as: element });
-//         }
-//         cache.set(element, newElement);
-//       }
-//       return cache.get(element);
-//     },
-//   }) as BoxComponent<T>;
-// }
-
-// console.log(factory);
-
-// export const magic = factory() as MagicComponent;
+const style = { ...sprinkles.style, ...propStyle };
+p.style = Object.keys(style).length === 0 ? undefined : style;
 ---
 
-<Component
-  class:list={[_className, className, sprinkles.className]}
-  className={[_className, className, sprinkles.className]
-    .filter(Boolean)
-    .join(" ")}
-  style={{ ...sprinkles.style, ...style }}
-  {...sprinkles.otherProps}
->
-  <slot />
-</Component>
+<Component {...p} {...sprinkles.otherProps}><slot /></Component>
 
 <script></script>

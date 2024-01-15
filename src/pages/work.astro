@@ -1,0 +1,16 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { mdWrapper } from "./blog/blogpost.css";
+import Content from "./work-md.md";
+import box from "../components/ds";
+import "./work.css.ts";
+---
+
+<Layout>
+  <box.div
+    class:list={[mdWrapper]}
+    css={{ maxWidth: "42em", margin: "0 auto" }}
+  >
+    <Content />
+  </box.div>
+</Layout>
