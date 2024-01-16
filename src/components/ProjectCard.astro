@@ -1,49 +1,23 @@
 ---
 import Icon from "./Icon.astro";
-import { vars } from "../vars.css";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
-import box from "./ds";
+import { box } from "../box";
+import Card from "./Card.astro";
 
 const { title, href, desc, repo } = Astro.props;
 ---
 
-<box.a
+<Card
+  title={title}
   href={href}
+  desc={desc}
   data-project-card-repo={repo}
-  style={{ mixBlendMode: "luminosity" }}
-  css={{
-    borderRadius: "$lg",
-    border: `2px solid ${vars.colors.gray8}`,
-    bg: "$gray4",
-    height: { _: "250px", md: "275px" },
-    p: "$4",
-    transition: ".2s border-color ease, .2s transform ease",
-    transform: { hover: "rotate(-4deg) scale(1.05)" },
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "space-between",
-    flex: "1 1 100%",
-  }}
+  {...box({ height: { _: "250px", md: "275px" } })}
 >
-  <span>
-    <box.span
-      css={{
-        display: "block",
-        typeScale: "$xl",
-        fontWeight: "$bold",
-        mb: "$4",
-      }}
-    >
-      {title}
-    </box.span>
-    <box.span css={{ typeScale: "$md", display: "block", fontStyle: "italic" }}>
-      {desc}
-    </box.span>
-  </span>
-  <box.span
-    css={{ display: "flex", alignItems: "center", gap: "$2", mt: "$4" }}
+  <span
+    {...box({ display: "flex", alignItems: "center", gap: "$2", mt: "auto" })}
   >
     <Icon icon={faStar} size="1em" />
     <span class="project-card-stars">0</span>
-  </box.span>
-</box.a>
+  </span>
+</Card>

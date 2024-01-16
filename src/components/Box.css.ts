@@ -96,6 +96,7 @@ const interactiveProperties = defineProperties({
   },
   staticProperties: {
     textDecoration: ["none", "underline"],
+    mixBlendMode: ['luminosity', 'normal']
   },
   shorthands: {
     bg: ["backgroundColor"],

@@ -17,12 +17,11 @@ nestedGlobalStyle(`.${mdWrapper}`, {
     overflowWrap: "break-word",
   },
   p: {
-
     marginBottom: "2em",
   },
   "p, li": {
-    ...typeSize('lg'),
-    fontSize: 'clamp(1rem, 0.96rem + 0.22vw, 1.125rem)'
+    ...typeSize("lg"),
+    fontSize: "clamp(1rem, 0.96rem + 0.22vw, 1.125rem)",
   },
   h1: {
     ...typeSize("2xl"),
@@ -100,11 +99,11 @@ nestedGlobalStyle(`.${mdWrapper}`, {
   //   fontWeight: "bold",
   // },
   li: {
-  marginBottom: 0,
-    marginTop: '1rem',
-  ':first-child': {
-  marginTop: 0
-  }
+    marginBottom: 0,
+    marginTop: "1rem",
+    ":first-child": {
+      marginTop: 0,
+    },
   },
   hr: {
     margin: "3em 0",
@@ -132,6 +131,9 @@ nestedGlobalStyle(`.${mdWrapper}`, {
     display: "block",
     overflowX: "auto",
     maxWidth: "fit-content",
+  },
+  iframe: {
+    minWidth: "100%",
   },
   figure: {
     textAlign: "center",
@@ -166,8 +168,8 @@ nestedGlobalStyle(`.${mdWrapper}`, {
     textDecorationThickness: "0.3ex",
     textUnderlineOffset: "0.3ex",
     "&:hover": {
-    textDecorationThickness: "0.35ex",
-    textDecorationColor: vars.colors.accent7,
+      textDecorationThickness: "0.35ex",
+      textDecorationColor: vars.colors.accent7,
     },
   },
   sup: {

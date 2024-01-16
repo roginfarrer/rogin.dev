@@ -17,6 +17,7 @@ import {
   faThreads,
   faMastodon,
   faLinkedin,
+  faXTwitter,
 } from "@fortawesome/free-brands-svg-icons";
 import disc from "components/disc";
 import * as styles from "./index.css";
@@ -77,7 +78,12 @@ if (import.meta.env.MODE === "production") {
     </Box>
   </div>
   <Box as="section" mb="$8">
-    <Box as="h2" typeScale={{ _: "$3xl", sm: "$4xl" }} fontWeight="$bolder" mb="$6">
+    <Box
+      as="h2"
+      typeScale={{ _: "$3xl", sm: "$4xl" }}
+      fontWeight="$bolder"
+      mb="$6"
+    >
       Featured Projects
     </Box>
     <Box display="flex" gap="$4" flexDirection={{ _: "column", sm: "row" }}>
@@ -149,6 +155,9 @@ if (import.meta.env.MODE === "production") {
     </Box>
     <Box as="a" href="https://hachyderm.io/@rogin" class={styles.socialIcon}>
       <Icon icon={faMastodon} size="2em" title="Mastodon" />
+    </Box>
+    <Box as="a" href="https://x.com/roginfarrer" class={styles.socialIcon}>
+      <Icon icon={faXTwitter} size="2em" title="Mastodon" />
     </Box>
   </Box>
 </Layout>

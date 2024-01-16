@@ -2,10 +2,8 @@ import type { HTMLTag, HTMLAttributes, Polymorphic } from "astro/types";
 import Box from "./Box.astro";
 import type { Sprinkles } from "./Box.css";
 
-type Merge<A, B> = Omit<A, keyof B> & B;
-
 type BaseComp<T extends HTMLTag> = (
-  _props: HTMLAttributes<T> & {css?: Sprinkles},
+  _props: HTMLAttributes<T> & { css?: Sprinkles },
 ) => any;
 
 type DSElements = {
