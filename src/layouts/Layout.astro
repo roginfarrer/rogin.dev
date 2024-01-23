@@ -120,7 +120,14 @@ const isHome = Astro.url.pathname === "/";
       }
 
       function updateAccentColor(newColor, doc = document) {
-        doc.documentElement.classList.remove("red", "blue", "green", "purple");
+        doc.documentElement.classList.remove(
+          "violet",
+          "red",
+          "blue",
+          "green",
+          "purple",
+          "orange",
+        );
         if (newColor) {
           localStorage.setItem("theme-accent-color", newColor);
           doc.documentElement.classList.add(newColor);
@@ -197,10 +204,12 @@ const isHome = Astro.url.pathname === "/";
           }
         </Select>
         <Select label="Accent Color" id="accent-color-switcher">
+          <option value="violet">Violet</option>
           <option value="blue">Blue</option>
           <option value="green">Green</option>
-          <option value="purple">purple</option>
+          <option value="purple">Purple</option>
           <option value="red">Red</option>
+          <option value="orange">Orange</option>
         </Select>
         <Select label="Theme" id="theme-select-switcher">
           <option value="system">System</option>

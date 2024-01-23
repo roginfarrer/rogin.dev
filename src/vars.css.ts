@@ -6,6 +6,8 @@ import {
   blue,
   red,
   green,
+  gray,
+  grayDark,
   mauve,
   mauveDark,
   blueDark,
@@ -14,6 +16,12 @@ import {
   orangeDark,
   yellowDark,
   purpleDark,
+  tomato,
+  tomatoDark,
+  grass,
+  grassDark,
+  violet,
+  violetDark,
 } from "@radix-ui/colors";
 import { mapKeys } from "./utils";
 
@@ -83,71 +91,94 @@ const baseTheme = {
   },
 };
 
+function renameKeys<
+  T extends Record<string, string>,
+  Old extends string,
+  New extends string,
+>(obj: T, old: Old, knew: New) {
+  return mapKeys(
+    obj,
+    (_, k) =>
+      (k as string).replace(
+        old,
+        knew,
+      ) as typeof k extends `${Old}${infer Digit extends number}`
+        ? `${New}${Digit}`
+        : never,
+  );
+}
+
 export const vars = createGlobalTheme(":root", {
   ...baseTheme,
   colors: {
-    // ...gray,
-    gray1: mauve.mauve1,
-    gray2: mauve.mauve2,
-    gray3: mauve.mauve3,
-    gray4: mauve.mauve4,
-    gray5: mauve.mauve5,
-    gray6: mauve.mauve6,
-    gray7: mauve.mauve7,
-    gray8: mauve.mauve8,
-    gray9: mauve.mauve9,
-    gray10: mauve.mauve10,
-    gray11: mauve.mauve11,
-    gray12: mauve.mauve12,
+    ...gray,
+    // gray1: mauve.mauve1,
+    // gray2: mauve.mauve2,
+    // gray3: mauve.mauve3,
+    // gray4: mauve.mauve4,
+    // gray5: mauve.mauve5,
+    // gray6: mauve.mauve6,
+    // gray7: mauve.mauve7,
+    // gray8: mauve.mauve8,
+    // gray9: mauve.mauve9,
+    // gray10: mauve.mauve10,
+    // gray11: mauve.mauve11,
+    // gray12: mauve.mauve12,
     ...orange,
     ...yellow,
     ...blue,
-    ...red,
-    ...green,
-    ...purple,
+    // ...red,
     ...mapKeys(
-      blue,
+      tomato,
       (_, key) =>
         key.replace(
-          "blue",
-          "accent",
-        ) as typeof key extends `blue${infer Digit extends number}`
-          ? `accent${Digit}`
+          "tomato",
+          "red",
+        ) as typeof key extends `tomato${infer Digit extends number}`
+          ? `red${Digit}`
           : never,
     ),
+    // ...green,
+    ...renameKeys(grass, "grass", "green"),
+    ...purple,
+    ...renameKeys(violet, "violet", "accent"),
+    ...violet,
   },
 });
 
 createGlobalTheme(`.${darkTheme}`, vars.colors, {
-  // ...grayDark,
-  gray1: mauveDark.mauve1,
-  gray2: mauveDark.mauve2,
-  gray3: mauveDark.mauve3,
-  gray4: mauveDark.mauve4,
-  gray5: mauveDark.mauve5,
-  gray6: mauveDark.mauve6,
-  gray7: mauveDark.mauve7,
-  gray8: mauveDark.mauve8,
-  gray9: mauveDark.mauve9,
-  gray10: mauveDark.mauve10,
-  gray11: mauveDark.mauve11,
-  gray12: mauveDark.mauve12,
+  ...grayDark,
+  // gray1: mauveDark.mauve1,
+  // gray2: mauveDark.mauve2,
+  // gray3: mauveDark.mauve3,
+  // gray4: mauveDark.mauve4,
+  // gray5: mauveDark.mauve5,
+  // gray6: mauveDark.mauve6,
+  // gray7: mauveDark.mauve7,
+  // gray8: mauveDark.mauve8,
+  // gray9: mauveDark.mauve9,
+  // gray10: mauveDark.mauve10,
+  // gray11: mauveDark.mauve11,
+  // gray12: mauveDark.mauve12,
   ...blueDark,
-  ...redDark,
-  ...greenDark,
+  // ...redDark,
+  ...mapKeys(
+    tomatoDark,
+    (_, key) =>
+      key.replace(
+        "tomato",
+        "red",
+      ) as typeof key extends `tomato${infer Digit extends number}`
+        ? `red${Digit}`
+        : never,
+  ),
+  // ...greenDark,
+  ...renameKeys(grassDark, "grass", "green"),
   ...orangeDark,
   ...yellowDark,
   ...purpleDark,
-  ...mapKeys(
-    blueDark,
-    (_, key) =>
-      key.replace(
-        "blue",
-        "accent",
-      ) as typeof key extends `blue${infer Digit extends number}`
-        ? `accent${Digit}`
-        : never,
-  ),
+  ...renameKeys(violetDark, "violet", "accent"),
+  ...violetDark,
 });
 
 globalStyle(".green", {
@@ -183,6 +214,32 @@ globalStyle(".purple", {
     while (i <= 12) {
       // @ts-expect-error
       changes[vars.colors[`accent${i}`]] = vars.colors[`purple${i}`];
+      i++;
+    }
+    return changes;
+  })(),
+});
+
+globalStyle(".violet", {
+  vars: (() => {
+    const changes: any = {};
+    let i = 1;
+    while (i <= 12) {
+      // @ts-expect-error
+      changes[vars.colors[`accent${i}`]] = vars.colors[`violet${i}`];
+      i++;
+    }
+    return changes;
+  })(),
+});
+
+globalStyle(".orange", {
+  vars: (() => {
+    const changes: any = {};
+    let i = 1;
+    while (i <= 12) {
+      // @ts-expect-error
+      changes[vars.colors[`accent${i}`]] = vars.colors[`orange${i}`];
       i++;
     }
     return changes;

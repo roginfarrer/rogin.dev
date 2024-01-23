@@ -1,19 +1,57 @@
 ---
 import Icon from "./Icon.astro";
+import Badge from "./Badge.astro";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { box } from "../box";
 import Card from "./Card.astro";
+import { ArrowUpRight } from "lucide-solid";
 
-const { title, href, desc, repo } = Astro.props;
+const { title, href, desc, repo, emoji, tags = [] } = Astro.props;
+
+type Props = {
+  title: string;
+  href: string;
+  desc: string;
+  repo: string;
+  emoji: string;
+  tags: string[];
+};
 ---
 
 <Card
-  title={title}
   href={href}
   desc={desc}
   data-project-card-repo={repo}
-  {...box({ height: { _: "250px", md: "275px" } })}
+  {...box({ minHeight: { _: "250px", md: "275px" } })}
 >
+  <span
+    slot="title"
+    {...box({ display: "flex", justifyContent: "space-between" })}
+  >
+    <span>
+      <span
+        {...box(
+          {
+            mixBlendMode: "normal",
+            typeScale: "$2xl",
+            display: "block",
+          },
+          { style: { isolation: "isolate" } },
+        )}>{emoji}</span
+      >
+      {title}
+    </span>
+    <ArrowUpRight strokeWidth="1" />
+  </span>
+  {
+    tags.length > 0 && (
+      <span {...box({ display: "flex", gap: "$2" })}>
+        {tags.map((tag) => (
+          <Badge>{tag}</Badge>
+        ))}
+      </span>
+    )
+  }
   <span
     {...box({ display: "flex", alignItems: "center", gap: "$2", mt: "auto" })}
   >

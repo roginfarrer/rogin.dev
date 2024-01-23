@@ -3,6 +3,7 @@ import Box from "./Box.astro";
 import type { IconDefinition } from "@fortawesome/free-solid-svg-icons";
 import * as styles from "./StickyMobileHeader.css";
 import ThemeToggle from "./ThemeToggle.astro";
+import Icon from "./Icon.astro";
 
 interface Props {
   links: { title: string; url: string; icon: IconDefinition }[];
@@ -12,14 +13,14 @@ const { links } = Astro.props;
 const { pathname } = Astro.url;
 ---
 
-<nav class={styles.bar}>
+<nav id="sticky-nav" class={styles.newBar}>
   {
     links.map((link) => {
       const isActive =
         link.url === pathname || link.url === pathname.replace(/\/$/, "");
       return (
-        <a href={link.url} class={styles.item} data-active={isActive}>
-          {link.title}
+        <a href={link.url} class={styles.newItem} data-active={isActive}>
+          <Icon icon={link.icon} />
         </a>
       );
     })
@@ -28,3 +29,55 @@ const { pathname } = Astro.url;
 <Box position="fixed" top="$4" right="$5" display={{ sm: "none" }} zIndex="10">
   <ThemeToggle />
 </Box>
+
+<script>
+  function setup() {
+    const bar = document.querySelector("#sticky-nav") as
+      | HTMLElement
+      | undefined;
+
+    if (!bar) {
+      return;
+    }
+
+    let lastScrollTop = document.documentElement.scrollTop;
+    let scrollDistance = 0;
+    let lastScrollDirection: "down" | "up";
+
+    const onScroll = () => {
+      let st = document.documentElement.scrollTop; // Credits: "https://github.com/qeremy/so/blob/master/so.dom.js#L426"
+      if (st > lastScrollTop) {
+        // downscroll code
+        if (lastScrollDirection === "up") {
+          scrollDistance = st - lastScrollTop;
+        } else {
+          scrollDistance += st - lastScrollTop;
+        }
+        lastScrollDirection = "down";
+
+        if (scrollDistance > 50) {
+          bar.style.setProperty("opacity", "0.5");
+        }
+      } else if (st < lastScrollTop) {
+        // upscroll code
+        if (lastScrollDirection === "down") {
+          scrollDistance = lastScrollTop - st;
+        } else {
+          scrollDistance += lastScrollTop - st;
+        }
+
+        lastScrollDirection = "up";
+
+        if (scrollDistance > 50) {
+          bar.style.removeProperty("opacity");
+        }
+      } // else was horizontal scroll
+      lastScrollTop = st <= 0 ? 0 : st; // For Mobile or negative scrolling
+    };
+
+    window.addEventListener("scroll", onScroll, false);
+  }
+
+  document.addEventListener("astro:after-swap", setup);
+  document.addEventListener("astro:page-load", setup, { once: true });
+</script>

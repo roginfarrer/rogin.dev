@@ -1,18 +1,18 @@
 # Work
 
-I'm an experienced software engineering leader with a focus on web development, design systems, and developer productivity tooling, such as linting rules, CLIs and CI/CD. I'm currently the engineering lead for [Wayfair's](https://wayfair.com) design system, Homebase. I also maintain a bunch of open-source projects. Before now, I worked as a scenic carpenter and theatrical technician, and graduated from Vassar College. Read on for more on my 
+I'm an experienced software engineering leader with a focus on web development, design systems, and developer productivity tooling. I enjoy working in open-source, and I currently maintain a few projects. Before now, I worked as a scenic carpenter and theatrical technician, and graduated from Vassar College. Read on for more on my
 
 ---
 
 ## Wayfair
 
-<p class="subtitle">Staff Software Engineer</p>
+<p class="subtitle">Staff Software Engineer, 2016-2024</p>
 
-I joined Wayfair to help grow the UI toolkit for internal and supplier facing applications into a component library built on a proprietary frontend framework. 
+I joined [Wayfair](https://wayfair.com) to help grow the UI toolkit for internal and supplier facing applications into a component library built on a proprietary frontend framework.
 
 - In 2017, I was promoted to Web Developer II. My team and I rewrote the design system into [React](https://react.dev) to support the technology organization's adoption of React. I started and emceed a monthly company meetup for all things frontend development. I helped grow the enterprise product design team through interviewing and bridging the gap between designers and developers.
 - In 2019, I was promoted to Senior Software Engineer, now leading the Enterprise Homebase engineering team. I built a lot of new components to serve product teams' needs, facilitated office hours to provide hands-on support, and delivered monthly trainings to teach developers how to use the design system. I designed and organized the execution of a project to consolidate the "admin" and "supplier" component libraries into a single, theme-able library, effectively halving the team's management effort.
-- In 2021, I was promoted to Staff Software Engineer, now leading the entire Homebase engineering team and the effort to consolidate the e-commerce and enterprise design systems into a single system. [I appeared on the Design Systems podcast][podcast] to discuss the evolution of design systems at Wayfair. I facilitated discussions, created RFCs, and drafted the decision records for Wayfair's officially supported CSS frameworks. I orchestrated the component library's backwards-compatible refactor to [TypeScript](https://typescriptlang.org) and [Vanilla Extract](https://vanilla-extract.style). I created the  open-source library [Rainbow Sprinkles](https://github.com/wayfair/rainbow-sprinkles) to implement dynamic, theme-driven style props with zero-runtime CSS generation.
+- In 2021, I was promoted to Staff Software Engineer, now leading the entire Homebase engineering team and the effort to consolidate the e-commerce and enterprise design systems into a single system. [I appeared on the Design Systems podcast][podcast] to discuss the evolution of design systems at Wayfair. I facilitated discussions, created RFCs, and drafted the decision records for Wayfair's officially supported CSS frameworks. I orchestrated the component library's backwards-compatible refactor to [TypeScript](https://typescriptlang.org) and [Vanilla Extract](https://vanilla-extract.style). I created the open-source library [Rainbow Sprinkles](https://github.com/wayfair/rainbow-sprinkles) to implement dynamic, theme-driven style props with zero-runtime CSS generation.
 
 ---
 

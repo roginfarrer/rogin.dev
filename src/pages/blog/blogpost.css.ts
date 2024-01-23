@@ -19,6 +19,9 @@ nestedGlobalStyle(`.${mdWrapper}`, {
   p: {
     marginBottom: "2em",
   },
+  "h1, h2, h3, h4": {
+    marginBottom: "1.5em",
+  },
   "p, li": {
     ...typeSize("lg"),
     fontSize: "clamp(1rem, 0.96rem + 0.22vw, 1.125rem)",

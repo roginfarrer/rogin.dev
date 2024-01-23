@@ -88,6 +88,10 @@ globalStyle("h1, h2, h3, h4, h5, h6", {
   textWrap: "balance",
 });
 
+globalStyle("h1", {
+  mixBlendMode: "luminosity",
+});
+
 globalStyle(`body`, {
   backgroundColor: "white",
 });
@@ -101,6 +105,10 @@ globalStyle(`.${darkTheme} img`, {
   filter: "brightness(0.85)",
 });
 
+globalStyle("a:visited", {
+  color: "initial",
+});
+
 const tabbableElements = [
   "button",
   "a",
@@ -109,6 +117,15 @@ const tabbableElements = [
   '[tabindex="0"]',
   "select",
 ];
+
+globalStyle(tabbableElements.join(", "), {
+  outlineOffset: 3,
+  transition: "outline-offset ease 0.5s",
+});
+
+globalStyle(tabbableElements.map((e) => `${e}:focus`).join(", "), {
+  outline: 0,
+});
 
 globalStyle(tabbableElements.map((e) => `${e}:focus-visible`).join(", "), {
   outline: `2px solid ${vars.colors.accent9}`,

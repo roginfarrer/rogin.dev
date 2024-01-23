@@ -29,6 +29,7 @@ const responsiveProperties = defineProperties({
     minWidth: true,
     maxWidth: true,
     height: true,
+    minHeight: true,
     gap: vars.space,
     justifyContent: true,
     alignItems: true,
@@ -96,7 +97,7 @@ const interactiveProperties = defineProperties({
   },
   staticProperties: {
     textDecoration: ["none", "underline"],
-    mixBlendMode: ['luminosity', 'normal']
+    mixBlendMode: ["luminosity", "normal"],
   },
   shorthands: {
     bg: ["backgroundColor"],

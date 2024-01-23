@@ -9,7 +9,7 @@ export const bar = style({
   position: "fixed",
   left: "50%",
   translate: "-50% 0",
-  bottom: vars.space[2],
+  bottom: vars.space[4],
   display: "flex",
   zIndex: 10,
   boxShadow: `0 5px 10px ${vars.colors.gray11}`,
@@ -33,7 +33,7 @@ export const item = style({
   display: "flex",
   gap: vars.space[2],
   borderLeft: `1px solid ${vars.colors.gray8}`,
-  fontSize: "0.75rem",
+  fontSize: "0.85rem",
   ":first-of-type": {
     borderLeft: 0,
   },
@@ -42,4 +42,35 @@ export const item = style({
       backgroundColor: vars.colors.gray8,
     },
   },
+});
+
+export const newBar = style({
+  "--bd-filter": "blur(7px)",
+  borderTop: `1px solid ${vars.colors.gray4}`,
+  // background: "rgba(255,255,255,0.8)",
+  backgroundColor: "rgb(255 255 255 / 70%)",
+  WebkitBackdropFilter: "var(--bd-filter)",
+  backdropFilter: "var(--bd-filter)",
+  position: "fixed",
+  width: "100dvw",
+  overflow: "hidden",
+  bottom: "env(safe-area-inset-bottom)",
+  display: "flex",
+  zIndex: 10,
+  transition: "opacity ease-out 0.3s",
+  "@media": {
+    [mediaQueries.sm]: {
+      display: "none",
+    },
+  },
+});
+
+export const newItem = style({
+  height: "max(36px, 5dvh)",
+  flex: "1 1 100%",
+  justifyContent: "center",
+  alignItems: "center",
+  textAlign: "center",
+  display: "flex",
+  gap: vars.space[2],
 });

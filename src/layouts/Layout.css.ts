@@ -46,4 +46,5 @@ export const skipToContent = style({
   ":focus": {
     opacity: 1,
   },
+  zIndex: 10,
 });
