@@ -105,9 +105,9 @@ globalStyle(`.${darkTheme} img`, {
   filter: "brightness(0.85)",
 });
 
-globalStyle("a:visited", {
-  color: "initial",
-});
+// globalStyle("a:visited", {
+//   color: "initial",
+// });
 
 const tabbableElements = [
   "button",

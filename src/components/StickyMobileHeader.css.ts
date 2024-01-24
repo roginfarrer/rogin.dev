@@ -58,6 +58,11 @@ export const newBar = style({
   display: "flex",
   zIndex: 10,
   transition: "opacity ease-out 0.3s",
+  selectors: {
+    ".dark &": {
+      backgroundColor: "rgb(0 0 0 / 10%)",
+    },
+  },
   "@media": {
     [mediaQueries.sm]: {
       display: "none",
@@ -66,7 +71,7 @@ export const newBar = style({
 });
 
 export const newItem = style({
-  height: "max(36px, 5dvh)",
+  height: "56px",
   flex: "1 1 100%",
   justifyContent: "center",
   alignItems: "center",

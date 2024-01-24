@@ -3,11 +3,28 @@ import Box from "./Box.astro";
 import type { IconDefinition } from "@fortawesome/free-solid-svg-icons";
 import * as styles from "./StickyMobileHeader.css";
 import ThemeToggle from "./ThemeToggle.astro";
-import Icon from "./Icon.astro";
+import {
+  HouseFilledIcon,
+  HouseOutlineIcon,
+  BriefcaseFilledIcon,
+  BriefcaseOutlineIcon,
+  GearOutlineIcon,
+  GearFilledIcon,
+  RSSOutlineIcon,
+  RSSFilledIcon,
+} from "./icons";
+// import Icon from "./Icon.astro";
 
 interface Props {
   links: { title: string; url: string; icon: IconDefinition }[];
 }
+
+const icons = {
+  Home: [HouseOutlineIcon, HouseFilledIcon],
+  Work: [BriefcaseOutlineIcon, BriefcaseFilledIcon],
+  Settings: [GearOutlineIcon, GearFilledIcon],
+  Blog: [RSSOutlineIcon, RSSFilledIcon],
+};
 
 const { links } = Astro.props;
 const { pathname } = Astro.url;
@@ -18,13 +35,32 @@ const { pathname } = Astro.url;
     links.map((link) => {
       const isActive =
         link.url === pathname || link.url === pathname.replace(/\/$/, "");
+      const Icon = icons[link.title]?.[isActive ? 1 : 0];
       return (
         <a href={link.url} class={styles.newItem} data-active={isActive}>
-          <Icon icon={link.icon} />
+          {link.title === "/uses" ? (
+            <span
+              style={
+                isActive
+                  ? {
+                      textDecoration: "underline",
+                      textDecorationThickness: "0.3ex",
+                      textUnderlineOffset: "0.3ex",
+                      textDecorationSkipInk: "all",
+                    }
+                  : {}
+              }
+            >
+              /uses
+            </span>
+          ) : (
+            <Icon size="1.25rem" />
+          )}
         </a>
       );
     })
   }
+  <button class={styles.newItem}><GearFilledIcon size="1.25rem" /></button>
 </nav>
 <Box position="fixed" top="$4" right="$5" display={{ sm: "none" }} zIndex="10">
   <ThemeToggle />
