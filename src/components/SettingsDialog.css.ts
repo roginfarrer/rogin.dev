@@ -8,6 +8,7 @@ export const dialog = style({
   border: 0,
   "::backdrop": {
     backdropFilter: "blur(2px)",
+    WebkitBackdropFilter: "blur(2px)",
     backgroundColor: "rgb(0 0 0 / 10%)",
   },
   selectors: {
