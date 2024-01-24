@@ -4,7 +4,7 @@ import Badge from "./Badge.astro";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { box } from "../box";
 import Card from "./Card.astro";
-import { ArrowUpRight } from "lucide-solid";
+import { ArrowUpRight } from "lucide-react";
 
 const { title, href, desc, repo, emoji, tags = [] } = Astro.props;
 
@@ -14,7 +14,7 @@ type Props = {
   desc: string;
   repo: string;
   emoji: string;
-  tags: string[];
+  tags?: string[];
 };
 ---
 

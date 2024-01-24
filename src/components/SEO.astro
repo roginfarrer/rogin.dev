@@ -25,7 +25,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     },
     basic: {
       url: canonicalURL,
-      title: props.title,
+      title: props.title!,
       type: canonicalURL.toString().includes("blog") ? "artical" : "website",
     },
   }}

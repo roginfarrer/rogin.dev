@@ -1,10 +1,4 @@
-import {
-  type Component,
-  type JSX,
-  type ComponentProps,
-  splitProps,
-} from "solid-js";
-import { Dynamic } from "solid-js/web";
+import { type Component, type JSX, type ComponentProps } from "solid-js";
 
 import { rainbowSprinkles, type Sprinkles } from "./Box.css";
 

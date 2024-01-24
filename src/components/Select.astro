@@ -5,11 +5,12 @@ import Icon from "./Icon.astro";
 import type { Sprinkles } from "./Box.css";
 import { vars } from "src/vars.css";
 
-const { label, id, ...props } = Astro.props;
+const { label, id, "data-id": dataId, ...props } = Astro.props;
 
 interface Props extends Sprinkles {
   label: string;
-  id: string;
+  id?: string;
+  "data-id"?: string;
 }
 ---
 
@@ -27,6 +28,7 @@ interface Props extends Sprinkles {
     <Box position="relative" display="inline-block">
       <Box
         as="select"
+        data-id={dataId}
         textAlign="left"
         id={id}
         border={`2px solid ${vars.colors.gray6}`}

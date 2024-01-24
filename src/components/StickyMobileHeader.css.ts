@@ -1,4 +1,4 @@
-import { style } from "@vanilla-extract/css";
+import { createVar, style } from "@vanilla-extract/css";
 import { mediaQueries, vars } from "src/vars.css";
 
 export const bar = style({
@@ -44,13 +44,16 @@ export const item = style({
   },
 });
 
+const filter = createVar();
 export const newBar = style({
-  "--bd-filter": "blur(7px)",
+  vars: {
+    [filter]: "blur(7px)",
+  },
   borderTop: `1px solid ${vars.colors.gray4}`,
   // background: "rgba(255,255,255,0.8)",
   backgroundColor: "rgb(255 255 255 / 70%)",
-  WebkitBackdropFilter: "var(--bd-filter)",
-  backdropFilter: "var(--bd-filter)",
+  WebkitBackdropFilter: filter,
+  backdropFilter: filter,
   position: "fixed",
   width: "100dvw",
   overflow: "hidden",

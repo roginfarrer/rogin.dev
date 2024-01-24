@@ -1,8 +1,6 @@
 ---
-import Box from "./Box.astro";
 import type { IconDefinition } from "@fortawesome/free-solid-svg-icons";
 import * as styles from "./StickyMobileHeader.css";
-import ThemeToggle from "./ThemeToggle.astro";
 import {
   HouseFilledIcon,
   HouseOutlineIcon,
@@ -13,7 +11,7 @@ import {
   RSSOutlineIcon,
   RSSFilledIcon,
 } from "./icons";
-// import Icon from "./Icon.astro";
+import SettingsDialog from "./SettingsDialog.astro";
 
 interface Props {
   links: { title: string; url: string; icon: IconDefinition }[];
@@ -35,7 +33,7 @@ const { pathname } = Astro.url;
     links.map((link) => {
       const isActive =
         link.url === pathname || link.url === pathname.replace(/\/$/, "");
-      const Icon = icons[link.title]?.[isActive ? 1 : 0];
+      const Icon = icons[link.title as keyof typeof icons]?.[isActive ? 1 : 0];
       return (
         <a href={link.url} class={styles.newItem} data-active={isActive}>
           {link.title === "/uses" ? (
@@ -60,11 +58,14 @@ const { pathname } = Astro.url;
       );
     })
   }
-  <button class={styles.newItem}><GearFilledIcon size="1.25rem" /></button>
+  <button id="settings-dialog-trigger" class={styles.newItem}
+    ><GearFilledIcon size="1.25rem" /></button
+  >
 </nav>
-<Box position="fixed" top="$4" right="$5" display={{ sm: "none" }} zIndex="10">
-  <ThemeToggle />
-</Box>
+<!-- <Box position="fixed" top="$4" right="$5" display={{ sm: "none" }} zIndex="10"> -->
+<!--   <ThemeToggle /> -->
+<!-- </Box> -->
+<SettingsDialog />
 
 <script>
   function setup() {
@@ -112,8 +113,20 @@ const { pathname } = Astro.url;
     };
 
     window.addEventListener("scroll", onScroll, false);
+    const settingsTrigger = document.querySelector("#settings-dialog-trigger");
+    settingsTrigger?.addEventListener("click", () => {
+      (
+        document.querySelector("#settings-dialog") as HTMLDialogElement
+      ).showModal();
+    });
+    bar.addEventListener("click", () => {
+      bar.style.removeProperty("opacity");
+    });
+    bar.addEventListener("touchstart", () => {
+      bar.style.removeProperty("opacity");
+    });
   }
 
   document.addEventListener("astro:after-swap", setup);
-  document.addEventListener("astro:page-load", setup, { once: true });
+  setup();
 </script>

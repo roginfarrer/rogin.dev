@@ -4,15 +4,9 @@ import {
   yellow,
   orange,
   blue,
-  red,
-  green,
   gray,
   grayDark,
-  mauve,
-  mauveDark,
   blueDark,
-  redDark,
-  greenDark,
   orangeDark,
   yellowDark,
   purpleDark,
@@ -240,6 +234,19 @@ globalStyle(".orange", {
     while (i <= 12) {
       // @ts-expect-error
       changes[vars.colors[`accent${i}`]] = vars.colors[`orange${i}`];
+      i++;
+    }
+    return changes;
+  })(),
+});
+
+globalStyle(".blue", {
+  vars: (() => {
+    const changes: any = {};
+    let i = 1;
+    while (i <= 12) {
+      // @ts-expect-error
+      changes[vars.colors[`accent${i}`]] = vars.colors[`blue${i}`];
       i++;
     }
     return changes;

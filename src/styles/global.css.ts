@@ -19,7 +19,7 @@ globalStyle("*, *::before, *::after", {
 });
 
 /* Reapply the pointer cursor for anchor tags */
-globalStyle("a, button", {
+globalStyle("a", {
   cursor: "pointer",
 });
 

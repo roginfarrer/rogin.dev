@@ -6,176 +6,37 @@ import BaseHead from "../components/BaseHead.astro";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 import "../styles/global.css";
 import "../styles/panda.css";
-import Select from "../components/Select.astro";
-import { supportedFontClasses, supportedFonts } from "../vars.css";
+import { supportedFontClasses } from "../vars.css";
 import * as styles from "./Layout.css";
+import SettingsForm from "components/SettingsForm.astro";
 
 const isHome = Astro.url.pathname === "/";
 ---
 
 <script>
-  document.addEventListener("astro:page-load", () => {
-    const fontSwitcher = document.querySelector(
-      "#font-switcher",
-    ) as HTMLSelectElement;
-    const colorSwitcher = document.querySelector(
-      "#accent-color-switcher",
-    ) as HTMLSelectElement;
-    const themeSwitcher = document.querySelector(
-      "#theme-select-switcher",
-    ) as HTMLSelectElement;
+  import { actions } from "../store";
+  import { setupForm } from "../components/SettingsForm.astro";
 
-    colorSwitcher.value =
-      localStorage.getItem("theme-accent-color") ?? colorSwitcher.value;
-    fontSwitcher.value = localStorage.getItem("font") ?? fontSwitcher.value;
-    themeSwitcher.value = localStorage.getItem("theme") ?? themeSwitcher.value;
+  const onPageLoad = (doc = document) => {
+    setupForm(doc.querySelector("footer")!);
+    actions.updateTheme(undefined, doc);
+    actions.updateColor(undefined, doc);
+    actions.updateFont(undefined, doc);
+  };
 
-    themeSwitcher.addEventListener("change", (ev) => {
-      // @ts-expect-error
-      const newValue = ev.target.value;
-      // @ts-expect-error
-      window.updateTheme(newValue);
-    });
-    fontSwitcher.addEventListener("change", (ev) => {
-      // @ts-expect-error
-      const newValue = ev.target.value;
-      // @ts-expect-error
-      window.updateFont(newValue);
-    });
-    colorSwitcher.addEventListener("change", (ev) => {
-      // @ts-expect-error
-      const newColor = ev.target.value;
-      // @ts-expect-error
-      window.updateAccentColor(newColor);
-    });
+  onPageLoad();
+
+  document.addEventListener("astro:before-swap", (ev) => {
+    // @ts-expect-error
+    onPageLoad(ev.newDocument);
   });
 </script>
 
 <html lang="en" class:list={[darkTheme]} transition:persist="html">
   <head>
-    <script is:inline>
-      function setup(doc = document) {
-        const prefersDark = window.matchMedia(
-          "(prefers-color-scheme: dark)",
-        ).matches;
-        const storedTheme = localStorage.getItem("theme");
-
-        if (storedTheme && storedTheme !== "system") {
-          if (storedTheme === "light") {
-            doc.documentElement.classList.remove("dark");
-          } else if (storedTheme === "dark") {
-            doc.documentElement.classList.add("dark");
-          }
-        } else {
-          doc.documentElement.classList[prefersDark ? "add" : "remove"]("dark");
-          window.localStorage.setItem("theme", "system");
-        }
-      }
-
-      setup();
-
-      document.addEventListener("astro:before-swap", (ev) => {
-        setup(ev.newDocument);
-      });
-    </script>
-
-    <script is:inline>
-      const supportedFontClasses = [
-        "inter",
-        "karla",
-        "space",
-        "crimson",
-        "bitter",
-        "system",
-        // "MonaspaceNeon",
-        // "Helvetica",
-        // "Geist",
-        // "Georgia",
-        // "ZedMono",
-      ];
-      function updateFont(newValue, doc = document) {
-        doc.documentElement.classList.remove(...supportedFontClasses);
-        if (newValue) {
-          localStorage.setItem("font", newValue);
-          doc.documentElement.classList.add(newValue);
-        }
-      }
-
-      function updateTheme(value, doc = document) {
-        const element = doc.documentElement;
-        const prefersDark = window.matchMedia(
-          "(prefers-color-scheme: dark)",
-        ).matches;
-
-        if (value !== "system") {
-          if (value === "light") {
-            element.classList.remove("dark");
-          } else if (value === "dark") {
-            element.classList.add("dark");
-          }
-        } else {
-          element.classList[prefersDark ? "add" : "remove"]("dark");
-          window.localStorage.setItem("theme", "system");
-        }
-      }
-
-      function updateAccentColor(newColor, doc = document) {
-        doc.documentElement.classList.remove(
-          "violet",
-          "red",
-          "blue",
-          "green",
-          "purple",
-          "orange",
-        );
-        if (newColor) {
-          localStorage.setItem("theme-accent-color", newColor);
-          doc.documentElement.classList.add(newColor);
-        }
-      }
-
-      const storedFont = localStorage.getItem("font");
-      if (storedFont) {
-        updateFont(storedFont);
-      }
-
-      const storedColor = localStorage.getItem("theme-accent-color");
-      if (storedColor) {
-        updateAccentColor(storedColor);
-      }
-
-      document.addEventListener("astro:before-swap", (ev) => {
-        const storedFont = localStorage.getItem("font");
-        const storedColor = localStorage.getItem("theme-accent-color");
-        const theme = localStorage.getItem("theme");
-
-        if (storedFont) {
-          updateFont(storedFont, ev.newDocument);
-          const fontSwitcher = ev.newDocument.querySelector("#font-switcher");
-          fontSwitcher.value = storedFont;
-        }
-
-        if (storedColor) {
-          updateAccentColor(storedColor, ev.newDocument);
-          const colorSwitcher = ev.newDocument.querySelector(
-            "#accent-color-switcher",
-          );
-          colorSwitcher.value = storedColor;
-        }
-
-        const themeSwitcher = ev.newDocument.querySelector(
-          "#theme-select-switcher",
-        );
-        themeSwitcher.value = theme;
-      });
-
-      window.updateFont = updateFont;
-      window.updateAccentColor = updateAccentColor;
-      window.updateTheme = updateTheme;
-    </script>
-
     <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
   </head>
+
   <Box
     as="body"
     data-font-classes={supportedFontClasses.join(",")}
@@ -196,26 +57,7 @@ const isHome = Astro.url.pathname === "/";
     </Box>
     <Box as="footer" textAlign="center">
       <Box mb="$4" display="flex" gap="$4" justifyContent="center">
-        <Select label="Font" id="font-switcher">
-          {
-            Object.entries(supportedFonts).map(([className, name]) => (
-              <option value={className}>{name.replace(" Variable", "")}</option>
-            ))
-          }
-        </Select>
-        <Select label="Accent Color" id="accent-color-switcher">
-          <option value="violet">Violet</option>
-          <option value="blue">Blue</option>
-          <option value="green">Green</option>
-          <option value="purple">Purple</option>
-          <option value="red">Red</option>
-          <option value="orange">Orange</option>
-        </Select>
-        <Select label="Theme" id="theme-select-switcher">
-          <option value="system">System</option>
-          <option value="dark">Dark</option>
-          <option value="light">Light</option>
-        </Select>
+        <SettingsForm />
       </Box>
       <Box typeScale="$sm" color="$gray11">
         © {new Date().getFullYear()} Rogin Farrer. All rights reserved.

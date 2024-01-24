@@ -1,0 +1,70 @@
+---
+import Select from "./Select.astro";
+import { supportedFonts } from "../vars.css";
+import { colors, store, actions } from "../store";
+
+export function setupForm(container: HTMLElement) {
+  const fontSwitcher = container.querySelector(
+    '[data-id="font"]',
+  ) as HTMLSelectElement;
+  const colorSwitcher = container.querySelector(
+    '[data-id="color"]',
+  ) as HTMLSelectElement;
+  const themeSwitcher = container.querySelector(
+    '[data-id="theme"]',
+  ) as HTMLSelectElement;
+
+  store.subscribe((data) => {
+    colorSwitcher.value = data.color;
+    fontSwitcher.value = data.font;
+    themeSwitcher.value = data.theme;
+
+    document.querySelectorAll(".theme-toggle").forEach((toggle) => {
+      toggle.setAttribute(
+        "title",
+        `Switch to ${
+          document.documentElement.classList.contains("dark") ? "light" : "dark"
+        } theme`,
+      );
+    });
+  });
+
+  themeSwitcher.addEventListener("change", (ev) => {
+    // @ts-expect-error
+    const newValue = ev.target.value;
+    actions.updateTheme(newValue);
+  });
+  fontSwitcher.addEventListener("change", (ev) => {
+    // @ts-expect-error
+    const newValue = ev.target.value;
+    actions.updateFont(newValue);
+  });
+  colorSwitcher.addEventListener("change", (ev) => {
+    // @ts-expect-error
+    const newColor = ev.target.value;
+    actions.updateColor(newColor);
+  });
+}
+---
+
+<Select label="Font" data-id="font">
+  {
+    Object.entries(supportedFonts).map(([className, name]) => (
+      <option value={className}>{name.replace(" Variable", "")}</option>
+    ))
+  }
+</Select>
+<Select label="Accent Color" data-id="color">
+  {
+    colors.map((color) => (
+      <option value={color}>
+        {color.charAt(0).toUpperCase() + color.slice(1)}
+      </option>
+    ))
+  }
+</Select>
+<Select label="Theme" data-id="theme">
+  <option value="system">System</option>
+  <option value="dark">Dark</option>
+  <option value="light">Light</option>
+</Select>

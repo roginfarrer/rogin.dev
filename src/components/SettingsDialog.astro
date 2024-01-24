@@ -1,0 +1,50 @@
+---
+import Box from "./Box.astro";
+import Stack from "./Stack.astro";
+import SettingsForm from "./SettingsForm.astro";
+import { IoClose } from "react-icons/io5";
+import * as styles from "./SettingsDialog.css";
+---
+
+<script>
+  import { setupForm } from "./SettingsForm.astro";
+
+  function setup(doc = document) {
+    const dialog = doc.querySelector("#settings-dialog") as HTMLDialogElement;
+    setupForm(dialog);
+
+    document
+      .querySelector("#settings-dialog-close")
+      ?.addEventListener("click", () => {
+        dialog.close();
+      });
+  }
+
+  setup();
+
+  document.addEventListener("astro:after-swap", () => {
+    setup();
+  });
+</script>
+
+<dialog id="settings-dialog" class={styles.dialog}>
+  <Box
+    position="absolute"
+    top="$2"
+    right="$2"
+    as="button"
+    id="settings-dialog-close"
+    display="block"
+    title="Close dialog"
+    size="36px"
+    display="flex"
+    justifyContent="center"
+    alignItems="center"
+  >
+    <IoClose size="1.25em" />
+  </Box>
+  <Stack gap="$3">
+    <Box as="h2" typeScale="$2xl">Settings</Box>
+    <SettingsForm />
+  </Stack>
+</dialog>

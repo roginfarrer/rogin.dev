@@ -4,7 +4,7 @@ import { box } from "../box";
 import type { HTMLAttributes } from "astro/types";
 
 export type Props = HTMLAttributes<"a"> & {
-  title: string;
+  title?: string;
   desc: string;
 };
 
@@ -27,6 +27,7 @@ const { title, desc, class: classList, style, ...props } = Astro.props;
       justifyContent: "space-between",
       flex: "1 1 100%",
     },
+    /* @ts-expect-error */
     { class: classList, style },
   )}
 >

@@ -1,4 +1,4 @@
-import type { HTMLTag, HTMLAttributes, Polymorphic } from "astro/types";
+import type { HTMLTag, HTMLAttributes } from "astro/types";
 import Box from "./Box.astro";
 import type { Sprinkles } from "./Box.css";
 
@@ -14,7 +14,7 @@ type DSElements = {
 const prox = new Proxy(Box, {
   get(target, name) {
     return Object.assign(
-      async (result, props, slots) =>
+      async (result: any, props: any, slots: any) =>
         await target(result, { ...props, as: name }, slots),
       // identify this function as an astro component
       {
