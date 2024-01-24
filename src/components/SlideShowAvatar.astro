@@ -41,6 +41,7 @@ const imagePaths = Object.keys(
     } else {
       const newImage = document.createElement("img");
       newImage.src = newImagePath;
+      newImage.alt = "Photo of Rogin";
       newImage.setAttribute("data-index", `${activeImageIndex}`);
       newImage.setAttribute("data-active", "");
       holder.appendChild(newImage);
@@ -60,7 +61,7 @@ const imagePaths = Object.keys(
   boxShadow="0 4px 20px 0 rgba(78,87,100,0.2)"
 >
   <Box
-    alt="something"
+    alt="Photo of Rogin"
     as="img"
     src={imagePaths[0].replace("/public", "")}
     id="avatar-slideshow"
