@@ -6,6 +6,7 @@ export const dialog = style({
   width: "min(85dvw, 300px)",
   boxShadow: "0 25px 50px -12px rgb(0 0 0 / 0.25)",
   border: 0,
+  padding: 0,
   "::backdrop": {
     backdropFilter: "blur(2px)",
     WebkitBackdropFilter: "blur(2px)",

@@ -18,6 +18,24 @@ import * as styles from "./SettingsDialog.css";
       ?.addEventListener("click", () => {
         dialog.close();
       });
+
+    const dialogInner = document.querySelector(
+      "#settings-dialog-inner",
+    ) as HTMLDivElement;
+    // Close modal
+    dialog.addEventListener("touchstart", () => {
+      dialog.close();
+    });
+    dialog.addEventListener("click", () => {
+      dialog.close();
+    });
+    // Don't close if touching inside modal
+    dialogInner.addEventListener("touchstart", (event) => {
+      event.stopPropagation();
+    });
+    dialogInner.addEventListener("click", (event) => {
+      event.stopPropagation();
+    });
   }
 
   setup();
@@ -28,23 +46,25 @@ import * as styles from "./SettingsDialog.css";
 </script>
 
 <dialog id="settings-dialog" class={styles.dialog}>
-  <Box
-    position="absolute"
-    top="$2"
-    right="$2"
-    as="button"
-    id="settings-dialog-close"
-    display="block"
-    title="Close dialog"
-    size="36px"
-    display="flex"
-    justifyContent="center"
-    alignItems="center"
-  >
-    <IoClose size="1.25em" />
+  <Box id="settings-dialog-inner" p="$4">
+    <Box
+      position="absolute"
+      top="$2"
+      right="$2"
+      as="button"
+      id="settings-dialog-close"
+      display="block"
+      title="Close dialog"
+      size="36px"
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+    >
+      <IoClose size="1.25em" />
+    </Box>
+    <Stack gap="$3">
+      <Box as="h2" typeScale="$2xl">Settings</Box>
+      <SettingsForm />
+    </Stack>
   </Box>
-  <Stack gap="$3">
-    <Box as="h2" typeScale="$2xl">Settings</Box>
-    <SettingsForm />
-  </Stack>
 </dialog>
