@@ -1,50 +1,39 @@
 ---
 import { vars } from "src/vars.css";
-import { box } from "../box";
-import type { HTMLAttributes } from "astro/types";
+import Box from "./Box.astro";
+import type { Sprinkles } from "./Box.css";
 
-export type Props = HTMLAttributes<"a"> & {
+export type Props = Sprinkles & {
   title?: string;
   desc: string;
+  href: string;
 };
 
-const { title, desc, class: classList, style, ...props } = Astro.props;
+const { title, desc, href, ...props } = Astro.props;
 ---
 
-<a
+<Box
   {...props}
-  {...box(
-    {
-      borderRadius: "$xl",
-      border: `1px solid ${vars.colors.gray8}`,
-      bg: { hover: "$gray3" },
-      p: "$4",
-      transition:
-        ".2s background-color ease-out, .2s box-shadow ease-out, outline-offset ease 0.5s",
-      boxShadow: { hover: "0 4px 20px 0 rgba(78,87,100,0.2)" },
-      display: "flex",
-      flexDirection: "column",
-      justifyContent: "space-between",
-      flex: "1 1 100%",
-    },
-    /* @ts-expect-error */
-    { class: classList, style },
-  )}
+  href={href}
+  as="a"
+  borderRadius="$xl"
+  border={`1px solid ${vars.colors.gray8}`}
+  bg={{ hover: "$gray3" }}
+  p="$4"
+  transition=".2s background-color ease-out .2s box-shadow ease-out outline-offset ease 0.5s"
+  boxShadow={{ hover: "0 4px 20px 0 rgba(78871000.2)" }}
+  display="flex"
+  flexDirection="column"
+  justifyContent="space-between"
+  flex="1 1 100%"
 >
   <span>
-    <span
-      {...box({
-        display: "block",
-        typeScale: "$xl",
-        fontWeight: "$bold",
-        mb: "$4",
-      })}
-    >
+    <Box as="span" display="block" typeScale="$xl" fontWeight="$bold" mb="$4">
       {title}<slot name="title" />
-    </span>
-    <span {...box({ display: "block", fontStyle: "italic" })}>
+    </Box>
+    <Box as="span" display="block" fontStyle="italic">
       {desc}
-    </span>
+    </Box>
   </span>
   <slot />
-</a>
+</Box>

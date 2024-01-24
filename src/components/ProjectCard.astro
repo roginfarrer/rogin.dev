@@ -1,8 +1,8 @@
 ---
+import Box from "./Box.astro";
 import Icon from "./Icon.astro";
 import Badge from "./Badge.astro";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
-import { box } from "../box";
 import Card from "./Card.astro";
 import { ArrowUpRight } from "lucide-react";
 
@@ -22,40 +22,34 @@ type Props = {
   href={href}
   desc={desc}
   data-project-card-repo={repo}
-  {...box({ minHeight: { _: "250px", md: "275px" } })}
+  minHeight={{ _: "250px", md: "275px" }}
 >
-  <span
-    slot="title"
-    {...box({ display: "flex", justifyContent: "space-between" })}
-  >
+  <Box as="span" slot="title" display="flex" justifyContent="space-between">
     <span>
-      <span
-        {...box(
-          {
-            mixBlendMode: "normal",
-            typeScale: "$2xl",
-            display: "block",
-          },
-          { style: { isolation: "isolate" } },
-        )}>{emoji}</span
+      <Box
+        as="span"
+        mixBlendMode="normal"
+        typeScale="$2xl"
+        display="block"
+        style={{ isolation: "isolate" }}
       >
+        {emoji}
+      </Box>
       {title}
     </span>
     <ArrowUpRight strokeWidth="1" />
-  </span>
+  </Box>
   {
     tags.length > 0 && (
-      <span {...box({ display: "flex", gap: "$2" })}>
+      <Box as="span" display="flex" gap="$2">
         {tags.map((tag) => (
           <Badge>{tag}</Badge>
         ))}
-      </span>
+      </Box>
     )
   }
-  <span
-    {...box({ display: "flex", alignItems: "center", gap: "$2", mt: "auto" })}
-  >
+  <Box as="span" display="flex" alignItems="center" gap="$2" mt="auto">
     <Icon icon={faStar} size="1em" />
     <span class="project-card-stars">0</span>
-  </span>
+  </Box>
 </Card>
