@@ -1,0 +1,29 @@
+---
+import { Image } from "astro:assets";
+import GIF from "../images/oh-geez.gif";
+import Layout from "layouts/Layout.astro";
+import { css } from "styled-system/css";
+
+const url = Astro.url.pathname;
+---
+
+<Layout title="Page not found" description="Uh oh.">
+  <div class={css({ textAlign: "center" })}>
+    <Image src={GIF} alt="Oh geez" />
+    <h1 class={css({ textStyle: "3xl" })}>
+      Uh oh! Didn't find a page at this location: <pre>{url}</pre>
+    </h1>
+    <button id="go-back">Go back</button>
+  </div>
+</Layout>
+
+<script>
+  function setup() {
+    document.querySelector("#go-back").addEventListener("click", () => {
+      history.back();
+    });
+  }
+
+  setup();
+  document.addEventListener("astro:after-swap", setup);
+</script>

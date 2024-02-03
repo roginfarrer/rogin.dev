@@ -13,6 +13,13 @@ import * as styles from "./SettingsDialog.css";
     const dialog = doc.querySelector("#settings-dialog") as HTMLDialogElement;
     setupForm(dialog);
 
+    function openModal() {
+      dialog.showModal();
+      doc.querySelector("body")!.style.setProperty("overflow", "hidden");
+    }
+
+    dialog.openModal = openModal;
+
     document
       .querySelector("#settings-dialog-close")
       ?.addEventListener("click", () => {
@@ -23,14 +30,18 @@ import * as styles from "./SettingsDialog.css";
       "#settings-dialog-inner",
     ) as HTMLDivElement;
     // Close modal
-    dialog.addEventListener("touchstart", () => {
+    dialog.addEventListener("touchend", (event) => {
+      event.stopPropagation();
+      doc.querySelector("body")!.style.removeProperty("overflow");
       dialog.close();
     });
-    dialog.addEventListener("click", () => {
+    dialog.addEventListener("click", (event) => {
+      doc.querySelector("body")!.style.removeProperty("overflow");
       dialog.close();
+      event.stopPropagation();
     });
     // Don't close if touching inside modal
-    dialogInner.addEventListener("touchstart", (event) => {
+    dialogInner.addEventListener("touchend", (event) => {
       event.stopPropagation();
     });
     dialogInner.addEventListener("click", (event) => {

@@ -1,6 +1,6 @@
 ---
 title: "Create Astro components outside an .astro file"
-description: "Here is a sample of some basic Markdown syntax that can be used when writing Markdown content in Astro."
+description: "A short guide to modifying the behavior of an Astro component outside of an .astro file."
 date: "January 15, 2024"
 ---
 

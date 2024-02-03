@@ -1,9 +1,5 @@
 ---
-// Import the global.css file here so that it is included on
-// all pages through the use of the <BaseHead /> component.
 import "../styles/global.css";
-// import '../../node_modules/@rose-pine/palette/dist/css/rose-pine-class.css'
-// import '../../node_modules/@catppuccin/ui/dist/catppuccin-ui.css'
 import { ViewTransitions } from "astro:transitions";
 import { SEO } from "astro-seo";
 import "@fontsource-variable/karla";
@@ -12,47 +8,68 @@ import "@fontsource-variable/karla";
 import "@fontsource-variable/inter";
 import "@fontsource-variable/crimson-pro";
 import "@fontsource-variable/space-grotesk";
+import "@fontsource/neuton/latin-700.css";
 
-interface Props {
-  title: string;
-  description: string;
-  image?: string;
+interface BaseProps {
+  title?: string;
+  description?: string;
+  image?: never;
+  imageAlt?: never;
 }
+
+interface ImageProps {
+  title?: string;
+  description?: string;
+  image: string;
+  imageAlt: string;
+}
+
+type Props = BaseProps | ImageProps;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
-const { title, description, image = "/blog-placeholder-1.jpg" } = Astro.props;
+const { title, description, image, imageAlt } = Astro.props;
 ---
 
 <!-- Global Metadata -->
 <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <link rel="icon" href="/bitmoji.ico" />
 <meta name="generator" content={Astro.generator} />
+<link rel="sitemap" href="/sitemap-index.xml" />
 
 <!-- Canonical URL -->
 <link rel="canonical" href={canonicalURL} />
-
-<!-- Open Graph / Facebook -->
-<!-- <meta property="og:type" content="website" /> -->
-<!-- <meta property="og:url" content={Astro.url} /> -->
-<!-- <meta property="og:title" content={title} /> -->
-<!-- <meta property="og:description" content={description} /> -->
-<!-- <meta property="og:image" content={new URL(image, Astro.url)} /> -->
-
-<!-- Twitter -->
-<!-- <meta property="twitter:card" content="summary_large_image" /> -->
-<!-- <meta property="twitter:url" content={Astro.url} /> -->
-<!-- <meta property="twitter:title" content={title} /> -->
-<!-- <meta property="twitter:description" content={description} /> -->
-<!-- <meta property="twitter:image" content={new URL(image, Astro.url)} /> -->
 
 <script is:inline src="/settings-init.js"></script>
 
 <SEO
   titleDefault="Rogin Farrer"
-  titleTemplate="%s - Rogin Farrer"
-  twitter={{ creator: "@roginfarrer" }}
+  titleTemplate="%s | Rogin Farrer"
+  twitter={{
+    creator: "@roginfarrer",
+    title,
+    description,
+    card: image ? "summary_large_image" : "summary",
+    site: "@roginfarrer",
+    image,
+    imageAlt,
+  }}
+  {...image
+    ? {
+        openGraph: {
+          basic: {
+            title: title ? `${title} | Rogin Farrer` : "Rogin Farrer",
+            type: canonicalURL.toString().includes("blog")
+              ? "article"
+              : "website",
+            url: canonicalURL.toString(),
+            image,
+          },
+        },
+      }
+    : {}}
 />
 
 <ViewTransitions />

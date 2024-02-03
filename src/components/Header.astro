@@ -1,40 +1,26 @@
 ---
 import Box from "./Box.astro";
 import HeaderNavItem from "./HeaderNavItem.astro";
-import {
-  faHome,
-  faLaptopCode,
-  faPenToSquare,
-  faTools,
-} from "@fortawesome/free-solid-svg-icons";
 import ThemeToggle from "./ThemeToggle.astro";
-import StickyMobileHeader from "./StickyMobileHeader.astro";
+import { css } from "styled-system/css";
 
-const headerLinks = [
-  { title: "Home", url: "/", icon: faHome },
-  { title: "Blog", url: "/blog", icon: faPenToSquare },
-  { title: "Work", url: "/work", icon: faLaptopCode },
-  { title: "/uses", url: "/uses", icon: faTools },
-];
+type Props = {
+  links: { title: string; url: string }[];
+};
 ---
 
-<StickyMobileHeader links={headerLinks} />
-<Box
-  maxWidth={{ _: "min(800px, 85vw)", md: "min(1200px, 85vw)" }}
-  mx="auto"
-  mt="$5"
-  mb={{ _: "$7", md: "$9" }}
-  alignItems="center"
-  display={{ _: "none", sm: "flex" }}
+<div
+  class={css({
+    ml: "-3",
+    width: "100%",
+  })}
 >
-  <Box ml="-0.7rem" width="100%">
-    <Box as="nav" gap="$4" display="flex">
-      {
-        headerLinks.map(({ url, title }) => (
-          <HeaderNavItem href={url}>{title}</HeaderNavItem>
-        ))
-      }
-      <Box ml="auto"><ThemeToggle /></Box>
-    </Box>
+  <Box as="nav" gap="$4" display="flex" width="100%">
+    {
+      Astro.props.links.map(({ url, title }) => (
+        <HeaderNavItem href={url}>{title}</HeaderNavItem>
+      ))
+    }
+    <Box ml="auto"><ThemeToggle /></Box>
   </Box>
-</Box>
+</div>

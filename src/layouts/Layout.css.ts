@@ -43,8 +43,15 @@ export const skipToContent = style({
   border: `2px solid ${vars.colors.accent10}`,
   color: vars.colors.gray1,
   opacity: 0,
+  maxHeight: 1,
+  maxWidth: 1,
+  scale: ".01%",
+  zIndex: -1,
   ":focus": {
     opacity: 1,
+    scale: "100%",
+    maxHeight: "100%",
+    maxWidth: "100%",
+    zIndex: 10,
   },
-  zIndex: 10,
 });

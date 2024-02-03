@@ -1,5 +1,5 @@
-import { nestedGlobalStyle } from "../../nestedGlobalStyle";
-import { mediaQueries, vars } from "../../vars.css";
+import { nestedGlobalStyle } from "../nestedGlobalStyle";
+import { mediaQueries, vars } from "../vars.css";
 
 export const mdWrapper = "prose";
 
@@ -27,12 +27,12 @@ nestedGlobalStyle(`.${mdWrapper}`, {
     fontSize: "clamp(1rem, 0.96rem + 0.22vw, 1.125rem)",
   },
   h1: {
-    ...typeSize("2xl"),
+    ...typeSize("3xl"),
     fontWeight: "bold",
     "@media": {
       [mediaQueries.md]: {
         ...typeSize("5xl"),
-        fontWeight: "bold",
+        fontWeight: "bolder",
       },
     },
   },
@@ -178,5 +178,15 @@ nestedGlobalStyle(`.${mdWrapper}`, {
   sup: {
     lineHeight: 1,
     fontSize: vars.fontSize.sm,
+  },
+  "figure, img": {
+    display: "block",
+    marginLeft: "-10%",
+    minWidth: "120%",
+  },
+  "figure img": {
+    marginLeft: "auto",
+    marginRight: "auto",
+    minWidth: "auto",
   },
 });

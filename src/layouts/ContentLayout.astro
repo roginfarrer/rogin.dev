@@ -1,0 +1,18 @@
+---
+import Layout from "./Layout.astro";
+import { css } from "styled-system/css";
+
+const { title, description } = Astro.props;
+---
+
+<Layout title={title} description={description}>
+  <div
+    class={css({
+      maxWidth: { md: "calc(token(sizes.pageWidth) - 15%)" },
+      mx: "auto",
+      mt: 5,
+    })}
+  >
+    <slot />
+  </div>
+</Layout>

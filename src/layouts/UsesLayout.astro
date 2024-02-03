@@ -1,0 +1,34 @@
+---
+import Layout from "./ContentLayout.astro";
+import { mdWrapper } from "./BlogPostLayout.css";
+import { TbArrowBigLeftFilled } from "react-icons/tb";
+import { css } from "styled-system/css/css.mjs";
+
+type Props = {
+  title: string;
+  description?: string;
+};
+
+const { title, description } = Astro.props;
+---
+
+<Layout title={title} description={description}>
+  <a
+    href="/uses"
+    class={css({
+      display: "inline-flex",
+      gap: 2,
+      alignItems: "center",
+      justifyContent: "flex-start",
+      color: "gray11",
+      mb: "2",
+      fontWeight: "bold",
+    })}><TbArrowBigLeftFilled />Stuff I use</a
+  >
+  <article class={mdWrapper}>
+    <header>
+      <h1>{title}</h1>
+    </header>
+    <slot />
+  </article>
+</Layout>

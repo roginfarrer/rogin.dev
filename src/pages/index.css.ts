@@ -7,7 +7,7 @@ export const grid = style({
   gap: vars.space[6],
   alignItems: "center",
   marginBottom: vars.space[3],
-  paddingTop: vars.space[7],
+  // paddingTop: vars.space[7],
   "@media": {
     // [mediaQueries.xs]: {},
     // [mediaQueries.sm]: {

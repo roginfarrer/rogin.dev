@@ -5,6 +5,7 @@ import Badge from "./Badge.astro";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import Card from "./Card.astro";
 import { ArrowUpRight } from "lucide-react";
+import { css } from "styled-system/css";
 
 const { title, href, desc, repo, emoji, tags = [] } = Astro.props;
 
@@ -16,6 +17,8 @@ type Props = {
   emoji: string;
   tags?: string[];
 };
+
+const isExternalLink = !href.startsWith("/") || !href.startsWith("#");
 ---
 
 <Card
@@ -24,15 +27,27 @@ type Props = {
   data-project-card-repo={repo}
   minHeight={{ _: "250px", md: "275px" }}
 >
-  <Box as="span" slot="title" display="flex" justifyContent="space-between">
-    <span>
-      <Box as="span" mixBlendMode="normal" typeScale="$2xl" display="block">
-        {emoji}
-      </Box>
-      {title}
-    </span>
-    <ArrowUpRight strokeWidth="1" />
-  </Box>
+  <span
+    class={css({
+      display: "block",
+      textStyle: "xl",
+      fontWeight: "bold",
+      mb: "4",
+    })}
+  >
+    <Box as="span" display="flex" justifyContent="space-between">
+      <span>
+        <Box as="span" mixBlendMode="normal" typeScale="$2xl" display="block">
+          {emoji}
+        </Box>
+        {title}
+      </span>
+      <ArrowUpRight strokeWidth="1" />
+    </Box>
+  </span>
+  <span class={css({ display: "block", fontStyle: "italic" })}>
+    {desc}
+  </span>
   {
     tags.length > 0 && (
       <Box as="span" display="flex" gap="$2">
@@ -42,8 +57,12 @@ type Props = {
       </Box>
     )
   }
-  <Box as="span" display="flex" alignItems="center" gap="$2" mt="auto">
-    <Icon icon={faStar} size="1em" />
-    <span class="project-card-stars">0</span>
-  </Box>
+  {
+    isExternalLink && (
+      <Box as="span" display="flex" alignItems="center" gap="$2" mt="auto">
+        <Icon icon={faStar} size="1em" />
+        <span class="project-card-stars">0</span>
+      </Box>
+    )
+  }
 </Card>

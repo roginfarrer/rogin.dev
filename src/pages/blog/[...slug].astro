@@ -1,59 +1,29 @@
 ---
 import { getCollection } from "astro:content";
-import Layout from "layouts/Layout.astro";
+import BlogPostLayout from "layouts/BlogPostLayout.astro";
 import Box from "components/Box.astro";
 import FormattedDate from "components/FormattedDate.astro";
 import * as styles from "./blogpost.css";
+import { css } from "styled-system/css";
 
 export async function getStaticPaths() {
   const posts = await getCollection("blog");
-  return posts.map((post) => ({
-    params: { slug: post.slug },
-    props: post,
-  }));
+  return posts
+    .filter((post) => !post.data.draft)
+    .map((post) => ({
+      params: { slug: post.slug },
+      props: post,
+    }));
 }
 
 const post = Astro.props;
 const { Content } = await post.render();
 ---
 
-<Layout>
-  <Box mx="auto" maxWidth="42em">
-    <Box as="article" class={styles.mdWrapper} fontSize="17px">
-      <Box
-        as="header"
-        display="flex"
-        flexDirection={{ _: "column", md: "column-reverse" }}
-        mb={{ _: "$5", md: "$7" }}
-        gap={{ _: "$2", md: "$3" }}
-        textAlign={{ md: "center" }}
-      >
-        <Box as="h1">
-          {post.data.title}
-        </Box>
-        <Box
-          color="$gray9"
-          as="time"
-          display="block"
-          typeScale={{ _: "$sm", md: "$base" }}
-        >
-          <FormattedDate date={post.data.date} />
-        </Box>
-      </Box>
-      <Content />
-    </Box>
-    <Box
-      as="a"
-      href="/blog"
-      color="white"
-      textDecoration="none"
-      bg="$accent9"
-      borderRadius="$base"
-      textAlign="center"
-      display="block"
-      py="$3"
-    >
-      <span aria-hidden="true">👈</span>&nbsp;&nbsp; Back
-    </Box>
-  </Box>
-</Layout>
+<BlogPostLayout
+  description={post.data.description}
+  title={post.data.title}
+  date={post.data.date}
+>
+  <Content />
+</BlogPostLayout>

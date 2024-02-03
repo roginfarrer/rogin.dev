@@ -1,16 +1,31 @@
 ---
 import Box from "../components/Box.astro";
 import Header from "../components/Header.astro";
-import { darkTheme } from "../styles/vars.css";
 import BaseHead from "../components/BaseHead.astro";
-import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 import "../styles/global.css";
-import "../styles/panda.css";
-import { supportedFontClasses } from "../vars.css";
 import * as styles from "./Layout.css";
 import SettingsForm from "components/SettingsForm.astro";
+import { css } from "../../styled-system/css";
+import StickyMobileHeader from "components/StickyMobileHeader.astro";
 
 const isHome = Astro.url.pathname === "/";
+
+const headerLinks = [
+  { title: "Home", url: "/" },
+  { title: "Blog", url: "/blog" },
+  { title: "Work", url: "/work" },
+  { title: "/uses", url: "/uses" },
+];
+
+const {
+  title,
+  description = "Rogin Farrer is a frontend engineer based in San Diego, CA.",
+} = Astro.props;
+
+type Props = {
+  title?: string;
+  description?: string;
+};
 ---
 
 <script>
@@ -32,36 +47,72 @@ const isHome = Astro.url.pathname === "/";
   });
 </script>
 
-<html lang="en" class:list={[darkTheme]} transition:persist="html">
+<html lang="en" transition:persist="html">
   <head>
-    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+    <BaseHead title={title} description={description} />
   </head>
 
   <Box
     as="body"
-    data-font-classes={supportedFontClasses.join(",")}
     pb={{ _: "$9", md: "$7" }}
+    display="flex"
+    flexDirection="column"
+    pt={{ _: "$6", sm: "$8" }}
   >
     <a href="#main" class={styles.skipToContent}>Skip to Content</a>
     {!isHome && <div class={styles.halo} />}
-    <Header />
-    <Box
-      as="main"
+    <StickyMobileHeader links={headerLinks} />
+    <div
+      class={css({
+        width: "pageWidth",
+        mx: "auto",
+        mb: "6",
+        display: { base: "none", sm: "flex" },
+      })}
+    >
+      <Header links={headerLinks} />
+    </div>
+    <main
       id="main"
-      m="0 auto"
-      mb="$8"
-      mt={!isHome ? "$8" : 0}
-      maxWidth={{ _: "min(800px, 85vw)", md: "min(1200px, 85vw)" }}
+      class={css({
+        m: "0 auto",
+        mb: "8",
+        width: "pageWidth",
+        flex: "1",
+      })}
     >
       <slot />
-    </Box>
-    <Box as="footer" textAlign="center">
-      <Box mb="$4" display="flex" gap="$4" justifyContent="center">
-        <SettingsForm />
-      </Box>
-      <Box typeScale="$sm" color="$gray11">
-        © {new Date().getFullYear()} Rogin Farrer. All rights reserved.
-      </Box>
-    </Box>
+    </main>
+    <footer class={css({ mt: "auto", mx: "auto", width: "pageWidth" })}>
+      <hr
+        class={css({
+          height: 2,
+          bg: "gray6",
+          my: "4",
+          width: "100%",
+        })}
+      />
+      <div
+        class={css({
+          display: "flex",
+          flexDirection: { base: "column", md: "row-reverse" },
+          gap: "4",
+          justifyContent: "space-between",
+          alignItems: "center",
+          textAlign: "center",
+        })}
+      >
+        <Box
+          gap="$4"
+          justifyContent="center"
+          display={{ _: "none", sm: "flex" }}
+        >
+          <SettingsForm />
+        </Box>
+        <Box typeScale="$sm" color="$gray11">
+          © {new Date().getFullYear()} Rogin Farrer. All rights reserved.
+        </Box>
+      </div>
+    </footer>
   </Box>
 </html>

@@ -4,51 +4,84 @@ import Box from "./Box.astro";
 import Icon from "./Icon.astro";
 import type { Sprinkles } from "./Box.css";
 import { vars } from "src/vars.css";
+import { css } from "styled-system/css";
 
-const { label, id, "data-id": dataId, ...props } = Astro.props;
+type PandaCSS = Parameters<typeof css>[0];
 
-interface Props extends Sprinkles {
+const { label, id, "data-id": dataId, css: cssx, ...props } = Astro.props;
+
+interface Props {
   label: string;
   id?: string;
   "data-id"?: string;
+  css?: PandaCSS;
 }
 ---
 
-<Box
-  as="label"
-  display="flex"
-  flexDirection="column"
-  gap="$1"
-  typeScale="$sm"
-  textAlign="left"
+<label
+  class={css(
+    {
+      textStyle: "sm",
+      textAlign: "left",
+      position: "relative",
+      border: `2px solid token(colors.gray6)`,
+      borderRadius: "lg",
+      bg: "gray2",
+      cursor: "auto",
+      height: 44,
+      minWidth: "150px",
+      _focusWithin: {
+        outline: `2px solid token(colors.accent9)`,
+        outlineOffset: "1px",
+      },
+    },
+    cssx,
+  )}
   {...props}
 >
-  <Box as="span" typeScale="$sm">{label}</Box>
-  <Box>
-    <Box position="relative" display="inline-block">
-      <Box
-        as="select"
-        data-id={dataId}
-        textAlign="left"
-        id={id}
-        border={`2px solid ${vars.colors.gray6}`}
-        borderRadius="$lg"
-        p="$1"
-        bg="$gray2"
-        paddingRight="2em"
-      >
-        <slot />
-      </Box>
-      <Icon
-        aria-hidden="true"
-        icon={faChevronDown}
-        position="absolute"
-        right="$2"
-        size="1.25em"
-        top="50%"
-        transform="translateY(-50%)"
-        style={{ strokeWidth: 3 }}
-      />
-    </Box>
-  </Box>
-</Box>
+  <span
+    class={css({
+      whiteSpace: "nowrap",
+      fontSize: "0.8em",
+      color: "gray11",
+      position: "absolute",
+      left: 2,
+      top: 0,
+    })}
+  >
+    {label}
+  </span>
+  <select
+    data-id={dataId}
+    class={css({
+      textAlign: "left",
+      appearance: "none",
+      position: "absolute",
+      bottom: 0,
+      left: 0,
+      pl: "2",
+      pt: "22px",
+      pb: 1,
+      width: "100%",
+      whiteSpace: "nowrap",
+      _focusVisible: { outline: "none" },
+    })}
+    id={id}
+  >
+    <slot />
+  </select>
+  <Icon
+    class={css({
+      alignSelf: "center",
+      position: "absolute",
+      right: 2,
+      top: "50%",
+      translate: "0 -50%",
+      pointerEvents: "none",
+    })}
+    aria-hidden="true"
+    icon={faChevronDown}
+    size="1em"
+    style={{ strokeWidth: 3 }}
+  />
+</label>

@@ -1,5 +1,4 @@
 ---
-import type { IconDefinition } from "@fortawesome/free-solid-svg-icons";
 import * as styles from "./StickyMobileHeader.css";
 import {
   HouseFilledIcon,
@@ -14,7 +13,7 @@ import {
 import SettingsDialog from "./SettingsDialog.astro";
 
 interface Props {
-  links: { title: string; url: string; icon: IconDefinition }[];
+  links: { title: string; url: string }[];
 }
 
 const icons = {
@@ -62,9 +61,6 @@ const { pathname } = Astro.url;
     ><GearFilledIcon size="1.25rem" /></button
   >
 </nav>
-<!-- <Box position="fixed" top="$4" right="$5" display={{ sm: "none" }} zIndex="10"> -->
-<!--   <ThemeToggle /> -->
-<!-- </Box> -->
 <SettingsDialog />
 
 <script>
@@ -117,7 +113,7 @@ const { pathname } = Astro.url;
     settingsTrigger?.addEventListener("click", () => {
       (
         document.querySelector("#settings-dialog") as HTMLDialogElement
-      ).showModal();
+      ).openModal();
     });
     bar.addEventListener("click", () => {
       bar.style.removeProperty("opacity");

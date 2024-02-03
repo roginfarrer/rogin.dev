@@ -1,20 +1,21 @@
 ---
 import { getCollection } from "astro:content";
 import FormattedDate from "components/FormattedDate.astro";
-import Layout from "layouts/Layout.astro";
+import Layout from "layouts/ContentLayout.astro";
 import Box from "components/Box.astro";
+import { css } from "styled-system/css";
 
 let posts = (await getCollection("blog")).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
 );
-if (import.meta.env.MODE === "production") {
-  posts = posts.filter((post) => !post.data.draft);
-}
 ---
 
-<Layout>
-  <Box as="h2" typeScale="$3xl" fontStyle="italic" mt="$7" mb="$7" pt="$3">
-    writings
+<Layout
+  title="Blog"
+  description="Notes on web development, productivity, and more."
+>
+  <Box as="h1" typeScale={{ _: "$3xl", md: "$5xl" }} mb="$7" fontWeight="$bold">
+    Writing
   </Box>
   <Box as="ul" display="flex" gap="$6" flexDirection="column">
     {
@@ -25,7 +26,7 @@ if (import.meta.env.MODE === "production") {
               fontWeight="$bold"
               as="a"
               color={{ hover: "$accent11" }}
-              href={`/blog/${slug}`}
+              href={draft ? `/blog-drafts/${slug}` : `/blog/${slug}`}
             >
               {title}
             </Box>

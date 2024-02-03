@@ -1,0 +1,54 @@
+---
+import Layout from "layouts/ContentLayout.astro";
+import Box from "components/Box.astro";
+import FormattedDate from "components/FormattedDate.astro";
+import * as styles from "./BlogPostLayout.css";
+
+type Props = {
+  title: string;
+  description?: string;
+  date: Date;
+};
+
+const { title, description, date } = Astro.props;
+---
+
+<Layout description={description} title={title}>
+  <Box mx="auto" maxWidth="42em">
+    <Box as="article" class={styles.mdWrapper} fontSize="17px">
+      <Box
+        as="header"
+        display="flex"
+        flexDirection="column-reverse"
+        gap={{ _: "$2", md: "$3" }}
+        textAlign={{ md: "center" }}
+      >
+        <Box as="h1">
+          {title}
+        </Box>
+        <Box
+          color="$gray9"
+          as="time"
+          display="block"
+          typeScale={{ _: "$sm", md: "$base" }}
+        >
+          <FormattedDate date={date} />
+        </Box>
+      </Box>
+      <slot />
+    </Box>
+    <Box
+      as="a"
+      href="/blog"
+      color="white"
+      textDecoration="none"
+      bg="$accent9"
+      borderRadius="$base"
+      textAlign="center"
+      display="block"
+      py="$3"
+    >
+      <span aria-hidden="true">👈</span>&nbsp;&nbsp; Back
+    </Box>
+  </Box>
+</Layout>

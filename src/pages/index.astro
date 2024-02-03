@@ -23,6 +23,8 @@ import disc from "components/disc";
 import * as styles from "./index.css";
 import { getCollection } from "astro:content";
 import ProjectCard from "components/ProjectCard.astro";
+import { css } from "styled-system/css";
+import { defineKeyframes } from "@pandacss/dev";
 
 let posts = (await getCollection("blog"))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
@@ -32,6 +34,14 @@ let posts = (await getCollection("blog"))
 if (import.meta.env.MODE === "production") {
   posts = posts.filter((post) => !post.data.draft);
 }
+
+defineKeyframes({
+  moveBg: {
+    to: {
+      backgroundPosition: "var(--bg-size) 0",
+    },
+  },
+});
 ---
 
 <Layout>
@@ -43,12 +53,20 @@ if (import.meta.env.MODE === "production") {
       as="p"
       textAlign={{ _: "center", md: "left" }}
       style={{ textWrap: "balanced" }}
-      typeScale={{ sm: "$2xl", md: "$3xl" }}
+      typeScale={{ sm: "$2xl" }}
     >
-      <strong>Hey, I'm Rogin!</strong> I'm a software engineer based in sunny San
-      Diego, CA. I'm passionate about design systems, developer tooling, and web
-      accessibility. I enjoy playing ultimate frisbee, weight-lifting, and building
-      mechanical keyboards in my free time.
+      <strong
+        class={css({
+          "--bg-size": "200%",
+          bg: "var(--grad) text 0 0 / var(--bg-size) 100%",
+          WebkitTextFillColor: "transparent",
+          _motionSafe: {
+            animation: "moveBg 4s ease-in-out infinite",
+          },
+        })}>Hey, I'm Rogin!</strong
+      > I'm a software engineer based in sunny San Diego, CA. I'm passionate about
+      design systems, developer tooling, and web accessibility. I enjoy playing ultimate
+      frisbee, weight-lifting, and building mechanical keyboards in my free time.
     </Box>
     <Box
       gridArea="pic"
@@ -56,7 +74,7 @@ if (import.meta.env.MODE === "production") {
       alignItems="center"
       justifyContent={{ _: "center", md: "flex-end" }}
     >
-      <SlideShowAvatar size={{ _: "200px", sm: "300px" }} />
+      <SlideShowAvatar />
     </Box>
     <Box
       gridArea="chips"

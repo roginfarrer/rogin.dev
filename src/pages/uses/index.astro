@@ -1,0 +1,64 @@
+---
+import { Image } from "astro:assets";
+import Card from "components/UsesCard.astro";
+import Layout from "layouts/ContentLayout.astro";
+import { grid } from "styled-system/patterns";
+import { PiLaptopFill } from "react-icons/pi";
+import { PiCodeBlock } from "react-icons/pi";
+import { GiDesk } from "react-icons/gi";
+import { css } from "styled-system/css";
+import { IoPhonePortraitOutline } from "react-icons/io5";
+import { mdWrapper } from "layouts/BlogPostLayout.css";
+import Neovim from "../../images/neovim.png";
+---
+
+<Layout
+  title="Stuff I Use"
+  description="A breakdown of my developer setup, gear, software, and configs."
+>
+  <div class={mdWrapper}>
+    <h1 class={css({ textStyle: "4xl", mb: "7" })}>Stuff I Use</h1>
+    <p class={css({ mb: "3em" })}>
+      Gear and tools I use. Inspired by <a
+        href="https://uses.tech"
+        target="_blank">uses.tech</a
+      >.
+    </p>
+  </div>
+  <Image
+    src={Neovim}
+    alt="Neovim"
+    class={css({ width: "115%", marginLeft: "-7.5%", mb: "6" })}
+  />
+  <div
+    class={grid({
+      gap: "6",
+      gridTemplateColumns: { base: "1fr", xs: "1fr 1fr" },
+    })}
+  >
+    <Card
+      title="Developer Software"
+      desc="Neovim, tmux, and more dotfiles"
+      href="/uses/software"
+    >
+      <PiLaptopFill slot="icon" />
+    </Card>
+    <Card
+      title="Home Office"
+      desc='Standing desk, gaming PC, 4K 32" monitor'
+      href="/uses/office"
+    >
+      <GiDesk slot="icon" />
+    </Card>
+    <Card title="Phone" desc="iPhone 15 Pro" href="/uses/phone">
+      <IoPhonePortraitOutline slot="icon" className={css({ ml: "-0.2em" })} />
+    </Card>
+    <Card
+      title="About this site"
+      desc="Astro, Panda CSS, Radix Colors"
+      href="/uses/about-this-site"
+    >
+      <PiCodeBlock slot="icon" />
+    </Card>
+  </div>
+</Layout>

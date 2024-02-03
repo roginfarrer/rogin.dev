@@ -63,7 +63,7 @@ export const newBar = style({
   transition: "opacity ease-out 0.3s",
   selectors: {
     ".dark &": {
-      backgroundColor: "rgb(0 0 0 / 10%)",
+      backgroundColor: "rgb(0 0 0 / 70%)",
     },
   },
   "@media": {

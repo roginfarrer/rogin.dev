@@ -5,8 +5,8 @@
     "strictNullChecks": true,
     "baseUrl": ".",
     "paths": {
-      "components/*": ["src/components/*"],
-      "layouts/*": ["src/layouts/*"]
+      "components/*": ["./src/components/*"],
+      "layouts/*": ["./src/layouts/*"]
     },
     "jsx": "preserve",
     "jsxImportSource": "react"

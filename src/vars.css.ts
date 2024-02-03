@@ -254,8 +254,8 @@ globalStyle(".blue", {
 });
 
 export const supportedFonts = {
-  space: "Space Grotesk Variable",
   karla: "Karla Variable",
+  space: "Space Grotesk Variable",
   inter: "Inter Variable",
   crimson: "Crimson Pro Variable",
   bitter: "Bitter Variable",
@@ -279,5 +279,12 @@ Object.entries(supportedFonts).forEach(([name, fontName]) => {
       [vars.fonts.base]:
         name === "system" ? baseFonts : `"${fontName}",${baseFonts}`,
     },
+    // ...(name === "karla"
+    //   ? {
+    //       "h1,h2,h3,h4,h5,h6": {
+    //         fontFamily: `"Neuton","${fontName}",${baseFonts}`,
+    //       },
+    //     }
+    //   : {}),
   });
 });

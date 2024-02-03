@@ -14,4 +14,18 @@ const blog = defineCollection({
   }),
 });
 
-export const collections = { blog };
+const uses = defineCollection({
+  type: "content",
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+  }),
+});
+
+// const drafts = defineCollection({
+//   type: "content",
+//   // Type-check frontmatter using a schema
+//   schema: structuredClone(blog.schema),
+// });
+
+export const collections = { blog, uses };

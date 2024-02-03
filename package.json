@@ -3,6 +3,7 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
+    "prepare": "panda codegen",
     "dev": "astro dev",
     "start": "astro dev",
     "check": "astro check",
@@ -25,6 +26,8 @@
     "@fontsource-variable/karla": "^5.0.19",
     "@fontsource-variable/space-grotesk": "^5.0.16",
     "@fontsource/barlow": "^5.0.8",
+    "@fontsource/neuton": "^5.0.18",
+    "@fontsource/taviraj": "^5.0.18",
     "@fortawesome/free-brands-svg-icons": "^6.5.1",
     "@fortawesome/free-regular-svg-icons": "^6.5.1",
     "@fortawesome/free-solid-svg-icons": "^6.5.1",
@@ -50,7 +53,7 @@
   "devDependencies": {
     "@astrojs/react": "^3.0.8",
     "@pandacss/astro": "^0.25.0",
-    "@pandacss/dev": "^0.25.0",
+    "@pandacss/dev": "^0.29.1",
     "@vanilla-extract/css": "^1.14.0",
     "@vanilla-extract/vite-plugin": "^3.9.3",
     "prettier": "^3.1.1",

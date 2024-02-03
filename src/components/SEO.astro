@@ -9,6 +9,19 @@ interface Props extends Pick<AstroSEOProps, "title" | "openGraph"> {
 const props = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+// openGraph={{
+//   ...props.openGraph,
+//   optional: {
+//     locale: "en_US",
+//     siteName: "Rogin Farrer",
+//     description: props.description,
+//   },
+//   basic: {
+//     url: canonicalURL,
+//     title: props.title!,
+//     type: canonicalURL.toString().includes("blog") ? "artical" : "website",
+//   },
+// }}
 ---
 
 <AstroSEO
@@ -16,17 +29,4 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   titleTemplate="%s - Rogin Farrer"
   twitter={{ creator: "@roginfarrer", title: props.title }}
   title={props.title}
-  openGraph={{
-    ...props.openGraph,
-    optional: {
-      locale: "en_US",
-      siteName: "Rogin Farrer",
-      description: props.description,
-    },
-    basic: {
-      url: canonicalURL,
-      title: props.title!,
-      type: canonicalURL.toString().includes("blog") ? "artical" : "website",
-    },
-  }}
 />

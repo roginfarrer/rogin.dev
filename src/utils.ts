@@ -3,7 +3,7 @@ export const mapValues = <
   Callback extends (value: Obj[keyof Obj], key: keyof Obj, obj: Obj) => any,
 >(
   obj: Obj,
-  fn: Callback
+  fn: Callback,
 ) => {
   const result: any = {};
   Object.keys(obj).forEach((_key) => {

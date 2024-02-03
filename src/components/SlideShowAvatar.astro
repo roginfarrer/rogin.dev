@@ -1,7 +1,9 @@
 ---
+import { css } from "styled-system/css/css.mjs";
 import Box from "./Box.astro";
 
-const { size = "200px" } = Astro.props;
+const { size } = Astro.props;
+console.log(Astro.props.size);
 const imagePaths = Object.keys(
   import.meta.glob("/public/images/propic*.{jpeg,jpg}"),
 );
@@ -38,27 +40,37 @@ const imagePaths = Object.keys(
     if (imageAlreadyPresent) {
       imageAlreadyPresent.style.removeProperty("display");
       imageAlreadyPresent.setAttribute("data-active", "");
+      outoingImage.style.setProperty("display", "none");
+      outoingImage.removeAttribute("data-active");
     } else {
       const newImage = document.createElement("img");
       newImage.src = newImagePath;
       newImage.alt = "Photo of Rogin";
       newImage.setAttribute("data-index", `${activeImageIndex}`);
       newImage.setAttribute("data-active", "");
+      newImage.onload = () => {
+        // Prevent flickering with previous image being hidden while new one is being fetched
+        outoingImage.style.setProperty("display", "none");
+        outoingImage.removeAttribute("data-active");
+      };
       holder.appendChild(newImage);
     }
-
-    outoingImage.style.setProperty("display", "none");
-    outoingImage.removeAttribute("data-active");
   }
   setInterval(updateImage, 3000);
 </script>
 
 <Box
-  size={size}
   borderRadius="9999px"
   overflow="hidden"
   id="avatar-holder"
   boxShadow="0 4px 20px 0 rgba(78,87,100,0.2)"
+  class={css({
+    height: { base: "200px", sm: "300px" },
+    width: { base: "200px", sm: "300px" },
+    "& img": {
+      maxWidth: "100%",
+    },
+  })}
 >
   <Box
     alt="Photo of Rogin"
