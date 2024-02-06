@@ -30,7 +30,7 @@ type Props = {
 
 <script>
   import { actions } from "../store";
-  import { setupForm } from "../components/SettingsForm.astro";
+  import { setupForm } from "components/setupSettingsForm";
 
   const onPageLoad = (doc = document) => {
     setupForm(doc.querySelector("footer")!);

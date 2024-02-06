@@ -52,5 +52,8 @@
     "@vanilla-extract/vite-plugin": "^3.9.3",
     "prettier": "^3.1.1",
     "prettier-plugin-astro": "^0.12.2"
+  },
+  "engines": {
+    "node": "18.19.x"
   }
 }

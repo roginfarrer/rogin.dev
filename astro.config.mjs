@@ -9,7 +9,9 @@ import panda from "@pandacss/astro";
 export default defineConfig({
   site: "https://rogin.xyz",
   integrations: [
-    mdx(),
+    mdx({
+      extendMarkdownConfig: true,
+    }),
     sitemap({
       filter(page) {
         return !page.includes("/blog-drafts/");
