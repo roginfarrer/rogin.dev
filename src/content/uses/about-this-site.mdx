@@ -1,0 +1,135 @@
+---
+title: About This Site
+description: How I built this site
+updatedDate: "February 5, 2024"
+---
+
+import ImageComparisonSlider from "components/ImageComparisonSlider.astro";
+import { Image } from "astro:assets";
+import oldSite from "../../pages/uses/old-site.png";
+import newSite from "../../pages/uses/new-site.png";
+import { css } from "styled-system/css";
+
+export const styles = {
+  slider: css({
+    "--divider-width": "3px",
+    "--divider-color": "token(colors.accent11)",
+    border: "1px solid token(colors.gray11)",
+    borderRadius: "lg",
+    overflow: "hidden",
+    display: "block",
+    position: "relative",
+  }),
+  first: css({
+    position: "relative",
+    backgroundColor: "#efefef",
+    overflow: "hidden",
+    height: "100%",
+    "--top-border": "calc(1lh + 1em)",
+    paddingTop: "var(--top-border)",
+  }),
+  firstLabel: css({
+    margin: "0 !important",
+    position: "absolute",
+    top: "0",
+    left: 0,
+    padding: 1,
+    bg: "accent4",
+    color: "accent11",
+    width: "100%",
+  }),
+  second: css({ position: "relative", paddingTop: "calc(1lh + 1em)" }),
+  secondLabel: css({
+    margin: "0 !important",
+    position: "absolute",
+    top: "0",
+    left: 0,
+    right: 0,
+    padding: 1,
+    textAlign: "right",
+    bg: "accent4",
+    color: "accent11",
+  }),
+  handle: css({
+    transition: "transform 0.2s",
+    "img-comparison-slider:hover &": { transform: "scale(1.2)" },
+    "& path": {
+      stroke: "accent11",
+      fill: "accent11",
+    },
+  }),
+};
+
+This site was built with the help of the following technologies:
+
+- **Framework:** [Astro](https://astro.build)
+- **Hosting:** [Vercel](https://vercel.com)
+- **Styling:** [Vanilla Extract](https://vanilla-extract.style) & [Panda CSS](https://panda-css.com)
+- **State management**: [Nanostores](https://github.com/nanostores/nanostores) with local storage
+- **UI**: [react-icons](https://react-icons.github.io/react-icons/), [Radix Colors](https://www.radix-ui.com/colors), [Fontsource](https://fontsource.org/)
+
+## History
+
+I've had some form of my own website for going on 10 years. I started teaching myself web development as a high schooler because I got interested in blogging. (When individuals running blogs were a big thing on the web.) Ultimately, I spent more time honing my skills in rebuilding my website over and over instead of writing. (A tendency that persists throught oday.) At first it was a WordPress site, and [I soon refactored it into Jekyll](/blog/starting-a-blog-with-jeyll). It's had many more iterations and stacks, from [Gatsby](https://gatsbyjs.com), to [Next.js](https://nextjs.org), to now with [Astro](https://astrol.build).
+
+<figure>
+<img-comparison-slider class={styles.slider}>
+
+<div slot="first" class={styles.first}>
+  <Image src={oldSite} alt="" />
+  <p class={styles.firstLabel}>Before</p>
+</div>
+<div slot="second" class={styles.sescond}>
+  <Image src={newSite} alt="" />
+  <p class={styles.secondLabel}>Updated Februrary 2024</p>
+</div>
+<svg
+  slot="handle"
+  class={styles.handle}
+  xmlns="http://www.w3.org/2000/svg"
+  width="100"
+  viewBox="-8 -3 16 6"
+>
+  <path
+    d="M -5 -2 L -7 0 L -5 2 M -5 -2 L -5 2 M 5 -2 L 7 0 L 5 2 M 5 -2 L 5 2"
+    stroke-width="1"
+    vector-effect="non-scaling-stroke"
+  ></path>
+</svg>
+
+</img-comparison-slider>
+<figcaption class={css({mt: '1em'})}>Before/After rebuilding this website</figcaption>
+</figure>
+
+My website has always been a playground for me to try new technologies and stacks that I might not get a chance to use at my workplace. Astro's ability to tie-in multiple UI frameworks made it an excellent framework for my site.
+
+## Styling: a tale of two static CSS solutions
+
+I've been an ardent advocate of [Vanilla Extract](https://vanilla-extract.style) since its debut. I love writing CSS in TypeScript. I love being able to make abstractions for generating styles with the library's primitives to create different kinds of developer experiences (shameless plug for [rainbow-sprinkles](https://github.com/wayfair/rainbow-sprinkles)). I love that it generates styles at build time, instead of runtime. I love that in most cases, you can 100% predict what CSS you'll get when you write styles.
+
+As a power-user, however, I've grown frustrated with a few limitations.
+
+First, I wish for a better solution for co-locating style authorship with markup. I believe there are many situations where writing styles in a separate file is valuable (especially when styles are complex). But most of the time, I'd like to apply styles to an element directly. This is a big reason why I'm advocate for [styled-system](https://github.com/styled-system/styled-system) props, and why I've created new applications of this philosophy, like rainbow-sprinkles. But with rainbow-sprinkles, I still have issues of creating more CSS than I'd like, and have to configure every CSS property I want to use. The type inference, like the official sprinkles package, is incredibly powerful. It's also very slow, and frequently crashes the TypeScript language server. (I grant that there may be ways to improve the type performance, and I may look into it someday.)
+
+Secondly, the API contraints for encouraging component encapsulation are admirable, but frustrating for power-users. I'd love a version of Vanilla Extract that doesn't care _how_ I write my styles, and just takes a CSS object and generates CSS files with it. The `globalStyle` function, which is an escape hatch for doing more non-standard things than the `style` function, is underpowered in comparison to the latter, missing features like `selectors` and nesting.
+
+I love Vanilla Extract, and I think it has the potential to be the best CSS-in-JS solution. It arguably is for design systems and component libraries. But my frustrations has led me to explore other solutions.
+
+[Panda CSS](https://panda-css.com) is an even newer CSS solution, that appears to be, in part, an attempt to build on the great ideas of Vanilla Extract and address its limitations. I've adopted Panda on this site, and have used it for roughly 50% of it. Here's what I think after my brief time using it: there's a lot to love, but I still have some issues with it. Here are some of my thoughts.
+
+1. **Too much gets forced into the config file.** I don't think config files is the correct place for arbitrary CSS. In Vanilla Extract, I can use `globalStyle` to create arbitrary styles in whatever file organization fits the project, and ensure it only applies to pages where it's needed.
+2. **It's too easy to silently break the compiler.** A number of times I've gotten stumped about why I see CSS classes being created in the markup, but no styles were being created. Eventually I realize that I'm feeding styles to a component as a prop, and that the Panda executable cannot statically extract that information as styles. Makes me long for Vanilla Extract where I know that with whatever abstraction I make, as long as styles get fed to the `style` or `globalStyle` functions, styles will get created.
+3. **I dislike that the generated, gitignored `styled-system` directory is placed in the root of the project.** At least in its current format. It would feel more appropriate to keep the build artifact within `node_modules` and out-of-view. I find it very odd that many of the files within it could easily be sourced from a published package in `node_modules`, then augmented with the files generated by the CLI.
+4. **There's too many ways to do the same thing (by default).** This was my initial reaction to the project. Between the `css` function and its derivative patterns, the JSX `styled` methods, and the handful of `recipe` functions, I think it will confuse many CSS authors. If I were to manage the project, I would have shipped a "core" package with the `css` function and make the other abstractions opt-in via separate packages or plugins.
+
+I think many architecture decisions were made to mirror Tailwind's decisions, which may be sensible to attract Tailwind devotees. But that's not me, so that may explain some of my philosophical incompatibilities.
+
+All my complaints aside, I'm really enjoying working with Panda, and there's many ways in which I feel like I can be more efficient than with Vanilla Extract!
+
+## Why this site isn't open-source
+
+My website has been open-source since I first created it over 10 years ago. At the time, and for many years, it seemed really important to show my work under-the-hood. For one, it seems pretty common for engineers to make the source code of their website publically available. And it makes for a good recruiting tool, functioning similar to a portfolio. But I've recently decided that the pros don't outweigh the cons.
+
+My problem with making the website open-source is my perfectionism. I'm hesitant to push changes to the website for fear that the source code is "messy" or "disorganized." What if a potential future employer sees it!? They'll think I'm a bad programmer! Why are there multiple dependencies to accomplish the same thing! ([See above](#styling-a-tale-of-two-static-css-solutions).)
+
+Ultimately my goal with this website is to have fun and try new things! I want to be able to experiment and refactor and ship WIP features without scrutiny. Maybe someday I'll get over this concern, but for now, curious readers will have to read this page or dig into the page source to see what's going on 😉.

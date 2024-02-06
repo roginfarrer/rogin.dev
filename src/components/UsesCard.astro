@@ -2,19 +2,55 @@
 import Card from "./Card.astro";
 import { css } from "styled-system/css";
 
-const { title, desc, href } = Astro.props;
+const { title, desc, href, preview } = Astro.props;
 
 type Props = {
   title: string;
   desc: string;
   href: string;
+  preview?: boolean;
 };
 ---
 
-<Card href={href} color={{ _: "$gray11", hover: "initial" }}>
+<Card
+  href={href}
+  color={preview ? "$gray11" : { _: "$gray11", hover: "initial" }}
+  preview={preview}
+  class="card"
+  height={{ _: 200, xs: "revert" }}
+>
   <span class={css({ fontSize: "4em", mb: { base: "3", xs: "6" } })}
     ><slot name="icon" /></span
   >
   <span class={css({ fontWeight: "bold", textStyle: "lg" })}>{title}</span>
-  <span class={css({ minHeight: { xs: "2lh" } })}>{desc}</span>
+  <span
+    class={css({
+      minHeight: { xs: "2lh" },
+    })}>{desc}</span
+  >
+  <span
+    hidden={!preview}
+    class={css({
+      position: "absolute",
+      inset: 0,
+      opacity: 0,
+      transition: "opacity 0.3s, background 0.3s",
+      background: "transparent",
+      textStyle: "5xl",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      color: "gray1",
+      p: 4,
+      textAlign: "center",
+      ".card:hover &,.card:active &": {
+        background: "rgb(0 0 0 / 50%)",
+        opacity: 1,
+        _dark: {
+          background: "rgb(255 255 255 / 10%)",
+        },
+      },
+      "&[hidden]": { display: "none" },
+    })}>Coming Soon</span
+  >
 </Card>

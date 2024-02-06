@@ -41,6 +41,13 @@ nestedGlobalStyle(`.${mdWrapper}`, {
     lineHeight: vars.lineHeights["2xl"],
     fontWeight: "bold",
     margin: `${vars.space[5]} 0 ${vars.space[3]}`,
+    "@media": {
+      [mediaQueries.md]: {
+        ...typeSize("3xl"),
+        marginTop: vars.space[7],
+        fontWeight: "bolder",
+      },
+    },
   },
   h3: {
     fontSize: vars.fontSize["2xl"],
@@ -120,7 +127,7 @@ nestedGlobalStyle(`.${mdWrapper}`, {
     lineHeight: vars.lineHeights["4xl"],
     quotes: `"\\201C""\\201D""\\2018""\\2019"`,
   },
-  "p code": {
+  ":not(pre) code": {
     backgroundColor: vars.colors.accent3,
     color: vars.colors.accent11,
     fontFamily: '"Consolas", "Courier Prime", menlo, monospace',
@@ -178,6 +185,9 @@ nestedGlobalStyle(`.${mdWrapper}`, {
   sup: {
     lineHeight: 1,
     fontSize: vars.fontSize.sm,
+  },
+  img: {
+    width: "100%",
   },
   "figure, img": {
     display: "block",

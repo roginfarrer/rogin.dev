@@ -3,13 +3,15 @@ import Layout from "./ContentLayout.astro";
 import { mdWrapper } from "./BlogPostLayout.css";
 import { TbArrowBigLeftFilled } from "react-icons/tb";
 import { css } from "styled-system/css/css.mjs";
+import FormattedDate from "components/FormattedDate.astro";
 
 type Props = {
   title: string;
   description?: string;
+  updatedDate?: Date;
 };
 
-const { title, description } = Astro.props;
+const { title, description, updatedDate } = Astro.props;
 ---
 
 <Layout title={title} description={description}>
@@ -21,13 +23,21 @@ const { title, description } = Astro.props;
       alignItems: "center",
       justifyContent: "flex-start",
       color: "gray11",
-      mb: "2",
+      mb: "1",
       fontWeight: "bold",
     })}><TbArrowBigLeftFilled />Stuff I use</a
   >
-  <article class={mdWrapper}>
+  <article class:list={[mdWrapper]}>
     <header>
-      <h1>{title}</h1>
+      <h1 class={css({ mb: "0 !important" })}>{title}</h1>
+      <p class={css({ color: "gray11", mb: "2 !important" })}>{description}</p>
+      {
+        updatedDate && (
+          <p class={css({ fontSize: "sm !important", color: "gray11" })}>
+            Updated: <FormattedDate updatedDate date={updatedDate} />
+          </p>
+        )
+      }
     </header>
     <slot />
   </article>

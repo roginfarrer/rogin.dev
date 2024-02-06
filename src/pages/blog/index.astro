@@ -8,6 +8,9 @@ import { css } from "styled-system/css";
 let posts = (await getCollection("blog")).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
 );
+if (import.meta.env.PROD) {
+  posts = posts.filter((p) => !p.data.draft);
+}
 ---
 
 <Layout

@@ -9,4 +9,12 @@ export default {
       },
     },
   ],
+  overrides: [
+    {
+      files: "*.mdx",
+      options: {
+        parser: "mdx",
+      },
+    },
+  ],
 };

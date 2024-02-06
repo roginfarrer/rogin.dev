@@ -54,8 +54,8 @@ export default defineConfig({
 
   // Where to look for your css declarations
   include: [
-    "./src/**/*.{ts,tsx,js,jsx,astro}",
-    "./pages/**/*.{ts,tsx,js,jsx,astro}",
+    "./src/**/*.{ts,tsx,js,jsx,astro,mdx}",
+    "./pages/**/*.{ts,tsx,js,jsx,astro,mdx}",
   ],
 
   // Files to exclude

@@ -3,6 +3,9 @@ import BlogPostLayout from "layouts/BlogPostLayout.astro";
 import { getCollection } from "astro:content";
 
 export async function getStaticPaths() {
+  if (import.meta.env.PROD) {
+    return [];
+  }
   const posts = await getCollection("blog");
   return posts
     .filter((post) => post.data.draft)

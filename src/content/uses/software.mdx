@@ -1,0 +1,79 @@
+---
+title: "Software"
+description: "Apps I use on MacOS and iOS"
+updatedDate: "Februrary 5, 2024"
+---
+
+import { Image } from "astro:assets";
+import neovim from "../../images/neovim.png";
+import codingExample from "../../images/neovim-example.png";
+import { css } from "styled-system/css";
+
+<figure>
+  <Image
+    src={neovim}
+    alt="My Neovim splash screen"
+    class={css({ width: "100%" })}
+  />
+  <figcaption>My Neovim splash screen</figcaption>
+</figure>
+
+## Editor & Terminal
+
+I spend most of my time coding with the [Kitty][kitty] terminal with the [Fish][fish] shell and editing code with [Neovim][neovim]. I relatively recently adopted [tmux][tmux] for being able to swap instantly between workspaces. This was a multi-tasking game-changer for me, as it let me pause work on one project and move to another one without disrupting my work on the former.
+
+In terms of look-and-feel, I primarily use the [catppuccin][catppuccin] theme and the [Zed Mono](https://github.com/zed-industries/zed-fonts) font. (Although I'm using a custom build of the font, which can be found [here in my dotfiles repo.](https://github.com/roginfarrer/dotfiles/tree/main/fonts/zed-mono))
+
+<Image
+  src={codingExample}
+  alt="Screenshot showcasing the Zed Mono font and the catppuccin theme"
+/>
+
+While I've tried to use pre-configured distributions of Neovim, like LazyVim, I always come back to my own configuration. A lot of it takes inspiration from other distrubtions or configurations, but I like to be able to see how everything fits together.
+
+[Fish][fish] is my shell of choice. I prefer it mainly because of the headache of configuring the other ones. That said, I find managing the PATH variables to be a headache with Fish. You can't have it all, I suppose!
+
+## Mac Apps
+
+- **Launcher:** [Raycast][raycast]
+- **Music:** [Spotify][spotify], [YouTube Music][yt-music]
+- **Communication:** Messages, [Beeper][beeper], [Discord][discord]
+- **Browser:** [Arc Browser][arc]
+- **Email:** [Mimestream][mimestream]
+- **Calendar:** [Fantastical][fantastical]
+- **Terminal:** [Kitty][kitty]
+- **Window Management:** [yabai][yabai]
+- **Misc Utils:** [Bartender][bartender], [Toothfairy][toothfairy], [2FHey][2fhey], [MonitorControl][monitor-control], [Cleanshot X][cleanshot], [Handmirror][handmirror], [Karabiner Elements][karabiner]
+
+## Productivity
+
+I'm always trying new task management apps, but [Todoist][todoist] is always my default. I've never been completely satisfied with it, though. While it has almost every feature I could need, I find that I'm constantly feeling disorganized with it. It's probably a symptom of how I use it. But I've never "figured it out". Regardless, it's my default inbox for ideas and todos.
+
+- **Task Management:** [Todoist][todoist]
+- **Calendar:** [Fantastical][fantastical]
+- **Email:** [Mimestream][mimestream] (on Mac) and [Spark][spark] (on iPhone)
+- **Notes:** ¯\\_(ツ)_/¯
+
+[kitty]: https://github.com/kovidgoyal/kitty
+[neovim]: https://github.com/neovim/neovim
+[tmux]: https://github.com/tmux/tmux
+[catppuccin]: https://github.com/catppuccin/catppuccin
+[fish]: https://fishshell.com/
+[raycast]: https://raycast.so
+[spotify]: https://spotify.com
+[yt-music]: https://th-ch.github.io/youtube-music/
+[beeper]: https://www.beeper.com/
+[discord]: https://discord.com
+[arc]: https://arc.net/gift/c654293e
+[mimestream]: https://mimestream.com/
+[fantastical]: https://flexibits.com/fantastical
+[yabai]: https://github.com/koekeishiya/yabai
+[bartender]: https://www.macbartender.com/
+[toothfairy]: https://c-command.com/toothfairy/
+[2fhey]: https://2fhey.com/
+[monitor-control]: https://github.com/MonitorControl/MonitorControl
+[cleanshot]: https://cleanshot.com
+[todoist]: https://todoist.com
+[handmirror]: https://handmirror.app/
+[karabiner]: https://karabiner-elements.pqrs.org/
+[spark]: https://sparkmailapp.com/
