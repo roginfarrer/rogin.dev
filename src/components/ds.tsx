@@ -15,6 +15,7 @@ const prox = new Proxy(Box, {
   get(target, name) {
     return Object.assign(
       async (result: any, props: any, slots: any) =>
+        // @ts-ignore
         await target(result, { ...props, as: name }, slots),
       // identify this function as an astro component
       {

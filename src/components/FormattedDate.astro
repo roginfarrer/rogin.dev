@@ -12,7 +12,7 @@ const { date, updatedDate } = Astro.props;
     date.toLocaleDateString(
       "en-us",
       updatedDate
-        ? { year: "numeric", month: "long" }
+        ? { year: "numeric", month: "short" }
         : {
             year: "numeric",
             month: "short",

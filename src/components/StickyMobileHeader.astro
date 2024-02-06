@@ -7,10 +7,10 @@ import {
   BriefcaseOutlineIcon,
   GearOutlineIcon,
   GearFilledIcon,
-  RSSOutlineIcon,
-  RSSFilledIcon,
 } from "./icons";
 import SettingsDialog from "./SettingsDialog.astro";
+import { HiOutlineNewspaper } from "react-icons/hi2";
+import { HiNewspaper } from "react-icons/hi2";
 
 interface Props {
   links: { title: string; url: string }[];
@@ -20,7 +20,7 @@ const icons = {
   Home: [HouseOutlineIcon, HouseFilledIcon],
   Work: [BriefcaseOutlineIcon, BriefcaseFilledIcon],
   Settings: [GearOutlineIcon, GearFilledIcon],
-  Blog: [RSSOutlineIcon, RSSFilledIcon],
+  Blog: [HiOutlineNewspaper, HiNewspaper],
 };
 
 const { links } = Astro.props;
@@ -111,9 +111,7 @@ const { pathname } = Astro.url;
     window.addEventListener("scroll", onScroll, false);
     const settingsTrigger = document.querySelector("#settings-dialog-trigger");
     settingsTrigger?.addEventListener("click", () => {
-      (
-        document.querySelector("#settings-dialog") as HTMLDialogElement
-      ).openModal();
+      (document.querySelector("#settings-dialog") as any).openModal();
     });
     bar.addEventListener("click", () => {
       bar.style.removeProperty("opacity");

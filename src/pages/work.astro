@@ -1,12 +1,10 @@
 ---
 import Layout from "../layouts/ContentLayout.astro";
-import { mdWrapper } from "layouts/BlogPostLayout.css";
-import box from "../components/ds";
 import "./work.css.ts";
 ---
 
 <Layout title="Work" description="A summary of my work history and projects.">
-  <box.div class:list={[mdWrapper]}>
+  <div class="prose">
     <h1>Work</h1>
     <p>
       I'm an experienced software engineering leader with a focus on web
@@ -105,5 +103,5 @@ import "./work.css.ts";
       Experiment in making an ESLint rule for enforcing "use client" in client
       components (and warning if it's not needed).
     </p>
-  </box.div>
+  </div>
 </Layout>

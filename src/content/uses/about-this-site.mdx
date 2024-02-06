@@ -12,8 +12,9 @@ import { css } from "styled-system/css";
 
 export const styles = {
   slider: css({
-    "--divider-width": "3px",
-    "--divider-color": "token(colors.accent11)",
+    "--divider-width": "2px",
+    "--divider-color": "token(colors.accent12)",
+    "--divider-shadow": "0 3px 10px 0px token(colors.accent11)",
     border: "1px solid token(colors.gray11)",
     borderRadius: "lg",
     overflow: "hidden",
@@ -25,37 +26,33 @@ export const styles = {
     backgroundColor: "#efefef",
     overflow: "hidden",
     height: "100%",
-    "--top-border": "calc(1lh + 1em)",
-    paddingTop: "var(--top-border)",
+  }),
+  label: css({
+    margin: "0",
+    position: "absolute",
+    top: "0",
+    padding: 1,
+    bg: "accent11",
+    color: "accent1",
+    fontSize: "sm",
+    display: "block",
   }),
   firstLabel: css({
-    margin: "0 !important",
-    position: "absolute",
-    top: "0",
     left: 0,
-    padding: 1,
-    bg: "accent4",
-    color: "accent11",
-    width: "100%",
+    borderBottomRightRadius: "lg",
   }),
-  second: css({ position: "relative", paddingTop: "calc(1lh + 1em)" }),
+  second: css({ position: "relative" }),
   secondLabel: css({
-    margin: "0 !important",
-    position: "absolute",
-    top: "0",
-    left: 0,
     right: 0,
-    padding: 1,
     textAlign: "right",
-    bg: "accent4",
-    color: "accent11",
+    borderBottomLeftRadius: "lg",
   }),
   handle: css({
     transition: "transform 0.2s",
     "img-comparison-slider:hover &": { transform: "scale(1.2)" },
     "& path": {
-      stroke: "accent11",
-      fill: "accent11",
+      stroke: "var(--divider-color)",
+      fill: "var(--divider-color)",
     },
   }),
 };
@@ -72,16 +69,16 @@ This site was built with the help of the following technologies:
 
 I've had some form of my own website for going on 10 years. I started teaching myself web development as a high schooler because I got interested in blogging. (When individuals running blogs were a big thing on the web.) Ultimately, I spent more time honing my skills in rebuilding my website over and over instead of writing. (A tendency that persists throught oday.) At first it was a WordPress site, and [I soon refactored it into Jekyll](/blog/starting-a-blog-with-jeyll). It's had many more iterations and stacks, from [Gatsby](https://gatsbyjs.com), to [Next.js](https://nextjs.org), to now with [Astro](https://astrol.build).
 
-<figure>
+<figure class={css({overflowX: 'initial'})}>
 <img-comparison-slider class={styles.slider}>
 
 <div slot="first" class={styles.first}>
   <Image src={oldSite} alt="" />
-  <p class={styles.firstLabel}>Before</p>
+  <p class:list={[styles.label, styles.firstLabel]}>Before</p>
 </div>
 <div slot="second" class={styles.sescond}>
   <Image src={newSite} alt="" />
-  <p class={styles.secondLabel}>Updated Februrary 2024</p>
+  <p class:list={[styles.label, styles.secondLabel]}>Updated Februrary 2024</p>
 </div>
 <svg
   slot="handle"

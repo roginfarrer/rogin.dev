@@ -2,8 +2,6 @@
 import { css } from "styled-system/css/css.mjs";
 import Box from "./Box.astro";
 
-const { size } = Astro.props;
-console.log(Astro.props.size);
 const imagePaths = Object.keys(
   import.meta.glob("/public/images/propic*.{jpeg,jpg}"),
 );

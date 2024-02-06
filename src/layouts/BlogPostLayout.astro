@@ -2,7 +2,6 @@
 import Layout from "layouts/ContentLayout.astro";
 import Box from "components/Box.astro";
 import FormattedDate from "components/FormattedDate.astro";
-import * as styles from "./BlogPostLayout.css";
 
 type Props = {
   title: string;
@@ -15,7 +14,7 @@ const { title, description, date } = Astro.props;
 
 <Layout description={description} title={title}>
   <Box mx="auto" maxWidth="42em">
-    <Box as="article" class={styles.mdWrapper} fontSize="17px">
+    <Box as="article" class="prose" fontSize="17px">
       <Box
         as="header"
         display="flex"

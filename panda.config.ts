@@ -18,6 +18,7 @@ import {
   violetDark,
 } from "@radix-ui/colors";
 import { mapKeys, mapValues } from "./src/utils";
+import { prose } from "./src/styles/prose";
 
 function semanticColors<T extends object, K extends Record<keyof T, string>>(
   lightScale: T,
@@ -301,12 +302,12 @@ export default defineConfig({
         pageWidth: { value: "min(80ch, 85dvw)" },
       },
     },
+    breakpoints: {
+      xs: "480px",
+      sm: "640px",
+      md: "768px",
+    },
     extend: {
-      breakpoints: {
-        xs: "480px",
-        sm: "640px",
-        md: "768px",
-      },
       keyframes: {
         moveBg: {
           to: {
@@ -340,6 +341,7 @@ export default defineConfig({
 
   globalCss: {
     extend: {
+      ...prose,
       ":where(:root)": {
         "--grad-two": "token(colors.accent10)",
         "--grad-one": "token(colors.red10)",

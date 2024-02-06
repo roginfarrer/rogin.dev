@@ -4,12 +4,10 @@ import Card from "components/Card.astro";
 import UsesCard from "components/UsesCard.astro";
 import Layout from "layouts/ContentLayout.astro";
 import { grid } from "styled-system/patterns";
-import { PiLaptopFill } from "react-icons/pi";
 import { PiCodeBlock } from "react-icons/pi";
 import { GiDesk } from "react-icons/gi";
 import { css } from "styled-system/css";
 import { IoPhonePortraitOutline } from "react-icons/io5";
-import { mdWrapper } from "layouts/BlogPostLayout.css";
 import Neovim from "../../images/neovim.png";
 ---
 
@@ -17,7 +15,7 @@ import Neovim from "../../images/neovim.png";
   title="Stuff I Use"
   description="A breakdown of my developer setup, gear, software, and configs."
 >
-  <div class={mdWrapper}>
+  <div class="prose">
     <h1 class={css({ textStyle: "4xl", mb: "7" })}>Stuff I Use</h1>
     <p class={css({ mb: "3em" })}>
       Gear and tools I use. Inspired by <a

@@ -19,7 +19,7 @@ const url = Astro.url.pathname;
 
 <script>
   function setup() {
-    document.querySelector("#go-back").addEventListener("click", () => {
+    document.querySelector("#go-back")!.addEventListener("click", () => {
       history.back();
     });
   }
