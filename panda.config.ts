@@ -306,6 +306,9 @@ export default defineConfig({
       xs: "480px",
       sm: "640px",
       md: "768px",
+      "@xs": "480px",
+      "@sm": "640px",
+      "@md": "768px",
     },
     extend: {
       keyframes: {
