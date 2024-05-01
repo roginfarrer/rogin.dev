@@ -16,6 +16,7 @@
     "@astrojs/mdx": "^2.1.1",
     "@astrojs/rss": "^4.0.1",
     "@astrojs/sitemap": "^3.0.3",
+    "@astrojs/solid-js": "^4.1.0",
     "@astrojs/vercel": "^6.1.2",
     "@catppuccin/palette": "^0.2.0",
     "@catppuccin/ui": "^0.1.25",
@@ -41,6 +42,7 @@
     "rainbow-sprinkles": "0.0.0-reorder-defineproperties-overload-types-20240102060747",
     "react": "^18.2.0",
     "react-icons": "^5.0.1",
+    "solid-js": "^1.8.17",
     "typescript": "^5.3.3"
   },
   "devDependencies": {
