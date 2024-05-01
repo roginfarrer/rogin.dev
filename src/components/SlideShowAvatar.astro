@@ -1,6 +1,5 @@
 ---
 import { css } from "styled-system/css/css.mjs";
-import Box from "./Box.astro";
 
 const imagePaths = Object.keys(
   import.meta.glob("/public/images/propic*.{jpeg,jpg}"),
@@ -57,25 +56,24 @@ const imagePaths = Object.keys(
   setInterval(updateImage, 3000);
 </script>
 
-<Box
-  borderRadius="9999px"
-  overflow="hidden"
+<div
   id="avatar-holder"
-  boxShadow="0 4px 20px 0 rgba(78,87,100,0.2)"
   class={css({
     height: { base: "200px", sm: "300px" },
     width: { base: "200px", sm: "300px" },
+    boxShadow: "0 4px 20px 0 rgba(78,87,100,0.2)",
+    overflow: "hidden",
+    borderRadius: "9999px",
     "& img": {
       maxWidth: "100%",
     },
   })}
 >
-  <Box
+  <img
     alt="Photo of Rogin"
-    as="img"
     src={imagePaths[0].replace("/public", "")}
     id="avatar-slideshow"
     data-index="0"
     data-active
   />
-</Box>
+</div>

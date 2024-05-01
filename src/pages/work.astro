@@ -1,6 +1,6 @@
 ---
+import { css } from "styled-system/css";
 import Layout from "../layouts/ContentLayout.astro";
-import "./work.css.ts";
 ---
 
 <Layout title="Work" description="A summary of my work history and projects.">
@@ -15,7 +15,7 @@ import "./work.css.ts";
     </p>
     <hr />
     <h2>Wayfair</h2>
-    <p class="subtitle">Staff Software Engineer, 2016-2024</p>
+    <p class={css({ color: "gray11" })}>Staff Software Engineer, 2016-2024</p>
     <p>
       I joined <a href="https://wayfair.com">Wayfair</a> to help grow the UI toolkit
       for internal and supplier facing applications into a component library built

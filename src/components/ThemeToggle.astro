@@ -1,6 +1,5 @@
 ---
-import { vars } from "../vars.css";
-import Box from "./Box.astro";
+import { css } from "styled-system/css";
 import { TRANSITION } from "./HeaderNavItem.astro";
 import { MoonIcon, SunIcon } from "@radix-ui/react-icons";
 ---
@@ -25,21 +24,25 @@ import { MoonIcon, SunIcon } from "@radix-ui/react-icons";
   document.addEventListener("astro:after-swap", setup);
 </script>
 
-<Box
-  transition={TRANSITION}
-  as="button"
-  borderRadius="$md"
-  p="$1"
-  bg={{ _: "$gray4", hover: "$gray6" }}
-  border={`2px solid ${vars.colors.gray6}`}
-  size="32px"
-  display="flex"
-  placeItems="center"
-  class="theme-toggle"
+<button
+  class:list={[
+    "theme-toggle",
+    css({
+      transition: TRANSITION,
+      borderRadius: "md",
+      p: "1",
+      bg: { base: "gray4", _hover: "gray6" },
+      border: "2px solid {colors.gray6}",
+      size: "32px",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+    }),
+  ]}
 >
   <MoonIcon className="moon" />
   <SunIcon className="sun" />
-</Box>
+</button>
 
 <style>
   .theme-toggle {

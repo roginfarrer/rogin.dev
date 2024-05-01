@@ -1,9 +1,8 @@
 ---
-import Box from "./Box.astro";
-import Stack from "./Stack.astro";
 import SettingsForm from "./SettingsForm.astro";
 import { IoClose } from "react-icons/io5";
-import * as styles from "./SettingsDialog.css";
+import { css } from "styled-system/css";
+import { flex } from "styled-system/patterns";
 ---
 
 <script>
@@ -56,26 +55,43 @@ import * as styles from "./SettingsDialog.css";
   });
 </script>
 
-<dialog id="settings-dialog" class={styles.dialog}>
-  <Box id="settings-dialog-inner" p="$4">
-    <Box
-      position="absolute"
-      top="$2"
-      right="$2"
-      as="button"
+<dialog
+  id="settings-dialog"
+  class={css({
+    color: "inherit",
+    width: "min(85dvw, 300px)",
+    boxShadow: "0 25px 50px -12px rgb(0 0 0 / 0.25)",
+    border: 0,
+    padding: 0,
+    backgroundColor: { _dark: "gray1" },
+    "--backdrop-color": {
+      base: "rgb(0 0 0 / 10%)",
+      _dark: "rgb(255 255 255 / 10%)",
+    },
+    "&::backdrop": {
+      backdropFilter: "blur(2px)",
+      backgroundColor: "var(--backdrop-color)",
+    },
+  })}
+>
+  <div id="settings-dialog-inner" class={css({ p: "4" })}>
+    <button
+      class={flex({
+        position: "absolute",
+        top: "2",
+        right: "2",
+        justify: "center",
+        align: "center",
+        size: "36px",
+      })}
       id="settings-dialog-close"
-      display="block"
       title="Close dialog"
-      size="36px"
-      display="flex"
-      justifyContent="center"
-      alignItems="center"
     >
       <IoClose size="1.25em" />
-    </Box>
-    <Stack gap="$3">
-      <Box as="h2" typeScale="$2xl">Settings</Box>
+    </button>
+    <div class={flex({ gap: "3", direction: "column" })}>
+      <h2 class={css({ textStyle: "2xl" })}>Settings</h2>
       <SettingsForm />
-    </Stack>
-  </Box>
+    </div>
+  </div>
 </dialog>

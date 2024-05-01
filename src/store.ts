@@ -1,5 +1,14 @@
 import { persistentMap } from "@nanostores/persistent";
 
+export const supportedFonts = {
+  karla: "Karla Variable",
+  space: "Space Grotesk Variable",
+  inter: "Inter Variable",
+  crimson: "Crimson Pro Variable",
+  bitter: "Bitter Variable",
+  system: "System Default",
+} as const;
+
 export const fonts = [
   "inter",
   "karla",

@@ -1,5 +1,4 @@
 ---
-import * as styles from "./StickyMobileHeader.css";
 import {
   HouseFilledIcon,
   HouseOutlineIcon,
@@ -11,6 +10,7 @@ import {
 import SettingsDialog from "./SettingsDialog.astro";
 import { HiOutlineNewspaper } from "react-icons/hi2";
 import { HiNewspaper } from "react-icons/hi2";
+import { css } from "styled-system/css";
 
 interface Props {
   links: { title: string; url: string }[];
@@ -27,14 +27,52 @@ const { links } = Astro.props;
 const { pathname } = Astro.url;
 ---
 
-<nav id="sticky-nav" class={styles.newBar}>
+<nav
+  id="sticky-nav"
+  class={css({
+    hideFrom: "sm",
+    border: `1px solid {colors.gray8}`,
+    width: "90dvw",
+    borderRadius: "60vw",
+    overflow: "hidden",
+    position: "fixed",
+    left: "50%",
+    translate: "-50% 0",
+    bottom: "4",
+    display: "flex",
+    zIndex: 10,
+    boxShadow: {
+      base: `0 5px 10px {colors.gray11}`,
+      _dark: `0 5px 10px {colors.gray3}`,
+    },
+  })}
+>
   {
     links.map((link) => {
       const isActive =
         link.url === pathname || link.url === pathname.replace(/\/$/, "");
       const Icon = icons[link.title as keyof typeof icons]?.[isActive ? 1 : 0];
       return (
-        <a href={link.url} class={styles.newItem} data-active={isActive}>
+        <a
+          href={link.url}
+          class={css({
+            backgroundColor: "gray6",
+            flex: "1 1 100%",
+            placeContent: "center center",
+            textAlign: "center",
+            display: "flex",
+            gap: "2",
+            borderLeft: `1px solid {colors.gray8}`,
+            fontSize: "0.85rem",
+            "&:first-of-type": {
+              borderLeft: 0,
+            },
+            "&[data-active]": {
+              backgroundColor: "gray8",
+            },
+          })}
+          data-active={isActive}
+        >
           {link.title === "/uses" ? (
             <span
               style={
@@ -57,8 +95,17 @@ const { pathname } = Astro.url;
       );
     })
   }
-  <button id="settings-dialog-trigger" class={styles.newItem}
-    ><GearFilledIcon size="1.25rem" /></button
+  <button
+    id="settings-dialog-trigger"
+    class={css({
+      height: "56px",
+      flex: "1 1 100%",
+      justifyContent: "center",
+      alignItems: "center",
+      textAlign: "center",
+      display: "flex",
+      gap: "2",
+    })}><GearFilledIcon size="1.25rem" /></button
   >
 </nav>
 <SettingsDialog />

@@ -1,5 +1,7 @@
 ---
-import Box from "./Box.astro";
+import { css } from "styled-system/css";
 ---
 
-<Box borderRadius="9999px" typeScale="$sm" bg="$gray5"><slot /></Box>
+<div class={css({ borderRadius: "9999px", textStyle: "sm", bg: "gray5" })}>
+  <slot />
+</div>

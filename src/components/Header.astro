@@ -1,5 +1,5 @@
 ---
-import Box from "./Box.astro";
+import { flex } from "styled-system/patterns";
 import HeaderNavItem from "./HeaderNavItem.astro";
 import ThemeToggle from "./ThemeToggle.astro";
 import { css } from "styled-system/css";
@@ -15,12 +15,12 @@ type Props = {
     width: "100%",
   })}
 >
-  <Box as="nav" gap="$4" display="flex" width="100%">
+  <nav class={flex({ gap: "4", width: "100%" })}>
     {
       Astro.props.links.map(({ url, title }) => (
         <HeaderNavItem href={url}>{title}</HeaderNavItem>
       ))
     }
-    <Box ml="auto"><ThemeToggle /></Box>
-  </Box>
+    <div class={css({ ml: "auto" })}><ThemeToggle /></div>
+  </nav>
 </div>

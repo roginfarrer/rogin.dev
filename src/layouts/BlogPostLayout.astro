@@ -1,7 +1,8 @@
 ---
 import Layout from "layouts/ContentLayout.astro";
-import Box from "components/Box.astro";
 import FormattedDate from "components/FormattedDate.astro";
+import { css } from "styled-system/css";
+import { flex } from "styled-system/patterns/flex";
 
 type Props = {
   title: string;
@@ -13,41 +14,41 @@ const { title, description, date } = Astro.props;
 ---
 
 <Layout description={description} title={title}>
-  <Box mx="auto" maxWidth="42em">
-    <Box as="article" class="prose" fontSize="17px">
-      <Box
-        as="header"
-        display="flex"
-        flexDirection="column-reverse"
-        gap={{ _: "$2", md: "$3" }}
-        textAlign={{ md: "center" }}
+  <div class={css({ mx: "auto", maxWidth: "42em" })}>
+    <article class="prose">
+      <header
+        class={flex({
+          direction: "column-reverse",
+          gap: { base: "2", md: "3" },
+          textAlign: { md: "center" },
+        })}
       >
-        <Box as="h1">
-          {title}
-        </Box>
-        <Box
-          color="$gray9"
-          as="time"
-          display="block"
-          typeScale={{ _: "$sm", md: "$base" }}
+        <h1>{title}</h1>
+        <time
+          class={css({
+            display: "block",
+            textStyle: { base: "sm", md: "base" },
+            color: "gray9",
+          })}
         >
           <FormattedDate date={date} />
-        </Box>
-      </Box>
+        </time>
+      </header>
       <slot />
-    </Box>
-    <Box
-      as="a"
+    </article>
+    <a
+      class={css({
+        color: "white",
+        textDecoration: "none",
+        bg: "accent9",
+        borderRadius: "base",
+        textAlign: "center",
+        display: "block",
+        py: "3",
+      })}
       href="/blog"
-      color="white"
-      textDecoration="none"
-      bg="$accent9"
-      borderRadius="$base"
-      textAlign="center"
-      display="block"
-      py="$3"
     >
       <span aria-hidden="true">👈</span>&nbsp;&nbsp; Back
-    </Box>
-  </Box>
+    </a>
+  </div>
 </Layout>

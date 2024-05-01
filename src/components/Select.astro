@@ -1,7 +1,7 @@
 ---
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
-import Icon from "./Icon.astro";
 import { css } from "styled-system/css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const { label, id, "data-id": dataId, ...props } = Astro.props;
 
@@ -17,7 +17,6 @@ interface Props {
     textStyle: "sm",
     textAlign: "left",
     position: "relative",
-    // @ts-expect-error
     border: `2px solid token(colors.gray6)`,
     borderRadius: "lg",
     bg: "gray2",
@@ -63,18 +62,18 @@ interface Props {
   >
     <slot />
   </select>
-  <Icon
-    class={css({
+  <FontAwesomeIcon
+    className={css({
       alignSelf: "center",
       position: "absolute",
       right: 2,
       top: "50%",
       translate: "0 -50%",
       pointerEvents: "none",
+      size: "1em",
+      strokeWidth: "3px",
     })}
     aria-hidden="true"
     icon={faChevronDown}
-    size="1em"
-    style={{ strokeWidth: 3 }}
   />
 </label>

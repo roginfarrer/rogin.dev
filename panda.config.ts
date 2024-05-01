@@ -19,6 +19,7 @@ import {
 } from "@radix-ui/colors";
 import { mapKeys, mapValues } from "./src/utils";
 import { prose } from "./src/styles/prose";
+import { reset } from "src/styles/global.style";
 
 function semanticColors<T extends object, K extends Record<keyof T, string>>(
   lightScale: T,
@@ -85,6 +86,12 @@ export default defineConfig({
     textStyles: {
       sm: {
         value: { fontSize: "{fontSizes.sm}", lineHeight: "{lineHeights.sm}" },
+      },
+      base: {
+        value: {
+          fontSize: "{fontSizes.base}",
+          lineHeight: "{lineHeights.base}",
+        },
       },
       lg: {
         value: { fontSize: "{fontSizes.lg}", lineHeight: "{lineHeights.lg}" },
@@ -306,15 +313,64 @@ export default defineConfig({
       xs: "480px",
       sm: "640px",
       md: "768px",
+      lg: "1024px",
+      xl: "1280px",
+      "2xl": "1536px",
       "@xs": "480px",
       "@sm": "640px",
       "@md": "768px",
+      "@lg": "1024px",
+      "@xl": "1280px",
+      "@2xl": "1536px",
     },
     extend: {
       keyframes: {
         moveBg: {
           to: {
             backgroundPosition: "var(--bg-size) calc(var(--bg-size) / 2)",
+          },
+        },
+        light1: {
+          to: {
+            transform: "translateY(-25%)",
+          },
+        },
+        light2: {
+          from: {
+            transform: "scale(1.3) translate(30%, -30%)",
+          },
+          to: {
+            transform: "scale(1.3) translate(34%, 30%)",
+          },
+        },
+        mobileHeaderSlideIn: {
+          from: {
+            transform: "translateY(calc(50% - 36px))",
+            boxShadow: "0 0 0 100vmax rgba(0, 0, 0, 0)",
+          },
+          to: {
+            transform: "translateY(-50%)",
+            // Hack because animating ::backdrop in FireFox doesn't work well
+            boxShadow: "0 0 0 100vmax rgba(0, 0, 0, 0.5)",
+          },
+        },
+        mobileHeaderSlideOut: {
+          from: {
+            transform: "translateY(-50%)",
+            // Hack because animating ::backdrop in FireFox doesn't work well
+            boxShadow: "0 0 0 100vmax rgba(0, 0, 0, 0.5)",
+          },
+          to: {
+            transform: "translateY(calc(50% - 36px))",
+            boxShadow: "0 0 0 100vmax rgba(0, 0, 0, 0)",
+          },
+        },
+        floatingChevron: {
+          from: {
+            transform: "translateY(-10%)",
+          },
+          to: {
+            transform: "translateY(10%)",
           },
         },
       },
@@ -344,6 +400,7 @@ export default defineConfig({
 
   globalCss: {
     extend: {
+      ...reset,
       ...prose,
       ":where(:root)": {
         "--grad-two": "token(colors.accent10)",
@@ -360,6 +417,26 @@ export default defineConfig({
       },
       ".orange": {
         "--grad-one": "token(colors.blue10)",
+      },
+    },
+  },
+
+  utilities: {
+    extend: {
+      size: {
+        className: "size",
+        values: "sizes",
+        transform(value) {
+          return { height: value, width: value };
+        },
+      },
+      // Not sure why fontWeight isn't working and this is needed...
+      fontWeight: {
+        className: "fw",
+        values: "fontWeights",
+        transform(value) {
+          return { fontWeight: value };
+        },
       },
     },
   },

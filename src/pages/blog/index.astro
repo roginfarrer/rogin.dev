@@ -2,7 +2,8 @@
 import { getCollection } from "astro:content";
 import FormattedDate from "components/FormattedDate.astro";
 import Layout from "layouts/ContentLayout.astro";
-import Box from "components/Box.astro";
+import { css } from "styled-system/css";
+import { flex } from "styled-system/patterns";
 
 let posts = (await getCollection("blog")).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
@@ -16,43 +17,50 @@ if (import.meta.env.PROD) {
   title="Blog"
   description="Notes on web development, productivity, and more."
 >
-  <Box as="h1" typeScale={{ _: "$3xl", md: "$5xl" }} mb="$7" fontWeight="$bold">
+  <h1
+    class={css({
+      textStyle: { base: "3xl", md: "5xl" },
+      mb: "7",
+      fontWeight: "bold",
+    })}
+  >
     Writing
-  </Box>
-  <Box as="ul" display="flex" gap="$6" flexDirection="column">
+  </h1>
+  <ul class={flex({ gap: "6", direction: "column" })}>
     {
       posts.map(({ slug, data: { title, draft, date } }) => (
-        <Box as="li">
-          <Box as="span" display="block" typeScale="$xl" mb="$1">
-            <Box
-              fontWeight="$bold"
-              as="a"
-              color={{ hover: "$accent11" }}
+        <li>
+          <span class={css({ display: "block", textStyle: "xl", mb: "1" })}>
+            <a
+              class={css({ fontWeight: "bold", color: { _hover: "accent11" } })}
               href={draft ? `/blog-drafts/${slug}` : `/blog/${slug}`}
             >
               {title}
-            </Box>
+            </a>
             {draft && (
-              <Box
-                as="span"
-                ml="$2"
-                p="$2"
-                bg="$accent11"
-                color="white"
-                borderRadius="4px"
-                fontSize="$xs"
+              <span
+                class={css({
+                  ml: "2",
+                  p: "2",
+                  bg: "accent11",
+                  color: "white",
+                  borderRadius: "4px",
+                  fontSize: "xs",
+                })}
               >
                 DRAFT
-              </Box>
+              </span>
             )}
-          </Box>
-          <Box as="span" display="block" fontSize="$sm" color="$gray10">
+          </span>
+          <span
+            class={css({ display: "block", fontSize: "sm", color: "gray10" })}
+          >
             <FormattedDate date={date} />
-          </Box>
-        </Box>
+          </span>
+        </li>
       ))
     }
-  </Box>
+  </ul>
 </Layout>
 
 <script>

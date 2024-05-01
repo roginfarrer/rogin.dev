@@ -1,11 +1,11 @@
 ---
-import Box from "./Box.astro";
-import Icon from "./Icon.astro";
 import Badge from "./Badge.astro";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import Card from "./Card.astro";
 import { ArrowUpRight } from "lucide-react";
 import { css } from "styled-system/css";
+import { flex } from "styled-system/patterns";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const { title, href, desc, repo, emoji, tags = [] } = Astro.props;
 
@@ -24,7 +24,7 @@ const isExternalLink = !href.startsWith("/") || !href.startsWith("#");
 <Card
   href={href}
   data-project-card-repo={repo}
-  minHeight={{ _: "250px", md: "275px" }}
+  class={css({ minHeight: { base: "250px", md: "275px" } })}
 >
   <span
     class={css({
@@ -34,34 +34,40 @@ const isExternalLink = !href.startsWith("/") || !href.startsWith("#");
       mb: "4",
     })}
   >
-    <Box as="span" display="flex" justifyContent="space-between">
+    <span class={flex({ justify: "space-between" })}>
       <span>
-        <Box as="span" mixBlendMode="normal" typeScale="$2xl" display="block">
+        <span
+          class={css({
+            mixBlendMode: "normal",
+            textStyle: "2xl",
+            display: "block",
+          })}
+        >
           {emoji}
-        </Box>
+        </span>
         {title}
       </span>
       <ArrowUpRight strokeWidth="1" />
-    </Box>
+    </span>
   </span>
   <span class={css({ display: "block", fontStyle: "italic" })}>
     {desc}
   </span>
   {
     tags.length > 0 && (
-      <Box as="span" display="flex" gap="$2">
+      <span class={flex({ gap: "2" })}>
         {tags.map((tag) => (
           <Badge>{tag}</Badge>
         ))}
-      </Box>
+      </span>
     )
   }
   {
     isExternalLink && (
-      <Box as="span" display="flex" alignItems="center" gap="$2" mt="auto">
-        <Icon icon={faStar} size="1em" />
+      <span class={flex({ align: "center", gap: "2", mt: "auto" })}>
+        <FontAwesomeIcon icon={faStar} className={css({ size: "1em" })} />
         <span class="project-card-stars">0</span>
-      </Box>
+      </span>
     )
   }
 </Card>

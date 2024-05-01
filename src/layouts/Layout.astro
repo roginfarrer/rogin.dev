@@ -1,11 +1,9 @@
 ---
-import Box from "../components/Box.astro";
 import Header from "../components/Header.astro";
 import BaseHead from "../components/BaseHead.astro";
-import "../styles/global.css";
-import * as styles from "./Layout.css";
 import SettingsForm from "components/SettingsForm.astro";
 import { css } from "../../styled-system/css";
+import { flex } from "styled-system/patterns";
 import StickyMobileHeader from "components/StickyMobileHeader.astro";
 
 const isHome = Astro.url.pathname === "/";
@@ -52,15 +50,55 @@ type Props = {
     <BaseHead title={title} description={description} />
   </head>
 
-  <Box
-    as="body"
-    pb={{ _: "$9", md: "$7" }}
-    display="flex"
-    flexDirection="column"
-    pt={{ _: "$6", sm: "$8" }}
+  <body
+    class={flex({
+      pb: { base: "9", md: "7" },
+      direction: "column",
+      pt: { base: "6", sm: "8" },
+    })}
   >
-    <a href="#main" class={styles.skipToContent}>Skip to Content</a>
-    {!isHome && <div class={styles.halo} />}
+    <a
+      href="#main"
+      class={css({
+        position: "fixed",
+        left: "4",
+        top: "4",
+        borderRadius: "base",
+        padding: "4",
+        backgroundColor: "accent11",
+        border: `2px solid {colors.accent10}`,
+        color: "gray1",
+        opacity: 0,
+        maxHeight: 1,
+        maxWidth: 1,
+        scale: ".01%",
+        zIndex: -1,
+        _focus: {
+          opacity: 1,
+          scale: "100%",
+          maxHeight: "100%",
+          maxWidth: "100%",
+          zIndex: 10,
+        },
+      })}>Skip to Content</a
+    >
+    {
+      !isHome && (
+        <div
+          class={css({
+            "--halo-color": {
+              base: "{colors.accent5}",
+              _dark: "{colors.accent3}",
+            },
+            background: `radial-gradient(ellipse at top left, var(--halo-color), rgba(255, 255, 255, 0) 25%)`,
+            backgroundSize: "150%",
+            position: "absolute",
+            zIndex: "-1",
+            inset: 0,
+          })}
+        />
+      )
+    }
     <StickyMobileHeader links={headerLinks} />
     <div
       class={css({
@@ -102,17 +140,19 @@ type Props = {
           textAlign: "center",
         })}
       >
-        <Box
-          gap="$4"
-          justifyContent="center"
-          display={{ _: "none", sm: "flex" }}
+        <div
+          class={css({
+            display: { base: "none", sm: "flex" },
+            gap: "4",
+            justifyContent: "center",
+          })}
         >
           <SettingsForm />
-        </Box>
-        <Box typeScale="$sm" color="$gray11">
+        </div>
+        <div class={css({ textStyle: "sm", color: "gray11" })}>
           © {new Date().getFullYear()} Rogin Farrer. All rights reserved.
-        </Box>
+        </div>
       </div>
     </footer>
-  </Box>
+  </body>
 </html>

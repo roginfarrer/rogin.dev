@@ -1,6 +1,5 @@
 ---
 import Layout from "layouts/Layout.astro";
-import Box from "components/Box.astro";
 import Chip from "components/Chip.astro";
 import SlideShowAvatar from "components/SlideShowAvatar.astro";
 import {
@@ -11,7 +10,6 @@ import {
   faBookOpenReader,
   faDumbbell,
 } from "@fortawesome/free-solid-svg-icons";
-import Icon from "components/Icon.astro";
 import {
   faGithub,
   faThreads,
@@ -20,11 +18,11 @@ import {
   faXTwitter,
 } from "@fortawesome/free-brands-svg-icons";
 import disc from "components/disc";
-import * as styles from "./index.css";
 import { getCollection } from "astro:content";
 import ProjectCard from "components/ProjectCard.astro";
 import { css } from "styled-system/css";
-import { defineKeyframes } from "@pandacss/dev";
+import { flex, grid } from "styled-system/patterns";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 let posts = (await getCollection("blog"))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
@@ -35,25 +33,54 @@ if (import.meta.env.MODE === "production") {
   posts = posts.filter((post) => !post.data.draft);
 }
 
-defineKeyframes({
-  moveBg: {
-    to: {
-      backgroundPosition: "var(--bg-size) 0",
-    },
+const pageGrid = grid({
+  gridTemplateAreas: `"pic pic" "bio bio" "chips chips"`,
+  gap: "6",
+  alignItems: "center",
+  marginBottom: "3",
+  "@md": {
+    gridTemplateColumns: "1fr 1fr",
+    gridTemplateRows: "1fr 1fr 1fr",
+    gridTemplateAreas: `"bio pic" "bio pic" "chips chips"`,
+    gap: "token(spacing.9) token(spacing.7)",
+  },
+  "@lg": {
+    gridTemplateColumns: "2fr 1fr",
+  },
+});
+
+const lights = css({
+  background: `radial-gradient(circle at 15% 50%, token(colors.accent3), rgba(255, 255, 255, 0) 25%)`,
+  position: "fixed",
+  zIndex: "-1",
+  inset: 0,
+  _motionSafe: {
+    animation: `light1 15s ease-in-out infinite alternate`,
+  },
+});
+const lights2 = css({
+  background: `radial-gradient(circle at 50% 50%, token(colors.accent5), rgba(255, 255, 255, 0) 25%)`,
+  position: "fixed",
+  zIndex: "-1",
+  inset: 0,
+  _motionSafe: { animation: `light2 15s linear infinite alternate` },
+  ".dark &": {
+    background: `radial-gradient(circle at 50% 50%, token(colors.accent3), rgba(255, 255, 255, 0) 25%)`,
   },
 });
 ---
 
 <Layout>
-  <Box class={styles.lights} />
-  <Box class={styles.lights2} />
-  <div class={styles.grid}>
-    <Box
-      gridArea="bio"
-      as="p"
-      textAlign={{ _: "center", md: "left" }}
-      style={{ textWrap: "balanced" }}
-      typeScale={{ sm: "$2xl" }}
+  <div class={lights}></div>
+  <div class={lights2}></div>
+  <div class={pageGrid}>
+    <p
+      class={css({
+        gridArea: "bio",
+        textAlign: { base: "center", md: "left" },
+        textStyle: { "@sm": "2xl" },
+        textWrap: "pretty",
+      })}
     >
       <strong
         class={css({
@@ -67,44 +94,47 @@ defineKeyframes({
       > I'm a software engineer based in sunny San Diego, CA. I'm passionate about
       design systems, developer tooling, and web accessibility. I enjoy playing ultimate
       frisbee, weight-lifting, and building mechanical keyboards in my free time.
-    </Box>
-    <Box
-      gridArea="pic"
-      display="flex"
-      alignItems="center"
-      justifyContent={{ _: "center", md: "flex-end" }}
+    </p>
+    <div
+      class={flex({
+        gridArea: "pic",
+        align: "center",
+        justify: { base: "center", md: "flex-end" },
+      })}
     >
       <SlideShowAvatar />
-    </Box>
-    <Box
-      gridArea="chips"
-      display="flex"
-      gap="$3"
-      flexWrap="wrap"
-      mb="$7"
-      fontSize="$lg"
+    </div>
+    <div
+      class={flex({
+        gridArea: "chips",
+        gap: "3",
+        flexWrap: "wrap",
+        mb: "7",
+        fontSize: "lg",
+      })}
     >
-      <Chip icon={faKeyboard} iconColor="$blue9">
+      <Chip icon={faKeyboard} iconColor="blue9">
         Mechanical Keyboard Enthusiast
       </Chip>
-      <Chip icon={faBookOpenReader} iconColor="$green9">Self Taught</Chip>
-      <Chip icon={faCodeMerge} iconColor="$orange9">Open Sourcerer</Chip>
-      <Chip icon={faObjectGroup} iconColor="$purple9">Design Systems</Chip>
-      <Chip icon={disc} iconColor="$blue10">Ultimate Frisbee</Chip>
-      <Chip icon={faDumbbell} iconColor="$gray9">Weight-lifter</Chip>
-      <Chip icon={faScroll} iconColor="$red9">History Nerd</Chip>
-    </Box>
+      <Chip icon={faBookOpenReader} iconColor="green9">Self Taught</Chip>
+      <Chip icon={faCodeMerge} iconColor="orange9">Open Sourcerer</Chip>
+      <Chip icon={faObjectGroup} iconColor="purple9">Design Systems</Chip>
+      <Chip icon={disc} iconColor="blue10">Ultimate Frisbee</Chip>
+      <Chip icon={faDumbbell} iconColor="gray9">Weight-lifter</Chip>
+      <Chip icon={faScroll} iconColor="red9">History Nerd</Chip>
+    </div>
   </div>
-  <Box as="section" mb="$8">
-    <Box
-      as="h2"
-      typeScale={{ _: "$3xl", sm: "$4xl" }}
-      fontWeight="$bolder"
-      mb="$6"
+  <div class={css({ mb: "8" })}>
+    <h2
+      class={css({
+        textStyle: { base: "3xl", "@sm": "4xl" },
+        fontWeight: "bolder",
+        mb: "6",
+      })}
     >
       Featured Projects
-    </Box>
-    <Box display="flex" gap="$4" flexDirection={{ _: "column", sm: "row" }}>
+    </h2>
+    <div class={flex({ gap: "4", direction: { base: "column", sm: "row" } })}>
       <ProjectCard
         href="https://github.com/roginfarrer/react-collapsed"
         title="react-collapsed"
@@ -126,73 +156,65 @@ defineKeyframes({
         desc="Responsive, theme-based, and typed style props for React."
         repo="system-props/system-props"
       />
-    </Box>
-  </Box>
-  {
-    /* <Stack gap="$6" mb="$9">
-    <Box as="h2" typeScale="$4xl" fontWeight="$bolder">Recent Posts</Box>
+    </div>
+  </div>
+  <div class={flex({ justify: "space-evenly" })}>
     {
-      posts.map((post) => (
-        <Box
-          as="a"
-          href={`blog/${post.slug}`}
-          p="$4"
-          borderRadius="$lg"
-          border={`2px solid ${vars.colors.gray8}`}
-          bg="$gray4"
-          display="flex"
-          justifyContent="space-between"
-          alignItems="center"
+      [
+        {
+          title: "GitHub",
+          icon: faGithub,
+          href: "https://github.com/roginfarrer",
+        },
+        {
+          title: "LinkedIn",
+          icon: faLinkedin,
+          href: "https://linkedin.com/in/roginfarrer",
+        },
+        {
+          title: "Threads",
+          icon: faThreads,
+          href: "https://www.threads.net/@roginfarrer",
+        },
+        {
+          title: "Mastodon",
+          icon: faMastodon,
+          href: "https://hachyderm.io/@rogin",
+        },
+        {
+          title: "Twitter",
+          icon: faXTwitter,
+          href: "https://x.com/roginfarrer",
+        },
+      ].map(({ title, icon, href }) => (
+        <a
+          href={href}
+          class={css({
+            p: "2",
+            transitionProperty: "color, transform",
+            transitionDuration: ".2s",
+            transitionTimingFunction: "ease",
+            _hover: {
+              color: "accent10",
+              transform: "translateY(-10%) scale(1.05)",
+            },
+          })}
         >
-          <div>
-            <Box as="h3" typeScale="$2xl">
-              {post.data.title}
-            </Box>
-            <FormattedDate date={post.data.date} />
-          </div>
-          <Icon icon={faArrowRightLong} size="1.25em" />
-        </Box>
+          <FontAwesomeIcon
+            icon={icon}
+            className={css({ size: "2em" })}
+            title={title}
+          />
+        </a>
       ))
     }
-  </Stack> */
-  }
-  <Box display="flex" justifyContent="space-evenly">
-    <Box as="a" href="https://github.com/roginfarrer" class={styles.socialIcon}>
-      <Icon icon={faGithub} size="2em" title="GitHub" />
-    </Box>
-    <Box
-      as="a"
-      href="https://www.linkedin.com/in/roginfarrer/"
-      class={styles.socialIcon}
-    >
-      <Icon icon={faLinkedin} size="2em" title="LinkedIn" />
-    </Box>
-    <Box
-      as="a"
-      href="https://www.threads.net/@roginfarrer"
-      class={styles.socialIcon}
-    >
-      <Icon icon={faThreads} size="2em" title="Threads" />
-    </Box>
-    <Box as="a" href="https://hachyderm.io/@rogin" class={styles.socialIcon}>
-      <Icon icon={faMastodon} size="2em" title="Mastodon" />
-    </Box>
-    <Box as="a" href="https://x.com/roginfarrer" class={styles.socialIcon}>
-      <Icon icon={faXTwitter} size="2em" title="Mastodon" />
-    </Box>
-  </Box>
+  </div>
 </Layout>
 
 <script>
   // Update the chip icon colors with random colors
-  import { vars } from "../vars.css";
-  const iconColors: (keyof typeof vars.colors)[] = [
-    "green9",
-    "blue10",
-    "red9",
-    "orange9",
-    "purple9",
-  ];
+  import { token } from "styled-system/tokens";
+  const iconColors = ["green9", "blue10", "red9", "orange9", "purple9"];
 
   function randomInRange(min: number, max: number) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -209,7 +231,10 @@ defineKeyframes({
         let timeout = randomInRange(3000, 6000);
         timeoutId = setTimeout(() => {
           const random = randomInRange(0, iconColors.length - 1);
-          node.style.setProperty("color", vars.colors[iconColors[random]]);
+          node.style.setProperty(
+            "color",
+            token(`colors.${iconColors[random]}`),
+          );
           clearTimeout(timeoutId);
           run();
         }, timeout);

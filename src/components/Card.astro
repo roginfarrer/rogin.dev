@@ -1,31 +1,25 @@
 ---
-import Box from "./Box.astro";
-import type { Sprinkles } from "./Box.css";
 import { css } from "styled-system/css";
 
-export type Props = Sprinkles & {
+export type Props = {
   href: string;
   class?: string;
   preview?: boolean;
 };
 
 const { href, class: propClass, preview = false, ...props } = Astro.props;
-const element = preview ? "span" : "a";
+const Element = preview ? "span" : "a";
 ---
 
-<Box
+<Element
   {...props}
   href={href}
-  as={element}
   class:list={[
     css({
       position: "relative",
       borderRadius: "xl",
       bg: "gray4",
-      // border: "[1px solid token(colors.gray8)]",
       p: "4",
-      // transition:
-      //   ".2s background-color ease-out, .2s box-shadow ease-out, outline-offset ease 0.5s, .2s border-color ease-out",
       display: "flex",
       transitionProperty: "all",
       transitionTimingFunction: "ease-out",
@@ -34,17 +28,12 @@ const element = preview ? "span" : "a";
       justifyContent: "space-between",
       flex: "1",
       overflow: "hidden",
-      // boxShadow: "0px 0px 0px 1px token(colors.gray8)",
+      "--shadow-color": { base: "{colors.gray6}", _dark: "{colors.gray4}" },
       _hover: {
         "&:is(a)": {
           bg: "gray5",
-          // bg: "gray2",
-          boxShadow: "0 4px 20px 0 token(colors.gray6)",
+          boxShadow: "0 4px 20px 0 var(--shadow-color)",
           borderColor: "transparent",
-          // translate: "0 -2px",
-          _dark: {
-            boxShadow: "0 4px 20px 0 token(colors.gray4)",
-          },
         },
       },
     }),
@@ -52,4 +41,4 @@ const element = preview ? "span" : "a";
   ]}
 >
   <slot />
-</Box>
+</Element>

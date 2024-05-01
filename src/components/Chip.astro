@@ -1,32 +1,38 @@
 ---
-import { vars } from "../vars.css";
-import Box, { type Props as BoxProps } from "./Box.astro";
 import type { IconDefinition } from "@fortawesome/free-solid-svg-icons";
-import Icon from "./Icon.astro";
+import { flex } from "styled-system/patterns";
+import { css } from "styled-system/css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { token } from "styled-system/tokens";
+
+type TokenString = Parameters<typeof token>[0];
+type ColorString<T> = T extends `colors.${infer R}` ? R : never;
+type Colors = ColorString<TokenString>;
 
 export interface ChipProps {
   icon: IconDefinition;
-  iconColor?: BoxProps<any>["color"];
+  iconColor: Colors;
 }
 
 const { icon, iconColor } = Astro.props;
 ---
 
-<Box
-  display="flex"
-  gap="$2"
-  borderRadius="50vw"
-  alignItems="center"
-  border={`1px solid ${vars.colors.gray7}`}
-  py="$1"
-  px="$2"
-  typeScale="$sm"
+<div
+  class={flex({
+    gap: "2",
+    borderRadius: "50vw",
+    align: "center",
+    border: "1px solid token(colors.gray7)",
+    py: "1",
+    px: "2",
+    textStyle: "sm",
+  })}
 >
-  <Icon
+  <FontAwesomeIcon
     data-chip-icon={icon.iconName}
     icon={icon}
-    color={iconColor}
-    size="15px"
+    className={css({ size: "15px", color: "var(--color)" })}
+    style={{ "--color": token(`colors.${iconColor}`) }}
   />
   <slot />
-</Box>
+</div>
