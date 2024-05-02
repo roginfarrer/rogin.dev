@@ -207,7 +207,14 @@ const lights2 = css({
 <script>
   // Update the chip icon colors with random colors
   import { token } from "styled-system/tokens";
-  const iconColors = ["green9", "blue10", "red9", "orange9", "purple9"];
+  import { type Colors } from "../types";
+  const iconColors: Colors[] = [
+    "green9",
+    "blue10",
+    "red9",
+    "orange9",
+    "purple9",
+  ];
 
   function randomInRange(min: number, max: number) {
     return Math.floor(Math.random() * (max - min + 1)) + min;

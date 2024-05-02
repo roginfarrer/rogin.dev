@@ -1,11 +1,8 @@
 import { css } from "styled-system/css";
-
-const TRANSITION = ".15s background-color ease";
-
 import { actions } from "../store";
 
 const style = css({
-  transition: TRANSITION,
+  transition: ".15s background-color ease",
   borderRadius: "md",
   p: "1",
   bg: { base: "gray4", _hover: "gray6" },
@@ -25,7 +22,9 @@ export function ThemeToggle() {
 
   return (
     <button onClick={handleClick} class={style}>
+      {/* @ts-ignore */}
       <MoonIcon className="moon" />
+      {/* @ts-ignore */}
       <SunIcon className="sun" />
     </button>
   );

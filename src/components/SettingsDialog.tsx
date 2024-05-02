@@ -68,6 +68,7 @@ export function SettingsDialog(props: { children: any }) {
           title="Close dialog"
           onClick={() => dialog.close()}
         >
+          {/* @ts-expect-error */}
           <IoClose size="1.25em" />
         </button>
         <div class={flex({ gap: "3", direction: "column" })}>

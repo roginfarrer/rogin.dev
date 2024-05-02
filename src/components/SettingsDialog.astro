@@ -17,6 +17,7 @@ import { flex } from "styled-system/patterns";
       doc.querySelector("body")!.style.setProperty("overflow", "hidden");
     }
 
+    // @ts-expect-error
     dialog.openModal = openModal;
 
     document

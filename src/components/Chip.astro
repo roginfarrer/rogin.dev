@@ -4,12 +4,10 @@ import { flex } from "styled-system/patterns";
 import { css } from "styled-system/css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { token } from "styled-system/tokens";
+import type { CSSProperties } from "react";
+import { type Colors } from "../types";
 
-type TokenString = Parameters<typeof token>[0];
-type ColorString<T> = T extends `colors.${infer R}` ? R : never;
-type Colors = ColorString<TokenString>;
-
-export interface ChipProps {
+export interface Props {
   icon: IconDefinition;
   iconColor: Colors;
 }
@@ -32,7 +30,7 @@ const { icon, iconColor } = Astro.props;
     data-chip-icon={icon.iconName}
     icon={icon}
     className={css({ size: "15px", color: "var(--color)" })}
-    style={{ "--color": token(`colors.${iconColor}`) }}
+    style={{ "--color": token(`colors.${iconColor}`) } as CSSProperties}
   />
   <slot />
 </div>
