@@ -1,3 +1,4 @@
+/* eslint-disable @pandacss/no-config-function-in-source */
 import { defineGlobalStyles } from "@pandacss/dev";
 import type { SystemProperties } from "styled-system/types";
 
@@ -21,7 +22,7 @@ export const prose = defineGlobalStyles({
     "h1, h2, h3, h4": {
       marginBottom: "1em",
     },
-    "p, li": {
+    "p, li, code": {
       ...typeSize("lg"),
       fontSize: "clamp(1rem, 0.96rem + 0.22vw, 1.125rem)",
     },

@@ -1,6 +1,5 @@
 ---
 import { css } from "styled-system/css";
-import { TRANSITION } from "./HeaderNavItem.astro";
 import { MoonIcon, SunIcon } from "@radix-ui/react-icons";
 ---
 
@@ -28,7 +27,7 @@ import { MoonIcon, SunIcon } from "@radix-ui/react-icons";
   class:list={[
     "theme-toggle",
     css({
-      transition: TRANSITION,
+      transition: ".15s background-color ease",
       borderRadius: "md",
       p: "1",
       bg: { base: "gray4", _hover: "gray6" },

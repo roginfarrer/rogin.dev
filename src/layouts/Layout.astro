@@ -66,13 +66,14 @@ type Props = {
         borderRadius: "base",
         padding: "4",
         backgroundColor: "accent11",
+        // eslint-disable-next-line @pandacss/no-unsafe-token-fn-usage
         border: `2px solid {colors.accent10}`,
         color: "gray1",
         opacity: 0,
         maxHeight: 1,
         maxWidth: 1,
         scale: ".01%",
-        zIndex: -1,
+        zIndex: "-1",
         _focus: {
           opacity: 1,
           scale: "100%",
@@ -87,10 +88,12 @@ type Props = {
         <div
           class={css({
             "--halo-color": {
-              base: "{colors.accent5}",
-              _dark: "{colors.accent3}",
+              base: "colors.accent5",
+              _dark: "colors.accent3",
             },
-            background: `radial-gradient(ellipse at top left, var(--halo-color), rgba(255, 255, 255, 0) 25%)`,
+            // eslint-disable-next-line
+            background:
+              "radial-gradient(ellipse at top left, var(--halo-color), rgba(255, 255, 255, 0) 25%)",
             backgroundSize: "150%",
             position: "absolute",
             zIndex: "-1",

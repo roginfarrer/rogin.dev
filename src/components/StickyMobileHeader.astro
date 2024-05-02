@@ -31,20 +31,19 @@ const { pathname } = Astro.url;
   id="sticky-nav"
   class={css({
     hideFrom: "sm",
-    border: `1px solid {colors.gray8}`,
-    width: "90dvw",
-    borderRadius: "60vw",
-    overflow: "hidden",
+    borderTop: "1px solid {colors.gray4}",
+    backgroundColor: {
+      base: "rgb(255 255 255 / 70%)",
+      _dark: "rgb(0 0 0 / 70%)",
+    },
+    backdropFilter: "blur(7px)",
     position: "fixed",
-    left: "50%",
-    translate: "-50% 0",
-    bottom: "4",
+    width: "100dvw",
+    overflow: "hidden",
+    bottom: "env(safe-area-inset-bottom)",
     display: "flex",
     zIndex: 10,
-    boxShadow: {
-      base: `0 5px 10px {colors.gray11}`,
-      _dark: `0 5px 10px {colors.gray3}`,
-    },
+    transition: "opacity ease-out 0.3s",
   })}
 >
   {
@@ -56,35 +55,28 @@ const { pathname } = Astro.url;
         <a
           href={link.url}
           class={css({
-            backgroundColor: "gray6",
+            height: "56px",
             flex: "1 1 100%",
-            placeContent: "center center",
+            justifyContent: "center",
+            alignItems: "center",
             textAlign: "center",
             display: "flex",
             gap: "2",
-            borderLeft: `1px solid {colors.gray8}`,
-            fontSize: "0.85rem",
-            "&:first-of-type": {
-              borderLeft: 0,
-            },
-            "&[data-active]": {
-              backgroundColor: "gray8",
-            },
           })}
           data-active={isActive}
         >
           {link.title === "/uses" ? (
             <span
-              style={
+              class:list={[
                 isActive
-                  ? {
+                  ? css({
                       textDecoration: "underline",
                       textDecorationThickness: "0.3ex",
                       textUnderlineOffset: "0.3ex",
                       textDecorationSkipInk: "all",
-                    }
-                  : {}
-              }
+                    })
+                  : null,
+              ]}
             >
               /uses
             </span>

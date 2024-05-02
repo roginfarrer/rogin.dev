@@ -17,10 +17,13 @@ type Props = {
   preview={preview}
   class:list={[
     "card",
-    css({
-      height: { base: "200px", xs: "revert" },
-      color: preview ? "gray11" : { base: "gray11", _hover: "gray12" },
-    }),
+    css(
+      {
+        height: { base: "200px", xs: "revert" },
+        color: { base: "gray11", _hover: "gray12" },
+      },
+      preview && { color: "gray11" },
+    ),
   ]}
 >
   <span class={css({ fontSize: "4em", mb: { base: "3", xs: "6" } })}
