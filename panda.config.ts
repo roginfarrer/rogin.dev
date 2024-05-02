@@ -1,9 +1,9 @@
 import { defineConfig } from "@pandacss/dev";
 import { prose } from "./src/styles/prose";
-import { reset } from "src/styles/global.style";
-import { semanticTokens, textStyles, tokens } from "theme/tokens";
-import { keyframes } from "theme/keyframes";
-import { proseLink } from "theme/patterns";
+import { reset } from "./src/styles/global.style";
+import { semanticTokens, textStyles, tokens } from "./theme/tokens";
+import { keyframes } from "./theme/keyframes";
+import { proseLink } from "./theme/patterns";
 
 export default defineConfig({
   // Whether to use css reset
