@@ -1,6 +1,12 @@
-export const cache = new Map<string, any>(
-  JSON.parse(localStorage.getItem("app-cache") || "[]"),
-);
+let init = false;
+let cache = new Map<string, any>();
+
+function setup() {
+  const localCache = JSON.parse(localStorage.getItem("app-cache") || "[]");
+  cache = new Map(localCache);
+  window.addEventListener("beforeunload", syncCacheToLocalStorage);
+  init = true;
+}
 
 interface StoredData<T> {
   timestamp: number;
@@ -11,6 +17,10 @@ export const cachedFetch = async <T>(
   endpoint: RequestInfo | URL,
   opts: { fetchOptions?: ResponseInit; duration: number },
 ): Promise<T> => {
+  if (!init) {
+    setup();
+  }
+
   const key = endpoint.toString();
   const cachedResponse = cache.get(key) as StoredData<T>;
 
@@ -42,5 +52,3 @@ function syncCacheToLocalStorage() {
   const appCache = JSON.stringify(Array.from(cache.entries()));
   localStorage.setItem("app-cache", appCache);
 }
-
-window.addEventListener("beforeunload", syncCacheToLocalStorage);

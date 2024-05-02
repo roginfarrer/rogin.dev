@@ -26,6 +26,7 @@
     "@fontsource-variable/inter": "^5.0.16",
     "@fontsource-variable/karla": "^5.0.19",
     "@fontsource-variable/space-grotesk": "^5.0.16",
+    "@fortawesome/fontawesome-svg-core": "^6.5.2",
     "@fortawesome/free-brands-svg-icons": "^6.5.1",
     "@fortawesome/free-regular-svg-icons": "^6.5.1",
     "@fortawesome/free-solid-svg-icons": "^6.5.1",
@@ -43,7 +44,9 @@
     "nanostores": "^0.9.5",
     "react": "^18.2.0",
     "react-icons": "^5.0.1",
+    "solid-icons": "^1.1.0",
     "solid-js": "^1.8.17",
+    "solid-query": "^0.0.7",
     "typescript": "^5.3.3"
   },
   "devDependencies": {

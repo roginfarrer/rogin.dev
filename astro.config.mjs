@@ -9,14 +9,21 @@ import solidJs from "@astrojs/solid-js";
 // https://astro.build/config
 export default defineConfig({
   site: "https://rogin.xyz",
-  integrations: [mdx({
-    extendMarkdownConfig: true
-  }), sitemap({
-    filter(page) {
-      return !page.includes("/blog-drafts/");
-    }
-  }), react(), panda(), solidJs()],
+  integrations: [
+    mdx({
+      extendMarkdownConfig: true,
+    }),
+    sitemap({
+      filter(page) {
+        return !page.includes("/blog-drafts/");
+      },
+    }),
+    react(),
+    panda(),
+    solidJs(),
+  ],
   devToolbar: {
-    enabled: false
-  }
+    enabled: false,
+  },
 });
+

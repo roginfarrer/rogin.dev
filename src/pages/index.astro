@@ -18,7 +18,9 @@ import {
   faXTwitter,
 } from "@fortawesome/free-brands-svg-icons";
 import disc from "components/disc";
-import ProjectCard from "components/ProjectCard.astro";
+// import ProjectCard from "components/ProjectCard.astro";
+import { ProjectCard } from "components/ProjectCard";
+import { GithubStar } from "components/GithubStar";
 import { css } from "styled-system/css";
 import { flex, grid } from "styled-system/patterns";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -133,22 +135,32 @@ const lights2 = css({
         title="react-collapsed"
         emoji="🙈"
         desc="React custom hook for creating animated and accessible expand/collapse components"
-        repo="roginfarrer/react-collapsed"
-      />
-      <ProjectCard
-        href="https://github.com/wayfair/rainbow-sprinkles"
-        title="Rainbow Sprinkles"
-        emoji="🌈 🧁"
-        desc="Dynamic, theme-driven style props for Vanilla Extract."
-        repo="wayfair/rainbow-sprinkles"
-      />
-      <ProjectCard
-        href="https://github.com/system-props/system-props"
-        title="System Props"
-        emoji="📦"
-        desc="Responsive, theme-based, and typed style props for React."
-        repo="system-props/system-props"
-      />
+        repo="roginfarrer/collapsed"
+      >
+        <GithubStar
+          slot="star"
+          repo="roginfarrer/react-collapsed"
+          client:only="solid-js"
+        />
+      </ProjectCard>
+      <!-- <ProjectCard -->
+      <!--   href="https://github.com/wayfair/rainbow-sprinkles" -->
+      <!--   title="Rainbow Sprinkles" -->
+      <!--   emoji="🌈 🧁" -->
+      <!--   desc="Dynamic, theme-driven style props for Vanilla Extract." -->
+      <!--   star={( -->
+      <!--     <GithubStar repo="wayfair/rainbow-sprinkles" client:only="solid-js" /> -->
+      <!--   )} -->
+      <!-- /> -->
+      <!-- <ProjectCard -->
+      <!--   href="https://github.com/system-props/system-props" -->
+      <!--   title="System Props" -->
+      <!--   emoji="📦" -->
+      <!--   desc="Responsive, theme-based, and typed style props for React." -->
+      <!--   star={( -->
+      <!--     <GithubStar repo="system-props/system-props" client:only="solid-js" /> -->
+      <!--   )} -->
+      <!-- /> -->
     </div>
   </div>
   <div class={flex({ justify: "space-evenly" })}>
@@ -246,40 +258,4 @@ const lights2 = css({
   setup();
 
   document.addEventListener("astro:after-swap", setup);
-</script>
-
-<script>
-  import { cachedFetch } from "../cache";
-
-  function setup(doc = document) {
-    const cards = doc.querySelectorAll(
-      "[data-project-card-repo]",
-    ) as NodeListOf<HTMLElement>;
-
-    cards.forEach(async (card) => {
-      const repo = card.dataset.projectCardRepo;
-      if (!repo) {
-        return;
-      }
-      const [owner, project] = repo.split("/");
-      const data = await cachedFetch<{ stargazers_count: number }>(
-        `https://api.github.com/repos/${owner}/${project}`,
-        // 6 hours
-        { duration: 21600000 },
-      );
-      if (data.stargazers_count) {
-        const starEl = card.querySelector(".project-card-stars");
-        if (starEl) {
-          starEl.innerHTML = data.stargazers_count.toString();
-        }
-      }
-    });
-  }
-
-  setup();
-
-  document.addEventListener("astro:before-swap", (e) => {
-    // @ts-expect-error
-    setup(e.newDocument);
-  });
 </script>
