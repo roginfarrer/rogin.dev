@@ -1,20 +1,16 @@
 {
   "extends": "astro/tsconfigs/strict",
-  "exclude": [
-    "dist"
-  ],
+  "exclude": ["dist"],
   "compilerOptions": {
     "strictNullChecks": true,
-    "baseUrl": "/Users/rfarrer/projects/astro-site",
+    "baseUrl": ".",
     "paths": {
-      "components/*": [
-        "./src/components/*"
-      ],
-      "layouts/*": [
-        "./src/layouts/*"
-      ]
+      "components/*": ["./src/components/*"],
+      "layouts/*": ["./src/layouts/*"],
+      "styled-system/*": ["./styled-system/*"]
     },
     "jsx": "preserve",
     "jsxImportSource": "solid-js"
   }
 }
+
