@@ -9,6 +9,7 @@ const tabbableElements = [
   "select",
 ];
 
+// eslint-disable-next-line @pandacss/no-config-function-in-source
 export const reset = defineGlobalStyles({
   "@layer reset": {
     [`*:where(:not(html, iframe, canvas, img, svg, video, dialog, strong, em):not(svg *, symbol *, pre, pre *))`]:
