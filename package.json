@@ -1,5 +1,5 @@
 {
-  "name": "astro-site",
+  "name": "rogin.xyz",
   "type": "module",
   "version": "0.0.1",
   "scripts": {
@@ -61,6 +61,7 @@
     "prettier-plugin-astro": "^0.12.2"
   },
   "engines": {
-    "node": "18.19.x"
-  }
+    "node": "20"
+  },
+  "packageManager": "bun@1.0.29"
 }

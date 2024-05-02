@@ -64,6 +64,8 @@ const { pathname } = Astro.url;
             gap: "2",
           })}
           data-active={isActive}
+          title={link.title}
+          aria-label={link.title}
         >
           {link.title === "/uses" ? (
             <span
@@ -88,6 +90,8 @@ const { pathname } = Astro.url;
     })
   }
   <button
+    title="Settings"
+    aria-label="Settings"
     id="settings-dialog-trigger"
     class={css({
       height: "56px",
