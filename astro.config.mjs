@@ -22,10 +22,4 @@ export default defineConfig({
     panda(),
     solidJs(),
   ],
-  redirects: {
-    "/cv": {
-      destination: "https://resume.rogin.dev",
-    },
-  },
 });
-
