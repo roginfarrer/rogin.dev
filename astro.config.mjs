@@ -8,15 +8,24 @@ import solidJs from "@astrojs/solid-js";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://rogin.xyz",
-  integrations: [mdx({
-    extendMarkdownConfig: true
-  }), sitemap({
-    filter(page) {
-      return !page.includes("/blog-drafts/");
-    }
-  }), react(), panda(), solidJs()],
-  devToolbar: {
-    enabled: false
-  }
+  site: "https://rogin.dev",
+  integrations: [
+    mdx({
+      extendMarkdownConfig: true,
+    }),
+    sitemap({
+      filter(page) {
+        return !page.includes("/blog-drafts/");
+      },
+    }),
+    react(),
+    panda(),
+    solidJs(),
+  ],
+  redirects: {
+    "/cv": {
+      destination: "https://resume.rogin.dev",
+    },
+  },
 });
+
