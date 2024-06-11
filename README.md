@@ -1,4 +1,4 @@
-# rogin.xyz
+# rogin.dev
 
 My personal website and portfolio built with:
 
@@ -13,8 +13,8 @@ My personal website and portfolio built with:
 This app requires Node.js v20+
 
 ```
-git clone https://github.com/roginfarrer/rogin.xyz
-cd rogin.xyz
+git clone https://github.com/roginfarrer/rogin.dev
+cd rogin.dev
 bun install
 bun dev
 ```

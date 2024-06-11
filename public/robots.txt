@@ -16,4 +16,4 @@ Disallow: /
 User-agent: FacebookBot
 Disallow: /
 
-Sitemap: https://rogin.xyz/sitemap-index.xml
+Sitemap: https://rogin.dev/sitemap-index.xml
