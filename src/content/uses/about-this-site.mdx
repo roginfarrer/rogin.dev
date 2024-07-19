@@ -8,6 +8,7 @@ import { Image } from "astro:assets";
 import oldSite from "../../images/old-site.png";
 import newSite from "../../images/new-site.png";
 import { css } from "styled-system/css";
+import ImageComparisonSlider from "../../components/ImgComparisonSlider.astro";
 
 export const styles = {
   slider: css({
@@ -69,7 +70,8 @@ This site was built with the help of the following technologies:
 I've had some form of my own website for going on 10 years. I started teaching myself web development as a high schooler because I got interested in blogging. (When individuals running blogs were a big thing on the web.) Ultimately, I spent more time honing my skills in rebuilding my website over and over instead of writing. (A tendency that persists throught oday.) At first it was a WordPress site, and [I soon refactored it into Jekyll](/blog/starting-a-blog-with-jeyll). It's had many more iterations and stacks, from [Gatsby](https://gatsbyjs.com), to [Next.js](https://nextjs.org), to now with [Astro](https://astrol.build).
 
 <figure class={css({overflowX: 'initial'})}>
-<img-comparison-slider class={styles.slider}>
+<ImageComparisonSlider />
+<img-comparison-slider client:visible class={styles.slider}>
 
 <div slot="first" class={styles.first}>
   <Image src={oldSite} alt="" />
@@ -121,11 +123,3 @@ I love Vanilla Extract, and I think it has the potential to be the best CSS-in-J
 I think many architecture decisions were made to mirror Tailwind's decisions, which may be sensible to attract Tailwind devotees. But that's not me, so that may explain some of my philosophical incompatibilities.
 
 All my complaints aside, I'm really enjoying working with Panda, and there's many ways in which I feel like I can be more efficient than with Vanilla Extract!
-
-## Why this site isn't open-source
-
-My website has been open-source since I first created it over 10 years ago. At the time, and for many years, it seemed really important to show my work under-the-hood. For one, it seems pretty common for engineers to make the source code of their website publically available. And it makes for a good recruiting tool, functioning similar to a portfolio. But I've recently decided that the pros don't outweigh the cons.
-
-My problem with making the website open-source is my perfectionism. I'm hesitant to push changes to the website for fear that the source code is "messy" or "disorganized." What if a potential future employer sees it!? They'll think I'm a bad programmer! Why are there multiple dependencies to accomplish the same thing! ([See above](#styling-a-tale-of-two-static-css-solutions).)
-
-Ultimately my goal with this website is to have fun and try new things! I want to be able to experiment and refactor and ship WIP features without scrutiny. Maybe someday I'll get over this concern, but for now, curious readers will have to read this page or dig into the page source to see what's going on 😉.
