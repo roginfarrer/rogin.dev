@@ -26,3 +26,5 @@ public/.cache
 styled-system
 styled-system-studio
 .vercel
+
+node_modules

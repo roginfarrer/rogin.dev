@@ -43,6 +43,7 @@
     "react": "^18.2.0",
     "react-icons": "^5.0.1",
     "solid-js": "^1.8.17",
+    "tinacms": "^1.6.7",
     "typescript": "^5.3.3"
   },
   "devDependencies": {
@@ -50,6 +51,8 @@
     "@pandacss/astro": "^0.25.0",
     "@pandacss/dev": "latest",
     "@pandacss/eslint-plugin": "^0.1.2",
+    "@tinacms/cli": "^1.5.49",
+    "@types/node": "^20.14.11",
     "@typescript-eslint/eslint-plugin": "^7.8.0",
     "@typescript-eslint/parser": "^7.8.0",
     "eslint-plugin-astro": "^1.1.1",
