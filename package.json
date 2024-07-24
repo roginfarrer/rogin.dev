@@ -4,10 +4,10 @@
   "version": "0.0.1",
   "scripts": {
     "prepare": "panda codegen",
-    "dev": "astro dev",
+    "dev": "bunx tinacms dev -c 'astro dev'",
     "start": "astro dev",
     "check": "astro check",
-    "build": "astro build",
+    "build": "tinacms build && astro build",
     "preview": "astro preview",
     "astro": "astro",
     "lint": "ESLINT_USE_FLAT_CONFIG=false eslint ."
