@@ -30,9 +30,7 @@ export default defineConfig({
         path: "src/content/blog",
         defaultItem: () => ({
           title: "New Post",
-          layout: "../src/layouts/BlogPostLayout.astro",
-          added: new Date(),
-          tags: [],
+          date: new Date().toLocaleDateString(),
         }),
         ui: {
           //dateFormat: "MMM DD YYYY",
@@ -67,6 +65,12 @@ export default defineConfig({
             label: "Slug",
             name: "slug",
             type: "string",
+            required: false,
+          },
+          {
+            label: "Draft",
+            name: "draft",
+            type: "boolean",
             required: false,
           },
         ],
