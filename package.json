@@ -37,6 +37,7 @@
     "@rose-pine/palette": "^4.0.1",
     "astro": "^4.0.6",
     "astro-seo": "^0.8.0",
+    "caniuse-lite": "^1.0.30001643",
     "eslint": "^8",
     "lucide-react": "^0.314.0",
     "nanostores": "^0.9.5",
