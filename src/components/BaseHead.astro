@@ -95,8 +95,13 @@ const { title, description, image, imageAlt } = Astro.props;
 />
 
 <ViewTransitions />
-<script
-  is:inline
-  defer
-  src="https://cloud.umami.is/script.js"
-  data-website-id="dfd63531-e9e3-42d5-acf8-dd50ef733b49"></script>
+{
+  import.meta.env.PROD && (
+    <script
+      is:inline
+      defer
+      src="https://cloud.umami.is/script.js"
+      data-website-id="dfd63531-e9e3-42d5-acf8-dd50ef733b49"
+    />
+  )
+}
