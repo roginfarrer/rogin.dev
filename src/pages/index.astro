@@ -11,11 +11,11 @@ import {
   faDumbbell,
 } from "@fortawesome/free-solid-svg-icons";
 import {
+  faBluesky,
   faGithub,
   faThreads,
   faMastodon,
   faLinkedin,
-  faXTwitter,
 } from "@fortawesome/free-brands-svg-icons";
 import disc from "components/disc";
 import ProjectCard from "components/ProjectCard.astro";
@@ -165,19 +165,14 @@ const lights2 = css({
           href: "https://linkedin.com/in/roginfarrer",
         },
         {
-          title: "Threads",
-          icon: faThreads,
-          href: "https://www.threads.net/@roginfarrer",
-        },
-        {
           title: "Mastodon",
           icon: faMastodon,
-          href: "https://hachyderm.io/@rogin",
+          href: "https://elk.zone/hachyderm.io/@rogin",
         },
         {
-          title: "Twitter",
-          icon: faXTwitter,
-          href: "https://x.com/roginfarrer",
+          title: "Bluesky",
+          icon: faBluesky,
+          href: "https://bsky.app/profile/rogin.dev",
         },
       ].map(({ title, icon, href }) => (
         <a
