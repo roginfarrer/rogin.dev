@@ -3,19 +3,17 @@ import mdx from "@astrojs/mdx";
 import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
 
+import icon from "astro-icon";
+
 // https://astro.build/config
 export default defineConfig({
   site: "https://rogin.dev",
   compressHTML: true,
-  integrations: [
-    mdx({
-      extendMarkdownConfig: true,
-    }),
-    sitemap({
-      filter(page) {
-        return !page.includes("/blog-drafts/");
-      },
-    }),
-    react(),
-  ],
+  integrations: [mdx({
+    extendMarkdownConfig: true,
+  }), sitemap({
+    filter(page) {
+      return !page.includes("/blog-drafts/");
+    },
+  }), react(), icon()],
 });

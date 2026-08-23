@@ -1,6 +1,6 @@
 ---
+import { Icon } from "astro-icon/components";
 import { css } from "styled-system/css";
-import { MoonIcon, SunIcon } from "@radix-ui/react-icons";
 ---
 
 <script>
@@ -39,8 +39,8 @@ import { MoonIcon, SunIcon } from "@radix-ui/react-icons";
     }),
   ]}
 >
-  <MoonIcon className="moon" />
-  <SunIcon className="sun" />
+  <Icon name="moon" class="moon" />
+  <Icon name="sun" class="sun" />
 </button>
 
 <style>

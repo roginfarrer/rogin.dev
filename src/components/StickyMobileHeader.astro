@@ -1,15 +1,6 @@
 ---
-import {
-  HouseFilledIcon,
-  HouseOutlineIcon,
-  BriefcaseFilledIcon,
-  BriefcaseOutlineIcon,
-  GearOutlineIcon,
-  GearFilledIcon,
-} from "./icons";
+import { Icon } from "astro-icon/components";
 import SettingsDialog from "./SettingsDialog.astro";
-import { HiOutlineNewspaper } from "react-icons/hi2";
-import { HiNewspaper } from "react-icons/hi2";
 import { css } from "styled-system/css";
 
 interface Props {
@@ -17,10 +8,10 @@ interface Props {
 }
 
 const icons = {
-  Home: [HouseOutlineIcon, HouseFilledIcon],
-  Work: [BriefcaseOutlineIcon, BriefcaseFilledIcon],
-  Settings: [GearOutlineIcon, GearFilledIcon],
-  Blog: [HiOutlineNewspaper, HiNewspaper],
+  Home: ["house-outline", "house-filled"],
+  Work: ["briefcase-outline", "briefcase-filled"],
+  Settings: ["gear-outline", "gear-filled"],
+  Blog: ["newspaper-outline", "newspaper-filled"],
 };
 
 const { links } = Astro.props;
@@ -50,7 +41,7 @@ const { pathname } = Astro.url;
     links.map((link) => {
       const isActive =
         link.url === pathname || link.url === pathname.replace(/\/$/, "");
-      const Icon = icons[link.title as keyof typeof icons]?.[isActive ? 1 : 0];
+      const icon = icons[link.title as keyof typeof icons]?.[isActive ? 1 : 0];
       return (
         <a
           href={link.url}
@@ -83,7 +74,7 @@ const { pathname } = Astro.url;
               /uses
             </span>
           ) : (
-            <Icon size="1.25rem" />
+            <Icon name={icon} class={css({ fontSize: "1.25rem" })} />
           )}
         </a>
       );
@@ -101,7 +92,7 @@ const { pathname } = Astro.url;
       textAlign: "center",
       display: "flex",
       gap: "2",
-    })}><GearFilledIcon size="1.25rem" /></button
+    })}><Icon name="gear-filled" class={css({ fontSize: "1.25rem" })} /></button
   >
 </nav>
 <SettingsDialog />
@@ -109,8 +100,7 @@ const { pathname } = Astro.url;
 <script>
   function setup() {
     const bar = document.querySelector("#sticky-nav") as
-      | HTMLElement
-      | undefined;
+      HTMLElement | undefined;
 
     if (!bar) {
       return;
