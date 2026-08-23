@@ -9,8 +9,10 @@
       "layouts/*": ["./src/layouts/*"],
       "styled-system/*": ["./styled-system/*"]
     },
-    "jsx": "preserve",
-    "jsxImportSource": "solid-js"
+    "plugins": [
+      {
+        "name": "@astrojs/ts-plugin"
+      }
+    ]
   }
 }
-

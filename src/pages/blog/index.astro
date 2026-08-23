@@ -28,7 +28,9 @@ if (import.meta.env.PROD) {
   </h1>
   <ul class={flex({ gap: "6", direction: "column" })}>
     {
-      posts.map(({ slug, data: { title, draft, date } }) => (
+      posts.map(({ id, data: { title, draft, date } }) => {
+        const slug = id.replace(/\.(md|mdx)$/, "");
+        return (
         <li>
           <span class={css({ display: "block", textStyle: "xl", mb: "1" })}>
             <a
@@ -58,7 +60,8 @@ if (import.meta.env.PROD) {
             <FormattedDate date={date} />
           </span>
         </li>
-      ))
+        );
+      })
     }
   </ul>
 </Layout>

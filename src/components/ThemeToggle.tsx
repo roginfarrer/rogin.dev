@@ -21,7 +21,7 @@ export function ThemeToggle() {
   }
 
   return (
-    <button onClick={handleClick} class={style}>
+    <button onClick={handleClick} className={style}>
       {/* @ts-ignore */}
       <MoonIcon className="moon" />
       {/* @ts-ignore */}

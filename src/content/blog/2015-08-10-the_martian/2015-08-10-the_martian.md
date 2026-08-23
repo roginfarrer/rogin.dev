@@ -1,5 +1,4 @@
 ---
-slug: book-review-the-martian-by-andy-weir
 title: "Book Review: The Martian by Andy Weir"
 date: "2015-08-10"
 draft: true

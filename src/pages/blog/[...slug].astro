@@ -1,5 +1,5 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection, render } from "astro:content";
 import BlogPostLayout from "layouts/BlogPostLayout.astro";
 
 export async function getStaticPaths() {
@@ -7,13 +7,13 @@ export async function getStaticPaths() {
   return posts
     .filter((post) => !post.data.draft)
     .map((post) => ({
-      params: { slug: post.slug },
+      params: { slug: post.id.replace(/\.(md|mdx)$/, "") },
       props: post,
     }));
 }
 
 const post = Astro.props;
-const { Content } = await post.render();
+const { Content } = await render(post);
 ---
 
 <BlogPostLayout

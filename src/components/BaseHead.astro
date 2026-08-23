@@ -1,5 +1,5 @@
 ---
-import { ViewTransitions } from "astro:transitions";
+import { ClientRouter } from "astro:transitions";
 import { SEO } from "astro-seo";
 import "@fontsource-variable/karla";
 import "@fontsource-variable/bitter";
@@ -94,7 +94,7 @@ const { title, description, image, imageAlt } = Astro.props;
     : {}}
 />
 
-<ViewTransitions />
+<ClientRouter />
 {
   import.meta.env.PROD && (
     <script

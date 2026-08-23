@@ -1,6 +1,5 @@
 ---
 title: DOM measurements, box-sizing, and padding with React Collapsed
-slug: dom-measurements-padding-react-collapsed
 date: "2020-04-25"
 ---
 

@@ -1,6 +1,5 @@
 ---
 title: Neovim and vim-sensible
-slug: sensible-neovim
 date: "2021-01-24"
 tags: vim
 ---

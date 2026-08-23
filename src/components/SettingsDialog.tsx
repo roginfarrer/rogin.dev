@@ -2,12 +2,14 @@ import { IoClose } from "react-icons/io5";
 import { css } from "styled-system/css";
 import { flex } from "styled-system/patterns";
 import { setupForm } from "./setupSettingsForm";
-import { onMount } from "solid-js";
+import { useEffect, useRef } from "react";
 
 export function SettingsDialog(props: { children: any }) {
-  let dialog: HTMLDialogElement;
+  const dialogRef = useRef<HTMLDialogElement | null>(null);
 
-  onMount(() => {
+  useEffect(() => {
+    const dialog = dialogRef.current;
+    if (!dialog) return;
     // @ts-expect-error
     dialog.openModal = function openModal() {
       dialog.showModal();
@@ -20,7 +22,7 @@ export function SettingsDialog(props: { children: any }) {
   function handleDialogClick(event: Event) {
     event.stopPropagation();
     document.querySelector("body")!.style.removeProperty("overflow");
-    dialog.close();
+    dialogRef.current?.close();
   }
   const handleDialogTouchEnd = handleDialogClick;
 
@@ -31,7 +33,7 @@ export function SettingsDialog(props: { children: any }) {
 
   return (
     <dialog
-      ref={dialog!}
+      ref={dialogRef}
       onClick={handleDialogClick}
       onTouchEnd={handleDialogTouchEnd}
       class={css({
@@ -57,7 +59,7 @@ export function SettingsDialog(props: { children: any }) {
         class={css({ p: "4" })}
       >
         <button
-          class={flex({
+          className={flex({
             position: "absolute",
             top: "2",
             right: "2",
@@ -66,13 +68,12 @@ export function SettingsDialog(props: { children: any }) {
             size: "36px",
           })}
           title="Close dialog"
-          onClick={() => dialog.close()}
+          onClick={() => dialogRef.current?.close()}
         >
-          {/* @ts-expect-error */}
           <IoClose size="1.25em" />
         </button>
-        <div class={flex({ gap: "3", direction: "column" })}>
-          <h2 class={css({ textStyle: "2xl" })}>Settings</h2>
+        <div className={flex({ gap: "3", direction: "column" })}>
+          <h2 className={css({ textStyle: "2xl" })}>Settings</h2>
           {props.children}
         </div>
       </div>

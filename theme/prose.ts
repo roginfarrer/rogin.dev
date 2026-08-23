@@ -1,4 +1,4 @@
-/* eslint-disable @pandacss/no-config-function-in-source */
+ 
 import { defineGlobalStyles } from "@pandacss/dev";
 import type { SystemProperties } from "styled-system/types";
 

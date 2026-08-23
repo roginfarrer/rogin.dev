@@ -1,6 +1,5 @@
 ---
 title: Creating a YouTube Walled Garden
-slug: youtube-walled-garden
 date: '2018-09-07'
 ---
 

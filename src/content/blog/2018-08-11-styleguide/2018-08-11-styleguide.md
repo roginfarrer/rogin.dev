@@ -1,5 +1,4 @@
 ---
-slug: styleguide
 date: '2017-07-12'
 title: 'Style Guide'
 draft: true

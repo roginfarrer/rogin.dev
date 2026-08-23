@@ -1,6 +1,5 @@
 ---
 title: Download Photos of You from Facebook
-slug: fb-photos-youre-tagged-in
 date: '2019-02-04'
 ---
 

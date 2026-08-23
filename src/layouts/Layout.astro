@@ -5,6 +5,7 @@ import SettingsForm from "components/SettingsForm.astro";
 import { css } from "styled-system/css";
 import { flex } from "styled-system/patterns";
 import StickyMobileHeader from "components/StickyMobileHeader.astro";
+import "../index.css";
 
 const isHome = Astro.url.pathname === "/";
 
@@ -66,7 +67,7 @@ type Props = {
         borderRadius: "base",
         padding: "4",
         backgroundColor: "accent11",
-        // eslint-disable-next-line @pandacss/no-unsafe-token-fn-usage
+
         border: `2px solid {colors.accent10}`,
         color: "gray1",
         opacity: 0,
@@ -91,7 +92,7 @@ type Props = {
               base: "colors.accent5",
               _dark: "colors.accent3",
             },
-            // eslint-disable-next-line
+
             background:
               "radial-gradient(ellipse at top left, var(--halo-color), rgba(255, 255, 255, 0) 25%)",
             backgroundSize: "150%",

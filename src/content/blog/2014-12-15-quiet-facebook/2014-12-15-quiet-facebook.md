@@ -1,5 +1,4 @@
 ---
-slug: hide-facebook-news-feed
 title: "Hide Facebook's News Feed (And Other Annoyances)"
 date: "2014-12-15"
 draft: true

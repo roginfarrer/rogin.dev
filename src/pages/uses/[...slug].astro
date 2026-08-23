@@ -1,11 +1,11 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection, render } from "astro:content";
 import UsesLayout from "layouts/UsesLayout.astro";
 
 export async function getStaticPaths() {
   const posts = await getCollection("uses");
   return posts.map((post) => ({
-    params: { slug: post.slug },
+    params: { slug: post.id.replace(/\.(md|mdx)$/, "") },
     props: post,
   }));
 }
@@ -14,7 +14,7 @@ const post = Astro.props;
 const {
   data: { title, description, updatedDate },
 } = post;
-const { Content } = await post.render();
+const { Content } = await render(post);
 ---
 
 <UsesLayout title={title} description={description} updatedDate={updatedDate}>

@@ -1,6 +1,5 @@
 ---
 title: Web Components and React Components - A Comparison
-slug: web-components-and-react-compared
 date: "2020-08-25"
 ---
 
