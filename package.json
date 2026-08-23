@@ -37,7 +37,9 @@
     "lucide-react": "^1.8.0",
     "nanostores": "^1.2.0",
     "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "react-icons": "^5.6.0",
+    "sharp": "^0.35.3",
     "typescript": "^6.0.2"
   },
   "devDependencies": {
@@ -45,14 +47,14 @@
     "@astrojs/ts-plugin": "^1.10.11",
     "@pandacss/dev": "^1.9.1",
     "@pandacss/eslint-plugin": "^0.3.2",
+    "@types/react": "^18.3.31",
+    "@types/react-dom": "^18.3.7",
     "@typescript-eslint/eslint-plugin": "^8.58.2",
     "@typescript-eslint/parser": "^8.58.2",
+    "astro-eslint-parser": "^1.4.0",
     "eslint-plugin-astro": "^1.7.0",
     "prettier": "^3.8.3",
     "prettier-plugin-astro": "^0.14.1"
   },
-  "overrides": {
-    "sitemap": "7.1.1"
-  },
-  "packageManager": "bun@1.0.29"
+  "packageManager": "pnpm@11.20.0"
 }

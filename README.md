@@ -15,6 +15,6 @@ This app requires Node.js v20+
 ```
 git clone https://github.com/roginfarrer/rogin.dev
 cd rogin.dev
-bun install
-bun dev
+pnpm install
+pnpm dev
 ```
